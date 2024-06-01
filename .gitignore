@@ -1,0 +1,41 @@
+# LaTeX files
+*.aux
+*.bbl
+*.blg
+*.dvi
+*.fdb_latexmk
+*.fls
+*.log
+*.out
+*.synctex.gz
+*.toc
+*.lof
+*.lot
+
+# LaTeX document output
+*.pdf
+
+# Compiled LaTeX files
+*.cls
+*.sty
+*.fmt
+
+# LaTeX generated files
+_Tex/*
+auto/*
+minted/*
+
+# Editor-specific files
+.vscode
+*.sublime-project
+*.sublime-workspace
+
+# Temporary files
+*~
+
+# Build and output directories
+_build/
+output/
+
+# Mermaid generated files
+diagrams/*.png

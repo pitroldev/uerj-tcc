@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant User
+    participant Client
+    participant Server
+    participant Database
+
+    User->>Client: Submit login form
+    Client->>Server: Send login credentials
+    Server->>Database: Query user by credentials
+    Database-->>Server: Return user data if credentials are valid
+    Server-->>Client: Return authentication token
+    Client-->>User: Access granted
+
+    alt Invalid credentials
+        Database-->>Server: Return error
+        Server-->>Client: Return error message
+        Client-->>User: Access denied
+    end

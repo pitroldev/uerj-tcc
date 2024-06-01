@@ -1,0 +1,19 @@
+flowchart TD
+    User((Usuário))
+    RoomsPage[Tela de Salas]
+    CreateRoomPage[Tela de Criação de Salas]
+    RoomDetailsPage[Tela da Sala Específica]
+    AddUserPage[Formulário de Adição de Usuários]
+    
+    User -->|Acessa| RoomsPage
+    
+    RoomsPage -->|Clica em criar sala| CreateRoomPage
+    CreateRoomPage -->|Cria sala| RoomDetailsPage
+
+    RoomsPage -->|Clica em entrar em sala| RoomDetailsPage
+
+    RoomDetailsPage -->|Clica em sair da sala| RoomsPage
+
+    RoomDetailsPage -->|Clica em adicionar usuário| AddUserPage
+    AddUserPage -->|Adiciona usuário| RoomDetailsPage
+

@@ -1,0 +1,47 @@
+\section{Plataforma Codeboard UERJ}
+
+Este capítulo apresenta a plataforma Codeboard UERJ, que é uma ferramenta de apoio ao ensino de programação. Serão abordados os objetivos, funcionalidades e a arquitetura da plataforma.	
+
+
+\subsection{Objetivos}
+
+O objetivo principal da plataforma Codeboard UERJ é auxiliar no ensino de programação, permitindo que professores criem e gerenciem atividades práticas para seus alunos. A plataforma foi desenvolvida para ser utilizada em disciplinas de programação de computadores, como Algoritmos e Estruturas de Dados, Linguagens de Programação e Paradigmas de Programação.
+
+A motivação para o desenvolvimento da plataforma surgiu durante a pandemia de COVID-19, quando as aulas presenciais foram suspensas e as atividades práticas de programação tiveram que ser adaptadas para o ensino remoto. Ela foi desenvolvida para atender a essa demanda, dando a capacidade aos professores de acompanharem o progresso dos alunos e avaliarem suas atividades práticas em tempo real.
+
+\subsection{Funcionalidades}
+
+Para atingir os objetivos propostos, o desenvolvimento da plataforma foi restrito a um conjunto de funcionalidades essenciais, que são:
+Autenticação de usuários, gerenciamento de salas e seus participantes e o quadro de programação em tempo real.
+
+\subsubsection{Autenticação de Usuários}
+
+O sistema de autenticação de usuários é a primeira funcionalidade da plataforma. Ela permite que os usuários se cadastrem e façam login para acessar as funcionalidades da plataforma. O cadastro de usuários é feito através de um formulário que solicita nome, e-mail e senha. Após o cadastro, o usuário pode fazer login informando o e-mail e a senha cadastrados.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{diagrams/user-auth-flow.png}
+    \caption{Diagrama do fluxo de autenticação de usuários.}
+    \label{fig:user-auth-flow}
+\end{figure}
+
+
+\subsubsection{Gerenciamento de Salas}
+
+A funcionalidade de gerenciamento de salas permite que o professor crie, edite e acesse salas de aula. A criação de uma sala é feita através de um formulário que solicita o nome da sala e a descrição da atividade prática. Após a criação, o professor pode acessar a sala e adicionar alunos a ela.
+
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{diagrams/user-room-flow.png}
+    \caption{Diagrama do fluxo de gerenciamento de salas.}
+    \label{fig:user-room-flow}
+\end{figure}
+
+A adição de alunos a uma sala é feita através de um formulário que solicita o e-mail do aluno. Após a adição, o aluno é automaticamente inscrito na sala e pode acessá-la através de seu painel de controle..
+
+\subsubsection{Quadro de Programação em Tempo Real}
+
+A funcionalidade de quadro de programação em tempo real é a principal funcionalidade da plataforma. Ela permite que os alunos escrevam códigos de programação diretamente no navegador, sem a necessidade de instalar um ambiente de desenvolvimento integrado (IDE).
+
+Esta tela é dividuda em dois módulos, o módulo lateral de seleção de usuário e o módulo central de edição de código. O módulo lateral exibe a lista de usuários que estão editando o código em tempo real, enquanto o módulo central exibe o editor de código do usuário selecionado.

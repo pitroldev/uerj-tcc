@@ -1,0 +1,18 @@
+flowchart TD
+    User((Usuário))
+    LoginPage[Tela de Login]
+    RegisterPage[Tela de Cadastro]
+    RoomsPage[Tela de Salas]
+
+
+    User -->|Acessa| LoginPage
+
+    LoginPage -->|Não tem conta?| RegisterPage
+    RegisterPage -->|Cadastrado com sucesso| RoomsPage
+    RegisterPage -.->|Erro| RegisterPage
+
+
+    LoginPage -->|Preenche credenciais| RoomsPage
+    LoginPage -.->|Erro| LoginPage
+
+    RoomsPage -->|Logout| LoginPage
