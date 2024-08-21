@@ -1,0 +1,1 @@
+- MermaidJS para diagramas de fluxo

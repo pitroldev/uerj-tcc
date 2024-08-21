@@ -1,0 +1,21 @@
+erDiagram 
+
+    User ||--o{ Room : "(é dono de)"
+    Room ||--o{ User : "(tem participantes)"
+
+    Room {
+        ObjectID _id PK "ID da sala"
+        String name "Nome da sala"
+        String description "Descrição da sala"
+        ObjectID owner FK "Dono da sala"
+        ObjectID[] members FK "Lista de participantes"
+        Date createdAt "Data de criação"
+    }
+
+    User {
+        ObjectID _id PK "ID do usuário"
+        String name "Nome do usuário"
+        String email "E-mail do usuário"
+        String password "Hash da senha"
+        Date createdAt "Data de criação"
+    }

@@ -1,0 +1,21 @@
+graph TD
+    subgraph Cliente
+        A[Usuário]
+        B[Frontend]
+        A -->|Acessa| B
+    end
+
+    subgraph Backend
+        C[REST API]
+        D[WebSocket]
+    end
+
+    subgraph Banco de Dados
+        E[(Cluster MongoDB)]
+        F[(Cluster Redis)]
+    end
+
+    B -->|Requisição de dados| C
+    B <-->|Transmissão de eventos em tempo real| D
+    C -->|Consulta e Armazenamento de dados| E
+    D <-->|Pub/Sub de eventos| F

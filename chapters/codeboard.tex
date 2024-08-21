@@ -74,7 +74,7 @@ Nesta mesma tela da figura \ref{fig:rooms-page}, o usuário pode criar uma nova 
     \label{fig:create-room-page}
 \end{figure}
 
-Para adicionar alunos à sala, o usuário pode clicar num botão de adição de membros representado por um ícone de usuário. A plataforma exibe um modal com um campo de e-mail, onde o usuário pode informar o e-mail do aluno que deseja adicionar à sala. Após a adição, o aluno se torna membro da sala e pode acessá-la.
+Para adicionar alunos à sala, o usuário pode clicar num botão de adição de participantes representado por um ícone de usuário. A plataforma exibe um modal com um campo de e-mail, onde o usuário pode informar o e-mail do aluno que deseja adicionar à sala. Após a adição, o aluno se torna membro da sala e pode acessá-la.
 
 \begin{figure}[H]
     \centering
@@ -97,11 +97,11 @@ Para acessar o quadro de programação, o usuário deve acessar a sala desejada.
 \end{figure}
 
 
-Como mostra a figura \ref{fig:room-details-page}, o módulo lateral exibe a lista de membros da sala. Para cada membro listado, é exibido o nome, a foto de perfil e indicadores para caso ele esteja online ou esteja editando o seu próprio código. O usuário pode selecionar outro membro da sala na lista lateral para visualizar e interagir com o código dele.
+Como mostra a figura \ref{fig:room-details-page}, o módulo lateral exibe a lista de participantes da sala. Para cada membro listado, é exibido o nome, a foto de perfil e indicadores para caso ele esteja online ou esteja editando o seu próprio código. O usuário pode selecionar outro membro da sala na lista lateral para visualizar e interagir com o código dele.
 
 Caso o usuário já esteja com si mesmo selecionado, ele poderá editar o próprio código, trocar de linguagem de programação e visualizar quem está visualizando seu código. O código é salvo automaticamente a cada edição realizada pelo usuário.
 
-Acima do módulo lateral, a plataforma exibe o nome da sala e sua descrição. Caso o usuário seja o dono da sala, também serão exibidos os botões de adição de membros e de configuração da sala. O botão de adição de membros permite que o usuário adicione novos membros à sala, enquanto o botão de configuração permite que o usuário edite o nome e a descrição da sala.
+Acima do módulo lateral, a plataforma exibe o nome da sala e sua descrição. Caso o usuário seja o dono da sala, também serão exibidos os botões de adição de participantes e de configuração da sala. O botão de adição de participantes permite que o usuário adicione novos participantes à sala, enquanto o botão de configuração permite que o usuário edite o nome e a descrição da sala.
 
 \begin{figure}[H]
     \centering
@@ -115,36 +115,224 @@ Abaixo do módulo lateral, a plataforma exibe um botão de saída da sala. Ao cl
 
 O módulo central exibe o editor de código. Este editor suporta as funcionalidades básicas de um IDE, como coloração de sintaxe, auto-completar e formatação de código. Durante a visualização do código de outro usuário, o usuário pode somente fazer marcações que são exibidas em tempo real para o outros usuários presentes no quadro.
 
-% Foto da marcação de código
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/codeboard/code-editor-user-highlight.png}
+    \caption{Marcação de código na plataforma Codeboard UERJ.}
+    \label{fig:code-editor-user-highlight}
+\end{figure}
 
 Na parte superior do editor, o usuário pode selecionar a linguagem de programação desejada. A plataforma suporta as linguagens de programação mais utilizadas, como C, C++, Java, Python, JavaScript, entre outras. A seleção da linguagem de programação altera a coloração de sintaxe do editor, facilitando a escrita e a leitura do código.
 
-% Foto da parte superior do editor
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/codeboard/code-editor-toolbar.png}
+    \caption{Barra de ferramentas do editor de código da plataforma Codeboard UERJ.}
+    \label{fig:code-editor-toolbar}
+\end{figure}
 
 Ao lado da seleção de linguagem, o usuário pode visualizar quem está visualizando o seu código no momento. A plataforma exibe uma lista horizontal com estes visualizadores, permitindo que ele saiba quem está acompanhando o seu progresso.
 
 
-\subsection{Arquitetura}
+\subsubsection{Regras de Negócio}
 
-To do
+Existem algumas regras de negócio que devem ser seguidas para garantir o bom funcionamento da plataforma. Estas regras são implementadas no backend da plataforma e são responsáveis por validar os dados dos usuários e das salas, bem como garantir a segurança e a integridade dos dados.
+
+\paragraph{Autenticação}
+
+\begin{itemize}
+    \item \textbf{Cadastro de Usuários}: A plataforma deve fornecer um mecanismo de cadastro de usuários que permita aos usuários se registrarem na plataforma. Para isso, é necessário solicitar os dados dos usuários, como nome, e-mail e senha, e armazená-los de forma segura e protegida no banco de dados.
+    \item \textbf{Validação de Dados}: A plataforma deve garantir que os dados dos usuários sejam válidos e consistentes. Para isso, é necessário validar os dados dos usuários durante o processo de cadastro e login e garantir que os dados sejam consistentes e íntegros.
+    \item \textbf{Proteção de Dados}: A plataforma deve garantir que os dados dos usuários sejam protegidos e seguros. Para isso, é necessário armazenar os dados dos usuários de forma segura e protegida, utilizando técnicas de criptografia e hash de senhas.
+    \item \textbf{Login de Usuários}: A plataforma deve garantir que somente usuários cadastrados possam fazer login. Para isso, é necessário verificar se o e-mail e a senha informados são válidos durante o processo de login e gerar um token de autenticação para manter o usuário autenticado.
+    \item \textbf{Gerenciamento de Sessões}: A plataforma deve garantir que as sessões dos usuários sejam gerenciadas de forma segura e eficiente. Para isso, é necessário gerar tokens de autenticação para manter os usuários autenticados e garantir que as sessões sejam encerradas após um período de inatividade.
+    \item \textbf{Restrição de Acesso}: A plataforma deve garantir que somente usuários autenticados tenham acesso às funcionalidades da plataforma. Para isso, é necessário verificar se o usuário está autenticado antes de permitir o acesso às funcionalidades.
+\end{itemize}
+
+\paragraph{Gerenciamento de Salas}
+
+\begin{itemize}
+    \item \textbf{Criação de Salas}: A plataforma deve fornecer um mecanismo de criação de salas que permita aos usuários criarem novas salas. Para isso, é necessário solicitar os dados das salas, como nome e descrição, e armazená-los de forma segura e protegida no banco de dados.
+    \item \textbf{Validação de Dados}: A plataforma deve garantir que os dados das salas sejam válidos e consistentes. Para isso, é necessário validar os dados das salas durante o processo de criação e edição e garantir que os dados sejam consistentes e íntegros.
+    \item \textbf{Restrição de Acesso}: A plataforma deve garantir que somente participantes da sala tenham acesso à ela. Para isso, é necessário verificar se o usuário é dono ou membro da sala antes de permitir o acesso à sala.
+    \item \textbf{Gerenciamento de Participantes}: A plataforma deve fornecer um mecanismo de adição e remoção de participantes que permita aos usuários gerenciarem os participantes das salas. Para isso, é necessário verificar se o usuário é dono da sala antes de permitir a adição ou remoção de participantes.
+    \item \textbf{Restrição de Edição}: A plataforma deve garantir que somente o dono da sala possa editar os dados da sala. Para isso, é necessário verificar se o usuário é dono da sala antes de permitir a edição dos dados da sala.
+\end{itemize}
+
+\paragraph{Quadro de Programação}
+
+\begin{itemize}
+    \item \textbf{Editor em Tempo Real}: A plataforma deve fornecer um mecanismo de edição de código em tempo real que permita aos usuários escrever códigos de programação diretamente no navegador. Para isso, é necessário implementar um editor de código que suporte as funcionalidades básicas de um IDE, como coloração de sintaxe, auto-completar e formatação de código.
+    \item \textbf{Restrição de Escrita}: A plataforma deve garantir que não haja conflitos de escrita durante a edição do código em tempo real. Para isso, é necessário implementar um mecanismo de bloqueio de escrita que permita que somente o proprietário do código possa editá-lo.
+    \item \textbf{Marcação de Código}: A plataforma deve fornecer um mecanismo de marcação de texto que permita aos usuários visualizarem e interagirem com o código de outros usuários. Para isso, é necessário implementar um mecanismo de marcação que exiba as alterações em tempo real para os outros usuários presentes no quadro.
+    \item \textbf{Seleção de Linguagem}: A plataforma deve fornecer um mecanismo de seleção de linguagem que permita aos usuários escolher a linguagem de programação desejada. Para isso, é necessário implementar um seletor de linguagem que altere a coloração de sintaxe do editor de código.
+    \item \textbf{Visualização de Usuários}: A plataforma deve fornecer um mecanismo de visualização de usuários que permita aos usuários saber quem está visualizando o seu código. Para isso, é necessário implementar uma lista de visualizadores que exiba os usuários presentes no quadro.
+\end{itemize}
+
+\paragraph{Lista de Participantes}
+
+\begin{itemize}
+    \item \textbf{Visualização de Participantes}: A plataforma deve fornecer um mecanismo de visualização de participantes que permita aos usuários saber quem está presente na sala. Para isso, é necessário implementar uma lista de participantes que exiba os usuários presentes na sala.
+    \item \textbf{Indicadores de Presença}: A plataforma deve fornecer um mecanismo de indicação de presença que permita aos usuários saber quem está online e quem está editando o código. Para isso, é necessário implementar indicadores de presença que exibam se o usuário está online e se está editando o código.
+    \item \textbf{Seleção de Participantes}: A plataforma deve fornecer um mecanismo de seleção de participantes que permita aos usuários visualizarem e interagirem com o código de outros participantes. Para isso, é necessário implementar um seletor de participantes que permita selecionar o participante desejado.
+\end{itemize}
+
+
+\subsection{Arquitetura da Plataforma}
+% Revisado
+
+Nesta seção, será apresentada a arquitetura da plataforma Codeboard UERJ. A plataforma é estruturada em três camadas principais: o backend, o banco de dados e o frontend. Cada uma dessas camadas desempenha um papel específico na plataforma, sendo responsável pelas regras de negócio, o armazenamento de dados e a interface com o usuário, respectivamente.
 
 \subsubsection{Backend}
+% Revisado
 
-To do
+O backend da plataforma é responsável pela implementação das regras de negócio da aplicação. Ele é composto por um servidor NodeJS que utiliza dois métodos de comunicação: REST API e WebSockets. A REST API é usada para comunicação assíncrona entre o cliente e o servidor, enquanto os WebSockets são utilizados para permitir a comunicação em tempo real entre os usuários.
 
-\subsubsection{Banco de Dados}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.75\textwidth]{diagrams/backend-architecture.png}
+    \caption{Arquitetura do backend da plataforma Codeboard UERJ.}
+    \label{fig:backend-architecture}
+\end{figure}
 
-To do 
+Conforme a arquitetura do backend ilustrada na Figura \ref{fig:backend-architecture}, a comunicação entre o cliente e o servidor ocorre através de duas interfaces principais: REST API e WebSockets. A REST API fornece um conjunto de rotas que permitem ao cliente acessar funcionalidades da plataforma, como autenticação de usuários, gerenciamento de salas e edição de código. Os WebSockets, por sua vez, são utilizados para viabilizar a comunicação em tempo real entre os usuários, possibilitando a edição colaborativa de código.
+
+
+\subsubsection{Banco de Dados NoSQL}
+% Revisado
+
+A plataforma utiliza o MongoDB como banco de dados, um sistema NoSQL orientado a documentos. O MongoDB foi escolhido por sua flexibilidade, capacidade de escalabilidade horizontal e eficiência no armazenamento de grandes volumes de dados. Além disso, sua integração simples com o NodeJS o torna uma escolha natural para a plataforma Codeboard UERJ.
+
+O banco de dados é organizado em duas coleções principais: a coleção de usuários e a coleção de salas. A coleção de usuários armazena informações dos usuários cadastrados na plataforma, como nome, e-mail e senha. Já a coleção de salas guarda os dados das salas criadas pelos usuários, incluindo nome, descrição e participantes.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.5\textwidth]{diagrams/database-schema.png}
+    \caption{Esquema do banco de dados da plataforma Codeboard UERJ.}
+    \label{fig:database-schema}
+\end{figure}
+
+Conforme o esquema do banco de dados ilustrado na Figura \ref{fig:database-schema}, a coleção "User", responsável por armazenar os dados dos usuários, inclui os seguintes campos:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Campo} & \textbf{Descrição}             & \textbf{Tipo} & \textbf{Obrigatório} \\
+        \hline
+        \_id           & Identificador único do usuário & ObjectId      & Sim                  \\
+        name           & Nome do usuário                & String        & Sim                  \\
+        email          & E-mail do usuário              & String        & Sim                  \\
+        password       & Hash da senha do usuário       & String        & Sim                  \\
+        createdAt      & Data de criação do usuário     & Date          & Sim                  \\
+        \hline
+    \end{tabular}
+    \caption{Campos da coleção "User" do banco de dados da plataforma Codeboard UERJ.}
+    \label{tab:user-collection-fields}
+\end{table}
+
+É importante notar que a coleção de usuários possui um campo "password" que armazena o hash da senha do usuário. Essa prática é adotada por motivos de segurança, garantindo que a senha do usuário não seja armazenada em texto puro no banco de dados.
+
+A coleção "Room", responsável por armazenar os dados das salas, contém os seguintes campos:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Campo} & \textbf{Descrição}             & \textbf{Tipo}   & \textbf{Obrigatório} \\
+        \hline
+        \_id           & Identificador único da sala    & ObjectId        & Sim                  \\
+        name           & Nome da sala                   & String          & Sim                  \\
+        description    & Descrição da sala              & String          & Não                  \\
+        owner          & Identificador do dono da sala  & ObjectId        & Sim                  \\
+        members        & Lista de participantes da sala & Array<ObjectId> & Não                  \\
+        createdAt      & Data de criação da sala        & Date            & Sim                  \\
+        \hline
+    \end{tabular}
+    \caption{Campos da coleção "Room" do banco de dados da plataforma Codeboard UERJ.}
+    \label{tab:room-collection-fields}
+\end{table}
+
+
+Podemos observar que a coleção de salas possui os campos "owner" e "members" que armazenam os identificadores do dono e dos participantes da sala, respectivamente. Estes campos são utilizados para estabelecer a relação entre os usuários e as salas.
+
+Embora o banco de dados seja NoSQL, a plataforma Codeboard UERJ adota um esquema de dados bem definido para assegurar a consistência e a integridade das informações. Esse esquema é estabelecido no backend da plataforma com o auxílio do pacote "mongoose", que simplifica a modelagem dos dados e a interação com o banco de dados MongoDB.
+
+\subsubsection{Comunicação via REST API}
+% Revisado
+
+A REST API é formada por um conjunto de rotas que possibilitam ao cliente acessar as funcionalidades da plataforma. Essas rotas são implementadas com o framework ExpressJS, que facilita a criação de rotas e middlewares em aplicações NodeJS.
+
+Na REST API, existem três tipos principais de rotas: de autenticação, de usuários e de salas. As rotas de autenticação são responsáveis pela criação e autenticação de usuários, enquanto as rotas de usuários permitem o acesso e a atualização dos dados dos usuários. Já as rotas de salas são utilizadas para criar, acessar e gerenciar as salas.
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Método} & \textbf{Rota}                  & \textbf{Descrição}            & \textbf{Autenticação} \\
+        \hline
+        GET             & /api/health                    & Verifica o status do servidor & Não                   \\
+        \hline
+        POST            & /api/auth/signup               & Cadastra um novo usuário      & Não                   \\
+        POST            & /api/auth/login                & Autentica um usuário          & Não                   \\
+        \hline
+        GET             & /api/user                      & Retorna os dados do usuário   & Sim                   \\
+        PUT             & /api/user                      & Edita os dados do usuário     & Sim                   \\
+        \hline
+        GET             & /api/rooms                     & Lista todas as salas          & Sim                   \\
+        POST            & /api/rooms                     & Cria uma nova sala            & Sim                   \\
+        GET             & /api/rooms/:id                 & Retorna uma sala específica   & Sim                   \\
+        PUT             & /api/rooms/:id                 & Edita uma sala específica     & Sim                   \\
+        POST            & /api/rooms/:id/members         & Adiciona um membro à sala     & Sim                   \\
+        DELETE          & /api/rooms/:id/members/:userId & Remove um membro da sala      & Sim                   \\
+        \hline
+    \end{tabular}
+    \caption{Rotas da REST API da plataforma Codeboard UERJ.}
+    \label{tab:rest-api-routes}
+\end{table}
+
+
+\subsubsection{Sistema de Autenticação}
+% Revisado
+
+As rotas descritas na tabela \ref{tab:rest-api-routes} que requerem autenticação, são protegidas por um middleware que verifica se o usuário está autenticado antes de permitir o acesso. A autenticação do usuário na plataforma é realizada através de um token, que é gerado no servidor e enviado ao cliente após o login. 
+
+O token de autenticação é gerado utilizando o pacote "jsonwebtoken", que implementa o padrão JWT (JSON Web Token). A escolha do JWT como mecanismo de autenticação foi motivada pela necessidade de suportar a infraestrutura horizontal da plataforma, que facilita a escalabilidade e a distribuição dos servidores. Como o JWT é um mecanismo stateless, não é necessário armazenar o estado da sessão no servidor. Isso o torna ideal para aplicações distribuídas e escaláveis, pois o estado da sessão é armazenado no próprio token, que é enviado ao cliente.
+
+O token é criado com base no ID do usuário e uma chave secreta, que é mantida nos servidores. Esse token é assinado com a chave secreta e enviado ao cliente, onde é armazenado no navegador por meio de cookies. A cada requisição feita ao servidor, o token é utilizado para autenticar o usuário, garantindo sua autenticidade em todas as páginas da plataforma.
+
+O token de autenticação tem um tempo de expiração configurado no servidor. Após esse período, o token é invalidado, e o usuário é automaticamente desconectado da plataforma.
+
+\subsubsection{Banco de Dados Chave-Valor}
+
+A plataforma Codeboard UERJ utiliza um banco de dados chave-valor para armazenar informações temporárias, como a lista de usuários online, o código dos quadros de programação e a lista de visualizadores dos quadros. Este banco de dados é implementado com o Redis, um sistema de armazenamento em memória de código aberto.
+
+A escolha do Redis como banco de dados chave-valor foi motivada pela sua eficiência, desempenho na manipulação de dados em memória e escalabilidade horizontal. O Redis é amplamente utilizado em aplicações que requerem alta disponibilidade e baixa latência, como a plataforma Codeboard UERJ.
+
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|p{6cm}|c|}
+        \hline
+        \textbf{Namespace}                   & \textbf{Descrição}                       & \textbf{Expiração} \\
+        \hline
+        room:\{roomId\}:users                & Lista de ID dos usuários online          & 1 dia              \\
+        \hline
+        board:\{roomId\}:\{boardId\}:code    & Código do quadro de programação          & 1 dia              \\
+        \hline
+        board:\{roomId\}:\{boardId\}:viewers & Lista de ID dos visualizadores do quadro & 1 dia              \\ 
+        
+        \hline
+    \end{tabular}
+    \caption{Estrutura do banco de dados chave-valor da plataforma Codeboard UERJ.}
+    \label{tab:key-value-database}
+\end{table}
+
+Conforme a estrutura do banco de dados chave-valor ilustrada na tabela \ref{tab:key-value-database}, o Redis é utilizado para armazenar informações temporárias relacionadas aos quadros de programação. Cada quadro de programação possui um namespace específico, que é utilizado para organizar os dados relacionados a ele. Os dados armazenados incluem a lista de usuários online, o código do quadro de programação e a lista de visualizadores do quadro.
+
+\subsubsection{Comunicação em Tempo Real}
 
 
 \subsubsection{Frontend}
-
-To do
-
-\subsubsection{Comunicação via REST API}
-
-To do
-
-\subsubsection{Comunicação em Tempo Real}
 
 To do
