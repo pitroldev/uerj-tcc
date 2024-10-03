@@ -207,7 +207,7 @@ O banco de dados é organizado em duas coleções principais: a coleção de usu
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.5\textwidth]{diagrams/database-schema.png}
+    \includegraphics[width=0.7\textwidth]{diagrams/database-schema.png}
     \caption{Esquema do banco de dados da plataforma Codeboard UERJ.}
     \label{fig:database-schema}
 \end{figure}
@@ -231,7 +231,7 @@ Conforme o esquema do banco de dados ilustrado na Figura \ref{fig:database-schem
     \label{tab:user-collection-fields}
 \end{table}
 
-É importante notar que a coleção de usuários possui um campo "password" que armazena o hash da senha do usuário. Essa prática é adotada por motivos de segurança, garantindo que a senha do usuário não seja armazenada em texto puro no banco de dados.
+É importante destacar que a coleção de usuários possui um campo "password" que armazena o hash da senha do usuário. Essa prática é adotada por motivos de segurança, garantindo que a senha do usuário não seja armazenada em texto puro no banco de dados, o que poderia expor as informações dos usuários em caso de vazamento de dados.
 
 A coleção "Room", responsável por armazenar os dados das salas, contém os seguintes campos:
 
@@ -256,9 +256,33 @@ A coleção "Room", responsável por armazenar os dados das salas, contém os se
 
 Podemos observar que a coleção de salas possui os campos "owner" e "members" que armazenam os identificadores do dono e dos participantes da sala, respectivamente. Estes campos são utilizados para estabelecer a relação entre os usuários e as salas.
 
+A coleção "Board", responsável por armazenar os dados dos quadros de programação, contém os seguintes campos:
+
+\begin{table}[H]
+    \centering
+    \begin{tabular}{|c|c|c|c|}
+        \hline
+        \textbf{Campo} & \textbf{Descrição}             & \textbf{Tipo} & \textbf{Obrigatório} \\
+        \hline
+        \_id           & Identificador único do quadro  & ObjectId      & Sim                  \\
+        user         & Identificador do usuário dono do quadro & ObjectId      & Sim                  \\
+        room         & Identificador da sala do quadro & ObjectId      & Sim                  \\
+        language       & Linguagem de programação       & String        & Sim                  \\
+        content           & Código de programação          & String        & Sim                  \\
+        updatedAt      & Data da última atualização      & Date          & Não                  \\
+        createdAt      & Data de criação      & Date          & Sim                  \\
+        \hline
+    \end{tabular}
+    \caption{Campos da coleção "Board" do banco de dados da plataforma Codeboard UERJ.}
+    \label{tab:board-collection-fields}
+\end{table}
+
+A coleção de "Board" possui os campos "user" e "room" que armazenam os identificadores do usuário dono do quadro e da sala do quadro, respectivamente. Esses campos são utilizados para estabelecer a relação entre os usuários, as salas e os quadros de programação.
+
+
 Embora o banco de dados seja NoSQL, a plataforma Codeboard UERJ adota um esquema de dados bem definido para assegurar a consistência e a integridade das informações. Esse esquema é estabelecido no backend da plataforma com o auxílio do pacote "mongoose", que simplifica a modelagem dos dados e a interação com o banco de dados MongoDB.
 
-\subsubsection{Comunicação via REST API}
+\subsubsection{Comunicação Síncrona via REST API}
 % Revisado
 
 A REST API é formada por um conjunto de rotas que possibilitam ao cliente acessar as funcionalidades da plataforma. Essas rotas são implementadas com o framework ExpressJS, que facilita a criação de rotas e middlewares em aplicações NodeJS.
@@ -304,10 +328,11 @@ O token é criado com base no ID do usuário e uma chave secreta, que é mantida
 O token de autenticação tem um tempo de expiração configurado no servidor. Após esse período, o token é invalidado, e o usuário é automaticamente desconectado da plataforma.
 
 \subsubsection{Banco de Dados Chave-Valor}
+% Revisado
 
-A plataforma Codeboard UERJ utiliza um banco de dados chave-valor para armazenar informações temporárias, como a lista de usuários online, o código dos quadros de programação e a lista de visualizadores dos quadros. Este banco de dados é implementado com o Redis, um sistema de armazenamento em memória de código aberto.
+A plataforma Codeboard UERJ utiliza um banco de dados chave-valor para armazenar informações temporárias, como a lista de usuários online, o código dos quadros de programação e a lista de visualizadores dos quadros. Esse banco de dados é implementado com o Redis, um sistema de armazenamento em memória de código aberto.
 
-A escolha do Redis como banco de dados chave-valor foi motivada pela sua eficiência, desempenho na manipulação de dados em memória e escalabilidade horizontal. O Redis é amplamente utilizado em aplicações que requerem alta disponibilidade e baixa latência, como a plataforma Codeboard UERJ.
+A escolha do Redis como banco de dados chave-valor foi motivada por sua eficiência, alto desempenho na manipulação de dados em memória e capacidade de escalabilidade horizontal. O Redis é amplamente utilizado em aplicações que demandam alta disponibilidade e baixa latência, características importantes para a plataforma Codeboard UERJ.
 
 
 \begin{table}[H]
@@ -328,9 +353,39 @@ A escolha do Redis como banco de dados chave-valor foi motivada pela sua eficiê
     \label{tab:key-value-database}
 \end{table}
 
-Conforme a estrutura do banco de dados chave-valor ilustrada na tabela \ref{tab:key-value-database}, o Redis é utilizado para armazenar informações temporárias relacionadas aos quadros de programação. Cada quadro de programação possui um namespace específico, que é utilizado para organizar os dados relacionados a ele. Os dados armazenados incluem a lista de usuários online, o código do quadro de programação e a lista de visualizadores do quadro.
+Conforme a estrutura do banco de dados chave-valor ilustrada na Tabela \ref{tab:key-value-database}, o Redis é utilizado para armazenar informações temporárias relacionadas à comunicação em tempo real. Os dados são organizados em namespaces que representam diferentes contextos da aplicação, como salas, quadros de programação e visualizadores. Cada namespace possui um tempo de expiração configurado no servidor, assegurando que os dados sejam automaticamente removidos após um período de inatividade.
 
-\subsubsection{Comunicação em Tempo Real}
+A remoção automática dos dados é importante para garantir a integridade e a eficiência do banco de dados chave-valor. Como esses dados são temporários e não precisam ser armazenados por longos períodos, a expiração dos dados permite liberar recursos e manter o banco de dados limpo e organizado.
+
+\subsubsection{Comunicação Síncrona em Tempo Real}
+
+% TODO 
+% - Falar sobre a comunicação em tempo real com WebSockets
+% - Falar sobre middlewares de autenticação
+% - Explicar namespaces e rooms
+% - Listar eventos que são emitidos e ouvidos e suas respectivas funções
+%   - connection
+%   - room:join
+%   - room:joined
+%   - room:members
+%   - board:join
+%   - board:joined
+%   - board:viewers
+%   - board:leave
+%   - board:left
+%   - board:write
+%   - board:typed
+%   - board:written
+%   - board:highlight
+%   - board:highlighted
+%   - board:read
+%   - disconnecting
+% - Criar diagrama de sequência da comunicação em tempo real, com um exemplo de interação entre os usuários
+
+\subsubsection{Comunicação Assíncrona utilizando Filas}
+
+% TODO
+% Falar sobre worker e filas
 
 
 \subsubsection{Frontend}

@@ -2,6 +2,8 @@ erDiagram
 
     User ||--o{ Room : "(é dono de)"
     Room ||--o{ User : "(tem participantes)"
+    Room ||--o{ Board : "(tem quadros)"
+    Board ||--o{ User : "(é dono de)"
 
     Room {
         ObjectID _id PK "ID da sala"
@@ -17,5 +19,15 @@ erDiagram
         String name "Nome do usuário"
         String email "E-mail do usuário"
         String password "Hash da senha"
+        Date createdAt "Data de criação"
+    }
+
+    Board {
+        ObjectID _id PK "ID do quadro"
+        ObjectID room FK "Sala do quadro"
+        ObjectID user FK "Dono do quadro"
+        String language "Linguagem do quadro"
+        String content "Conteúdo do quadro"
+        Date updatedAt "Data da última atualização"
         Date createdAt "Data de criação"
     }
