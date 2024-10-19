@@ -216,14 +216,19 @@ Conforme o esquema do banco de dados ilustrado na Figura \ref{fig:database-schem
 
 \begin{table}[H]
     \centering
+    \renewcommand{\arraystretch}{1.3} 
     \begin{tabular}{|c|c|c|c|}
         \hline
         \textbf{Campo} & \textbf{Descrição}             & \textbf{Tipo} & \textbf{Obrigatório} \\
         \hline
         \_id           & Identificador único do usuário & ObjectId      & Sim                  \\
+        \hline
         name           & Nome do usuário                & String        & Sim                  \\
+        \hline
         email          & E-mail do usuário              & String        & Sim                  \\
+        \hline
         password       & Hash da senha do usuário       & String        & Sim                  \\
+        \hline
         createdAt      & Data de criação do usuário     & Date          & Sim                  \\
         \hline
     \end{tabular}
@@ -237,15 +242,21 @@ A coleção "Room", responsável por armazenar os dados das salas, contém os se
 
 \begin{table}[H]
     \centering
+    \renewcommand{\arraystretch}{1.3} 
     \begin{tabular}{|c|c|c|c|}
         \hline
         \textbf{Campo} & \textbf{Descrição}             & \textbf{Tipo}   & \textbf{Obrigatório} \\
         \hline
         \_id           & Identificador único da sala    & ObjectId        & Sim                  \\
+        \hline
         name           & Nome da sala                   & String          & Sim                  \\
+        \hline
         description    & Descrição da sala              & String          & Não                  \\
+        \hline
         owner          & Identificador do dono da sala  & ObjectId        & Sim                  \\
+        \hline
         members        & Lista de participantes da sala & Array<ObjectId> & Não                  \\
+        \hline
         createdAt      & Data de criação da sala        & Date            & Sim                  \\
         \hline
     \end{tabular}
@@ -260,16 +271,23 @@ A coleção "Board", responsável por armazenar os dados dos quadros de programa
 
 \begin{table}[H]
     \centering
+    \renewcommand{\arraystretch}{1.3} 
     \begin{tabular}{|c|c|c|c|}
         \hline
         \textbf{Campo} & \textbf{Descrição}             & \textbf{Tipo} & \textbf{Obrigatório} \\
         \hline
         \_id           & Identificador único do quadro  & ObjectId      & Sim                  \\
+        \hline
         user         & Identificador do usuário dono do quadro & ObjectId      & Sim                  \\
+        \hline
         room         & Identificador da sala do quadro & ObjectId      & Sim                  \\
+        \hline
         language       & Linguagem de programação       & String        & Sim                  \\
+        \hline
         content           & Código de programação          & String        & Sim                  \\
+        \hline
         updatedAt      & Data da última atualização      & Date          & Não                  \\
+        \hline
         createdAt      & Data de criação      & Date          & Sim                  \\
         \hline
     \end{tabular}
@@ -291,6 +309,7 @@ Na REST API, existem três tipos principais de rotas: de autenticação, de usu�
 
 \begin{table}[H]
     \centering
+    \renewcommand{\arraystretch}{1.3} 
     \begin{tabular}{|c|c|c|c|}
         \hline
         \textbf{Método} & \textbf{Rota}                  & \textbf{Descrição}            & \textbf{Autenticação} \\
@@ -328,15 +347,17 @@ O token é criado com base no ID do usuário e uma chave secreta, que é mantida
 O token de autenticação tem um tempo de expiração configurado no servidor. Após esse período, o token é invalidado, e o usuário é automaticamente desconectado da plataforma.
 
 \subsubsection{Banco de Dados Chave-Valor}
-% Revisado
+% Revisado OK
 
-A plataforma Codeboard UERJ utiliza um banco de dados chave-valor para armazenar informações temporárias, como a lista de usuários online, o código dos quadros de programação e a lista de visualizadores dos quadros. Esse banco de dados é implementado com o Redis, um sistema de armazenamento em memória de código aberto.
+A plataforma Codeboard UERJ utiliza o Redis, um banco de dados chave-valor em memória, para armazenar dados temporários relacionados à interação em tempo real, como a lista de usuários online, o código ativo nos quadros de programação e a lista de visualizadores dos quadros. O Redis foi escolhido devido à sua eficiência no processamento de grandes volumes de dados em memória, oferecendo alto desempenho, baixa latência e suporte robusto à escalabilidade horizontal.
 
-A escolha do Redis como banco de dados chave-valor foi motivada por sua eficiência, alto desempenho na manipulação de dados em memória e capacidade de escalabilidade horizontal. O Redis é amplamente utilizado em aplicações que demandam alta disponibilidade e baixa latência, características importantes para a plataforma Codeboard UERJ.
+A adoção do Redis é comum em sistemas que demandam alta disponibilidade e tempos de resposta rápidos, características fundamentais para a experiência de colaboração simultânea proporcionada pela Codeboard UERJ. O Redis não apenas facilita a manipulação de dados em tempo real, mas também garante que os dados temporários sejam gerenciados de maneira eficiente, minimizando o uso excessivo de recursos.
 
+A Tabela \ref{tab:key-value-database} descreve a estrutura do banco de dados chave-valor utilizado na plataforma, evidenciando como os dados são organizados em namespaces. Cada namespace reflete um contexto específico da aplicação, como as salas de colaboração ou os quadros de programação, e cada um possui um tempo de expiração associado, normalmente configurado para 1 dia. Essa expiração automática é essencial para a gestão de dados temporários e voláteis.
 
 \begin{table}[H]
     \centering
+    \renewcommand{\arraystretch}{1.3} 
     \begin{tabular}{|c|p{6cm}|c|}
         \hline
         \textbf{Namespace}                   & \textbf{Descrição}                       & \textbf{Expiração} \\
@@ -349,45 +370,175 @@ A escolha do Redis como banco de dados chave-valor foi motivada por sua eficiên
         
         \hline
     \end{tabular}
-    \caption{Estrutura do banco de dados chave-valor da plataforma Codeboard UERJ.}
+    \caption{Estrutura do banco de dados chave-valor da plataforma.}
     \label{tab:key-value-database}
 \end{table}
 
-Conforme a estrutura do banco de dados chave-valor ilustrada na Tabela \ref{tab:key-value-database}, o Redis é utilizado para armazenar informações temporárias relacionadas à comunicação em tempo real. Os dados são organizados em namespaces que representam diferentes contextos da aplicação, como salas, quadros de programação e visualizadores. Cada namespace possui um tempo de expiração configurado no servidor, assegurando que os dados sejam automaticamente removidos após um período de inatividade.
+O uso de namespaces no Redis permite que diferentes componentes da plataforma sejam representados de forma hierárquica e clara. Por exemplo:
+\begin{itemize}
+    \item O namespace \texttt{room:\{roomId\}:users} armazena os IDs dos usuários conectados a uma determinada sala, permitindo o rastreamento eficiente dos participantes ativos.
+    \item O namespace \texttt{board:\{roomId\}:\{boardId\}:code} contém o código do quadro de programação correspondente, garantindo que qualquer modificação seja rapidamente sincronizada entre os usuários.
+    \item O namespace \texttt{board:\{roomId\}:\{boardId\}:viewers} rastreia os visualizadores atuais de um quadro específico, permitindo o monitoramento em tempo real da audiência de cada quadro.
+\end{itemize}
 
-A remoção automática dos dados é importante para garantir a integridade e a eficiência do banco de dados chave-valor. Como esses dados são temporários e não precisam ser armazenados por longos períodos, a expiração dos dados permite liberar recursos e manter o banco de dados limpo e organizado.
+Todos esses dados são configurados para expirar após um dia de inatividade, removendo automaticamente informações temporárias que não são mais necessárias. A expiração controlada dos dados é crucial para manter o banco de dados eficiente e evitar acúmulo desnecessário de informações. Isso não só melhora o desempenho geral da plataforma, como também preserva a integridade do sistema ao evitar que informações desatualizadas sejam mantidas além do necessário.
 
-\subsubsection{Comunicação Síncrona em Tempo Real}
+Ao utilizar o Redis dessa maneira, a plataforma Codeboard UERJ assegura um ambiente escalável, rápido e confiável, adequado para as demandas de colaboração em tempo real.
 
-% TODO 
-% - Falar sobre a comunicação em tempo real com WebSockets
-% - Falar sobre middlewares de autenticação
-% - Explicar namespaces e rooms
-% - Listar eventos que são emitidos e ouvidos e suas respectivas funções
-%   - connection
-%   - room:join
-%   - room:joined
-%   - room:members
-%   - board:join
-%   - board:joined
-%   - board:viewers
-%   - board:leave
-%   - board:left
-%   - board:write
-%   - board:typed
-%   - board:written
-%   - board:highlight
-%   - board:highlighted
-%   - board:read
-%   - disconnecting
-% - Criar diagrama de sequência da comunicação em tempo real, com um exemplo de interação entre os usuários
+\subsubsection{Comunicação em Tempo Real via WebSockets}
 
-\subsubsection{Comunicação Assíncrona utilizando Filas}
+A plataforma Codeboard UERJ utiliza WebSockets para implementar comunicação em tempo real, permitindo a colaboração simultânea entre usuários na edição de código. Os WebSockets são uma tecnologia de comunicação bidirecional baseada em TCP, que possibilita a troca de mensagens entre clientes e servidores de maneira assíncrona e em tempo real. Essa abordagem elimina a necessidade de requisições HTTP constantes, facilitando o intercâmbio instantâneo de dados.
 
-% TODO
-% Falar sobre worker e filas
+Para gerenciar as conexões WebSocket, a plataforma implementa middlewares de autenticação, garantindo que apenas usuários autenticados possam se conectar e interagir. O processo de autenticação é realizado durante o estabelecimento da conexão, por meio de handshakes que verificam a identidade do usuário através de tokens JWT. Dessa forma, apenas usuários devidamente autenticados e autorizados participam das interações em tempo real.
 
+A comunicação em tempo real é estruturada em eventos e canais. Enquanto os eventos representam as mensagens trocadas entre os usuários, os canais funcionam como meios de comunicação, agrupando os usuários conforme o contexto da interação. Por exemplo, cada sala de programação possui seu próprio canal, onde os eventos são visíveis apenas para os usuários presentes, garantindo a privacidade e segurança das interações.
+
+Além disso, os canais podem conter subcanais, permitindo a criação de hierarquias de comunicação. Por exemplo, uma sala de programação pode incluir subcanais dedicados a quadros específicos, facilitando uma comunicação segmentada e específica entre os usuários de cada quadro.
+
+A Tabela \ref{tab:websocket-client-to-server-events} apresenta os principais eventos emitidos pelos clientes da plataforma Codeboard UERJ ao servidor via WebSocket. Esses eventos permitem a interação dos usuários com as salas de programação, quadros de edição de código e outros participantes, viabilizando a colaboração em tempo real.
+
+% Tabela de eventos enviados do cliente para o servidor 
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3} 
+    \begin{tabular}{|c|p{10cm}|}
+        \hline
+        \textbf{Evento} & \textbf{Descrição} \\
+        \hline
+        \texttt{room:join} & Emitido pelo usuário quando ele entra em uma sala. É enviado no corpo da mensagem o ID da sala. \\
+        \hline
+        \texttt{board:join} & Emitido pelo usuário quando ele entra em um quadro de programação. É enviado no corpo da mensagem o ID da sala e do quadro de programação. \\
+        \hline
+        \texttt{board:leave} & Emitido pelo usuário quando ele sai de um quadro de programação. É enviado no corpo da mensagem o ID da sala e do quadro de programação. \\
+        \hline
+        \texttt{board:write} & Usado quando um usuário começa a digitar ou modificar o código no quadro. É enviado no corpo da mensagem o conteúdo do código e o ID do quadro de programação. \\
+        \hline
+        \texttt{board:highlight} & Usado para destacar partes específicas do código. É enviado no corpo da mensagem a posição do cursor, o ID da sala e do quadro de programação. \\
+        \hline
+        \texttt{board:read} & Usado para solicitar o conteúdo de um quadro de programação para visualização. É enviado no corpo da mensagem o ID da sala e do quadro de programação. \\
+        \hline
+    \end{tabular}
+    \caption{Eventos WebSocket enviados do cliente para o servidor na plataforma.}
+    \label{tab:websocket-client-to-server-events}
+\end{table}
+
+
+A Tabela \ref{tab:websocket-server-to-client-events} mostra os eventos que o servidor da plataforma Codeboard UERJ envia aos clientes. Esses eventos permitem aos usuários acompanhar as atividades e interações de outros participantes em tempo real, mantendo a sincronia da colaboração.
+
+
+% Tabela de eventos enviados do servidor para o cliente
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3} 
+    \begin{tabular}{|c|p{10cm}|}
+        \hline
+        \textbf{Evento} & \textbf{Descrição} \\
+        \hline
+        \texttt{room:joined} & Emitido pelo servidor quando um novo usuário ficou online na sala, informando quem é o novo membro. \\
+        \hline
+        \texttt{room:members} & Emitido logo após o usuário entrar na sala, informando quem são os outros membros da sala. \\
+        \hline
+        \texttt{board:joined} & Informa que um usuário entrou no quadro de programação selecionado. \\
+        \hline
+        \texttt{board:viewers} & Emitido após um usuário entrar no quadro de programação, informando quem são os outros visualizadores. \\
+        \hline
+        \texttt{board:left} & Indica que um usuário saiu do quadro de programação selecionado. \\
+        \hline
+        \texttt{board:typed} & Indica que um usuário está digitando no quadro de programação. \\
+        \hline
+        \texttt{board:written} & Emite o conteúdo do código escrito do quadro de programação. \\
+        \hline
+        \texttt{board:highlighted} & Informa a todos os usuários a localização exata da marcação feita por um usuário no quadro de programação selecionado. \\
+        \hline
+    \end{tabular}
+    \caption{Eventos WebSocket enviados do servidor para o cliente na plataforma.}
+    \label{tab:websocket-server-to-client-events}
+\end{table}
+
+A Tabela \ref{tab:websocket-server-control-events} apresenta os eventos de controle de conexão na plataforma Codeboard UERJ. Esses eventos são responsáveis por gerenciar o estabelecimento e a desconexão das conexões WebSocket entre clientes e o servidor.
+
+% Tabela de eventos de controle de conexão
+\begin{table}[H]
+    \centering
+    \renewcommand{\arraystretch}{1.3} 
+    \begin{tabular}{|c|p{10cm}|}
+        \hline
+        \textbf{Evento} & \textbf{Descrição} \\
+        \hline
+        \texttt{connect} & Evento base disparado quando um novo cliente estabelece uma conexão com o WebSocket. \\
+        \hline
+        \texttt{disconnecting} & Acionado quando um usuário está prestes a perder a conexão. \\
+        \hline
+    \end{tabular}
+    \caption{Eventos WebSocket enviados do cliente para o servidor na plataforma.}
+    \label{tab:websocket-server-control-events}
+\end{table}
+
+
+Para visualizar o fluxo dessas interações, o diagrama de sequência da Figura \ref{fig:websocket-flow} exemplifica a comunicação em tempo real comunicação entre o \textbf{usuário}, o \textbf{servidor} e outros usuários que participam de uma \textbf{sala} ou de um \textbf{quadro de programação} na plataforma, destacando pontos críticos de interação e troca de informações.
+
+\begin{figure}[H] 
+    \centering
+    \makebox[\textwidth]{\includegraphics[width=0.95\paperwidth]{diagrams/websocket-flow.png}}
+    \caption{Diagrama de sequência da comunicação em tempo real na plataforma.}
+    \label{fig:websocket-flow}
+\end{figure}
+
+ O fluxo descrito na Figura \ref{fig:websocket-flow} descreve a interação em tempo real via WebSockets, desde o momento em que um usuário estabelece a conexão até a sua eventual desconexão. O processo é dividido em etapas distintas, cada uma representando uma ação específica realizada pelo usuário ou pelo servidor:
+
+\begin{enumerate}
+    \item \textbf{Autenticação do Usuário}:
+    \begin{itemize}
+        \item O \textbf{usuário} inicia a conexão enviando o evento \texttt{connect} para estabelecer a comunicação WebSocket com o servidor. Após validar a autenticação, o \textbf{servidor} responde com o evento \texttt{connected}, confirmando a conexão.
+        \item Caso a autenticação falhe, o \textbf{servidor} emite o evento \texttt{error}, sinalizando que o acesso foi negado.
+    \end{itemize}
+
+    \item \textbf{Entrada na Sala}:
+    \begin{itemize}
+        \item O \textbf{usuário} entra em uma sala de programação enviando o evento \texttt{room:join} ao \textbf{servidor}, que, por sua vez, notifica os demais \textbf{usuários da sala} sobre sua chegada com o evento \texttt{room:joined}.
+        \item O \textbf{servidor} também envia ao \textbf{usuário} a lista atual de participantes da sala por meio do evento \texttt{room:members}.
+    \end{itemize}
+
+    \item \textbf{Entrada no Quadro de Programação}:
+    \begin{itemize}
+        \item Ao acessar um quadro de programação, o \textbf{usuário} envia o evento \texttt{board:join}. O \textbf{servidor} notifica os demais \textbf{usuários do quadro} com o evento \texttt{board:joined} e envia ao \textbf{usuário} uma lista dos visualizadores atuais por meio do evento \texttt{board:viewers}.
+    \end{itemize}
+
+    \item \textbf{Edição de Código}:
+    \begin{itemize}
+        \item Quando o \textbf{usuário} começa a modificar o código no quadro, o evento \texttt{board:write} é enviado ao \textbf{servidor}. O \textbf{servidor} então informa os \textbf{usuários da sala} que o usuário está digitando (\texttt{board:typed}) e transmite o conteúdo atualizado do código para os \textbf{usuários do quadro} com o evento \texttt{board:written}.
+    \end{itemize}
+
+    \item \textbf{Destaque de Código}:
+    \begin{itemize}
+        \item O \textbf{usuário} pode destacar partes do código enviando o evento \texttt{board:highlight} para o \textbf{servidor}. Este, por sua vez, notifica os \textbf{usuários do quadro} sobre a posição exata do destaque com o evento \texttt{board:highlighted}.
+    \end{itemize}
+
+    \item \textbf{Desconexão}:
+    \begin{itemize}
+        \item Quando o \textbf{usuário} decide sair da plataforma, o evento \texttt{disconnecting} é enviado ao \textbf{servidor}, que informa tanto os \textbf{usuários do quadro} (com o evento \texttt{board:left}) quanto os \textbf{usuários da sala} (com o evento \texttt{room:left}) sobre a saída do participante.
+    \end{itemize}
+\end{enumerate}
+
+Esse diagrama reflete a sequência de eventos que possibilitam a colaboração em tempo real entre usuários da plataforma, garantindo a sincronia e atualização constante dos dados compartilhados durante o uso.
+
+
+\subsubsection{Comunicação Assíncrona via Filas}
+
+TODO: Falar sobre worker e filas
+
+TODO: Falar sobre a comunicação assíncrona entre os workers e o servidor principal
+
+TODO: Falar sobre o salvamento de código após a desconexão do usuário de forma assíncrona via fila
+
+% A plataforma Codeboard UERJ adota um sistema de filas para comunicação assíncrona, garantindo que tarefas possam ser processadas de forma eficiente, desacoplando a execução dos fluxos principais do aplicativo e melhorando o desempenho. Utilizando bibliotecas como RabbitMQ ou Kafka, a plataforma é capaz de gerenciar processamento de tarefas que envolvem uso intensivo de recursos ou operações demoradas.
+
+% Workers são decisões arquiteturais que consomem essas filas. Eles estão configurados para lidar com tarefas específicas, como o processamento de código, envio de notificações ou exportação de relatórios. Com o uso de filas, é possível garantir que essas tarefas sejam escalonadas adequadamente, evitando a sobrecarga do servidor principal e mantendo a plataforma responsiva para os usuários ativos.
+
+% Mediante uso de filas e workers, a Codeboard UERJ consegue equilibrar eficiência operacional e experiência do usuário com um sistema modular e escalável, pronto para lidar com aumentos na carga de trabalho sem comprometer sua performance.
 
 \subsubsection{Frontend}
 
 To do
+
+

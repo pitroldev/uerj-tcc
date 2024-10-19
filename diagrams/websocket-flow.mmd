@@ -1,0 +1,32 @@
+sequenceDiagram
+    participant Cliente as Usuário
+    participant Servidor as Servidor
+    participant Sala as Usuários da Sala
+    participant Quadro as Usuários do Quadro
+
+    critical Autenticação do Usuário
+        Cliente->>Servidor: connect (Estabelecer conexão WebSocket)
+        Servidor-->>Cliente: connected (Conexão estabelecida)
+    option Falha na autenticação
+        Servidor-->>Cliente: error (Não autorizado)
+    end
+    Cliente-->>Servidor: room:join (Entrar na sala)
+
+    Servidor-->>Sala: room:joined (Usuário online na sala)
+    Servidor-->>Cliente: room:members (Lista de membros online na sala)
+    
+    Cliente-->>Servidor: board:join (Entrar no quadro)
+    Servidor-->>Quadro: board:joined (Usuário entrou no quadro)
+    Servidor-->>Cliente: board:viewers (Lista de visualizadores do quadro)
+    
+    Cliente-->>Servidor: board:write (Modificar o código)
+    Servidor-->>Sala: board:typed (Indica que o usuário está escrevendo)
+    Servidor-->>Quadro: board:written (Conteúdo do código)
+    
+    Cliente-->>Servidor: board:highlight (Destacar código)
+    Servidor-->>Quadro: board:highlighted (Posição do destaque)
+    
+    Cliente-->>Servidor: disconnecting (Usuário desconectando)
+    Servidor-->>Quadro: board:left (Usuário saiu do quadro)
+    Servidor-->>Sala: room:left (Usuário saiu da sala)
+    
