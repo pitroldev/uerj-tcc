@@ -1,13 +1,15 @@
 \section{Plataforma Codeboard UERJ}
 
-Este capítulo apresenta a plataforma Codeboard UERJ, que é uma ferramenta de apoio ao ensino de programação. Serão abordados os objetivos, funcionalidades e a arquitetura da plataforma.	
+A plataforma Codeboard UERJ é uma ferramenta de ensino de programação que permite a criação de salas de aula virtuais, onde os alunos podem escrever códigos de programação em tempo real. A plataforma foi desenvolvida com base em três princípios fundamentais: colaboração, interatividade e praticidade. Ela foi projetada para ser simples e intuitiva, permitindo que os usuários a utilizem sem a necessidade de treinamento prévio. 
 
+Este capítulo apresenta a plataforma Codeboard UERJ e nele serão abordados os objetivos, funcionalidades e a arquitetura da plataforma.	
 
 \subsection{Objetivos}
 
 O objetivo principal da plataforma Codeboard UERJ é auxiliar no ensino de programação, permitindo que professores criem e gerenciem atividades práticas para seus alunos. A plataforma foi desenvolvida para ser utilizada em disciplinas de programação de computadores, como Algoritmos e Estruturas de Dados, Linguagens de Programação e Paradigmas de Programação.
 
 A motivação para o desenvolvimento da plataforma surgiu durante a pandemia de COVID-19, quando as aulas presenciais foram suspensas e as atividades práticas de programação tiveram que ser adaptadas para o ensino remoto. Ela foi desenvolvida para atender a essa demanda, dando a capacidade aos professores de acompanharem o progresso dos alunos e avaliarem suas atividades práticas em tempo real.
+
 
 \subsection{Funcionalidades}
 
@@ -16,16 +18,16 @@ Autenticação de usuários, gerenciamento de salas e seus participantes e o qua
 
 \subsubsection{Autenticação de Usuários}
 
-O sistema de autenticação de usuários é a primeira funcionalidade da plataforma. Ela permite que os usuários se cadastrem e façam login para acessar as funcionalidades da plataforma. O cadastro de usuários é feito através de um formulário que solicita nome, e-mail e senha. Após o cadastro, o usuário pode fazer login informando o e-mail e a senha cadastrados.
+O sistema de autenticação de usuários é o ponto de partida para o uso da plataforma, permitindo que novos usuários se cadastrem e realizem login para acessar suas funcionalidades. O processo de cadastro ocorre por meio de um formulário que coleta informações básicas, como nome, e-mail e senha. Após a conclusão do cadastro, o usuário está apto a realizar login utilizando o e-mail e a senha fornecidos.
+
+Durante o login, a plataforma valida as credenciais inseridas, verificando se o e-mail e a senha correspondem a uma conta existente. Se os dados forem corretos, o usuário é autenticado e direcionado à página inicial. Caso contrário, uma mensagem de erro é exibida, informando que as credenciais são inválidas. Caso o usuário ainda não tenha uma conta, ele pode acessar a página de cadastro por meio de um link, preencher o formulário e, após o registro, ser redirecionado automaticamente para a tela inicial. Esse processo de autenticação está ilustrado no diagrama de fluxo da Figura \ref{fig:user-auth-flow}, com as telas de login e cadastro exibidas nas Figuras \ref{fig:login-page} e \ref{fig:signup-page}, respectivamente.
 
 \begin{figure}[H]
     \centering
-    \includegraphics[width=0.8\textwidth]{diagrams/user-auth-flow.png}
+    \includegraphics[width=1\textwidth]{diagrams/user-auth-flow.png}
     \caption{Diagrama do fluxo de autenticação de usuários.}
     \label{fig:user-auth-flow}
 \end{figure}
-
-No processo de login, a plataforma verifica se o e-mail e a senha informados são válidos. Caso sejam, o usuário é autenticado e redirecionado para a tela inicial. Caso contrário, a plataforma exibe uma mensagem de erro informando que as credenciais são inválidas.
 
 \begin{figure}[H]
     \centering
@@ -34,8 +36,6 @@ No processo de login, a plataforma verifica se o e-mail e a senha informados sã
     \label{fig:login-page}
 \end{figure}
 
-No caso do usuário não possuir uma conta, ele pode clicar no link de cadastro e preencher o formulário de cadastro. Após o cadastro, o  usuário também é redirecionado para a tela inicial.
-
 \begin{figure}[H]
     \centering
     \includegraphics[width=0.8\textwidth]{assets/codeboard/signup-page.png}
@@ -43,11 +43,41 @@ No caso do usuário não possuir uma conta, ele pode clicar no link de cadastro 
     \label{fig:signup-page}
 \end{figure}
 
-Durante o processo de autenticação, a plataforma utiliza tokens de autenticação para manter o usuário autenticado. O token é gerado no servidor e enviado para o cliente, onde é armazenado no navegador por meio de cookies. O token é utilizado para autenticar o usuário em todas as requisições feitas para o servidor, garantindo que o usuário esteja autenticado em todas as páginas da plataforma.
+Durante o processo de autenticação, a plataforma utiliza tokens para manter a sessão do usuário ativa. O token é gerado no servidor e enviado ao cliente, sendo armazenado no navegador por meio de cookies. Esse token é então utilizado em todas as requisições subsequentes feitas ao servidor, garantindo que o usuário permaneça autenticado enquanto navega pelas diversas páginas da plataforma.
 
 \subsubsection{Gerenciamento de Salas}
 
-A funcionalidade de gerenciamento de salas permite que o professor crie, edite e acesse salas de aula. A criação de uma sala é feita através de um formulário que solicita o nome da sala e a descrição da atividade prática. Após a criação, o professor pode acessar a sala e adicionar alunos a ela.
+A funcionalidade de gerenciamento de salas, ilustrada na Figura \ref{fig:rooms-page}, constitui a página inicial da plataforma. Nessa página, as salas são apresentadas em uma lista, onde cada sala é representada por um cartão que exibe o nome, a descrição e o número de participantes. O usuário pode acessar uma sala ao clicar no respectivo cartão, sendo então redirecionado para a tela da sala.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/codeboard/rooms-page.png}
+    \caption{Página de listagem de salas da plataforma Codeboard UERJ.}
+    \label{fig:rooms-page}
+\end{figure}
+
+
+Além disso, o usuário pode criar uma nova sala diretamente na tela inicial, utilizando o botão de criação de sala. Ao clicar no botão, o usuário é redirecionado para a página de criação de sala, mostrada na Figura \ref{fig:create-room-page}. Nessa página, é possível inserir o nome e a descrição da sala para concluir a criação
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.7\textwidth]{assets/codeboard/create-room-page.png}
+    \caption{Página de criação de sala da plataforma Codeboard UERJ.}
+    \label{fig:create-room-page}
+\end{figure}
+
+Após a criação, o usuário é redirecionado para a tela da sala. Para adicionar novos membros, basta clicar no botão de adição de participantes, identificado por um ícone de usuário, conforme mostrado na Figura \ref{fig:add-member-modal}. Uma nova tela será exibida com um campo para inserção do e-mail do aluno que se deseja adicionar à sala. Após a inclusão, o aluno torna-se membro da sala e pode acessá-la.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=0.8\textwidth]{assets/codeboard/add-member-modal.png}
+    \caption{Tela de adição de alunos à sala da plataforma Codeboard UERJ.}
+    \label{fig:add-member-modal}
+\end{figure}
+
+
+O fluxo descrito do gerenciamento de salas está representado no diagrama da Figura \ref{fig:user-room-flow}.
+
 
 \begin{figure}[H]
     \centering
@@ -56,35 +86,11 @@ A funcionalidade de gerenciamento de salas permite que o professor crie, edite e
     \label{fig:user-room-flow}
 \end{figure}
 
-A tela de listagem de salas é a primeira tela exibida ao usuário após o login. Ela exibe todas as salas em que o usuário é dono ou membro. O usuário pode acessar uma sala clicando no botão de acesso, que o redireciona para a tela da sala.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{assets/codeboard/rooms-page.png}
-    \caption{Página de listagem de salas da plataforma Codeboard UERJ.}
-    \label{fig:rooms-page}
-\end{figure}
-
-Nesta mesma tela da figura \ref{fig:rooms-page}, o usuário pode criar uma nova sala clicando no botão de criação de sala. O usuário é redirecionado para uma tela de criação de sala, onde ele pode preencher o nome e a descrição da sala. Após a criação, o usuário é redirecionado para a tela da sala.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{assets/codeboard/create-room-page.png}
-    \caption{Página de criação de sala da plataforma Codeboard UERJ.}
-    \label{fig:create-room-page}
-\end{figure}
-
-Para adicionar alunos à sala, o usuário pode clicar num botão de adição de participantes representado por um ícone de usuário. A plataforma exibe um modal com um campo de e-mail, onde o usuário pode informar o e-mail do aluno que deseja adicionar à sala. Após a adição, o aluno se torna membro da sala e pode acessá-la.
-
-\begin{figure}[H]
-    \centering
-    \includegraphics[width=0.8\textwidth]{assets/codeboard/add-member-modal.png}
-    \caption{Página de adição de alunos à sala da plataforma Codeboard UERJ.}
-    \label{fig:add-member-modal}
-\end{figure}
 
 \subsubsection{Quadro de Programação em Tempo Real}
 
+% TODO: TO AQUIII
+ 
 A funcionalidade de quadro de programação em tempo real é a principal funcionalidade da plataforma. Ela permite que os alunos escrevam códigos de programação diretamente no navegador, sem a necessidade de instalar um ambiente de desenvolvimento integrado (IDE).
 
 Para acessar o quadro de programação, o usuário deve acessar a sala desejada. A plataforma exibe uma tela dividida em dois módulos, o módulo lateral de seleção de usuário e o módulo central de edição de código.
@@ -479,7 +485,7 @@ Para visualizar o fluxo dessas interações, o diagrama de sequência da Figura 
 
 \begin{figure}[H] 
     \centering
-    \makebox[\textwidth]{\includegraphics[width=0.95\paperwidth]{diagrams/websocket-flow.png}}
+    \makebox[\textwidth]{\includegraphics[width=0.9\paperwidth]{diagrams/websocket-flow.png}}
     \caption{Diagrama de sequência da comunicação em tempo real na plataforma.}
     \label{fig:websocket-flow}
 \end{figure}
@@ -524,18 +530,29 @@ Esse diagrama reflete a sequência de eventos que possibilitam a colaboração e
 
 
 \subsubsection{Comunicação Assíncrona via Filas}
+% REVISADO
 
-TODO: Falar sobre worker e filas
+A plataforma Codeboard UERJ utiliza um sistema de filas para processar tarefas assíncronas, como o salvamento de código após a desconexão de um usuário. Esse sistema é composto por um servidor principal e workers, que são responsáveis por executar as tarefas em segundo plano.
 
-TODO: Falar sobre a comunicação assíncrona entre os workers e o servidor principal
+O servidor principal é responsável por receber as requisições dos clientes, autenticar os usuários, gerenciar as conexões WebSocket e distribuir as tarefas para os workers. Os workers, por sua vez, são responsáveis por processar as tarefas assíncronas, como salvar o código de um quadro de programação após a desconexão de um usuário.
 
-TODO: Falar sobre o salvamento de código após a desconexão do usuário de forma assíncrona via fila
+A comunicação entre o servidor principal e os workers é feita através de filas, que são gerenciadas pelo sistema de mensageria AWS SQS. 
 
-% A plataforma Codeboard UERJ adota um sistema de filas para comunicação assíncrona, garantindo que tarefas possam ser processadas de forma eficiente, desacoplando a execução dos fluxos principais do aplicativo e melhorando o desempenho. Utilizando bibliotecas como RabbitMQ ou Kafka, a plataforma é capaz de gerenciar processamento de tarefas que envolvem uso intensivo de recursos ou operações demoradas.
+Quando uma tarefa assíncrona precisa ser executada, o servidor principal a enfileira na fila correspondente uma mensagem, indicando o tipo de tarefa e os parâmetros necessários para sua execução. Os workers, por sua vez, ficam monitorando as filas por meio de long polling, verificando se existem mensagens a serem processadas. Quando uma mensagem é encontrada, o worker a recebe, executa a operação correspondente e posteriormente a remove da fila.
 
-% Workers são decisões arquiteturais que consomem essas filas. Eles estão configurados para lidar com tarefas específicas, como o processamento de código, envio de notificações ou exportação de relatórios. Com o uso de filas, é possível garantir que essas tarefas sejam escalonadas adequadamente, evitando a sobrecarga do servidor principal e mantendo a plataforma responsiva para os usuários ativos.
+Caso ocorra algum erro durante a execução da tarefa, o worker pode aguardar um tempo determinado e tentar executar a tarefa novamente. Caso ainda assim não seja possível concluir a tarefa, o worker irá remover a tarefa da fila e a enviará para uma DLQ (Dead Letter Queue), onde as tarefas que não puderam ser processadas são armazenadas para posterior análise e tratamento.
 
-% Mediante uso de filas e workers, a Codeboard UERJ consegue equilibrar eficiência operacional e experiência do usuário com um sistema modular e escalável, pronto para lidar com aumentos na carga de trabalho sem comprometer sua performance.
+O fluxo de comunicação assíncrona via filas é ilustrado no diagrama de sequência da Figura \ref{fig:queue-flow}, que exemplifica a interação entre o \textbf{servidor principal}, os \textbf{workers} e as \textbf{filas}.
+
+\begin{figure}[H] 
+    \centering
+    \makebox[\textwidth]{\includegraphics[width=0.95\paperwidth]{diagrams/queue-flow.png}}
+    \caption{Diagrama de sequência da comunicação assíncrona via filas na plataforma.}
+    \label{fig:queue-flow}
+\end{figure}
+
+Essa abordagem de comunicação assíncrona via filas permite que a plataforma Codeboard UERJ execute tarefas de forma eficiente e escalável, garantindo a confiabilidade e a consistência das operações realizadas.
+
 
 \subsubsection{Frontend}
 

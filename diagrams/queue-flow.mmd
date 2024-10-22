@@ -1,0 +1,27 @@
+sequenceDiagram
+    participant Cliente as Usuário
+    participant Servidor as Servidor
+    participant Fila
+    participant Worker
+    participant DLQ as Dead Letter Queue
+
+
+    Cliente-->>Servidor: disconnecting <br/> (Usuário desconectando)
+    Servidor-->>Fila: Envia mensagem
+    Worker-->>Fila: Verifica se há mensagens na fila
+    Fila-->>Worker: Recebe mensagem e a torna <br/> temporariamente invisivel
+    Worker-->>Worker: Executa operação
+
+    opt Sucesso
+        Worker-->>Fila: Remove mensagem da fila
+    end
+    opt Falha
+        loop Retry 3 vezes
+            Fila-->>Fila: Torna mensagem visivel 
+            Fila-->>Worker: Recebe mensagem e a torna <br/> temporariamente invisivel
+            
+        end
+        opt Falha nas tentativas
+            Worker-->>DLQ: Envia mensagem para DLQ
+        end
+    end
