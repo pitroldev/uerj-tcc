@@ -1,0 +1,27 @@
+graph TB
+    A[Tráfego de Entrada] --> B[Node.js Cluster / PM2]
+    
+    subgraph CPU1[CPU 1]
+        C1[Processo 1]
+    end
+
+    subgraph CPU2[CPU 2]
+        C2[Processo 2]
+    end
+
+    subgraph CPU3[CPU 3]
+        C3[Processo 3]
+    end
+
+    B --> CPU1
+    B --> CPU2
+    B --> CPU3
+
+    style A fill:#b3d1ff,stroke:#333,stroke-width:1px
+    style B fill:#b3ffb3,stroke:#333,stroke-width:1px
+    style CPU1 fill:#e6f2ff,stroke:#333,stroke-width:1px
+    style CPU2 fill:#e6f2ff,stroke:#333,stroke-width:1px
+    style CPU3 fill:#e6f2ff,stroke:#333,stroke-width:1px
+    style C1 fill:#ffcccc,stroke:#333,stroke-width:1px
+    style C2 fill:#ffcccc,stroke:#333,stroke-width:1px
+    style C3 fill:#ffcccc,stroke:#333,stroke-width:1px

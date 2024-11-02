@@ -1,0 +1,22 @@
+graph LR
+
+    REQ[Requisições<br/>HTTP]
+    LB{Algoritmo<br/>Round Robin}
+    SV1((Processo 1))
+    SV2((Processo 2))
+    SV3((Processo 3))
+
+    REQ --> LB
+    REQ --> LB
+    REQ --> LB
+    REQ --> LB
+    REQ --> LB
+    REQ --> LB
+
+    LB --Requisição 1---> SV1
+    LB --Requisição 2---> SV2
+    LB --Requisição 3---> SV3
+    LB --Requisição 4---> SV1
+    LB --Requisição 5---> SV2
+    LB --Requisição 6---> SV3
+

@@ -1,0 +1,23 @@
+sequenceDiagram
+    participant ELB as AWS ELB
+    participant Server as Instância EC2
+
+    ELB->>Server: Health Check Request (Timeout 5s)
+    alt Servidor responde dentro de 5s
+        Server-->>ELB: 200 OK
+        ELB->>ELB: Status: Healthy
+    else Servidor não responde ou erro > 5s
+        ELB->>Server: Retry 1 (Timeout 5s)
+        alt Server responde no Retry 1
+            Server-->>ELB: 200 OK
+            ELB->>ELB: Status: Healthy
+        else Servidor não responde ou erro no Retry 1
+            ELB->>Server: Retry 2 (Timeout 5s)
+            alt Server responde no Retry 2
+                Server-->>ELB: 200 OK
+                ELB->>ELB: Status: Healthy
+            else Servidor não responde ou erro no Retry 2
+                ELB->>ELB: Status: Unhealthy
+            end
+        end
+    end
