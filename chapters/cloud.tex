@@ -1,20 +1,16 @@
 % TODO: Falar sobre a infraestrutura cloud do front-end
 
-% TODO!: FALAR SOBRE AS MULTIPLAS REGIÕES GEOGRÁFICAS
-
-% TODO: Revisar com GPTero
-
 \section{Infraestrutura Cloud}
-% TODO: Explicar sobre o que será abordado nesse capítulo
 
-Neste capítulo, será apresentada a infraestrutura em nuvem utilizada para hospedar a plataforma Codeboard. Serão abordados os serviços de computação, banco de dados, controle de acesso, segurança, balanceamento de carga, escalabilidade, monitoramento, logs, gestão de incidentes, recuperação de desastres, entre outros. 
-
-A infraestrutura foi projetada para ser altamente disponível, com redundância em todas as camadas, de modo que a plataforma Codeboard possa suportar um grande número de usuários simultâneos sem interrupções. Além disso, a infraestrutura foi projetada para ser escalável, de modo que possa crescer ou diminuir de acordo com a demanda, sem a necessidade de intervenção manual.
+Neste capítulo, será detalhada a infraestrutura em nuvem empregada para hospedar a plataforma Codeboard. O foco será em como os serviços, práticas e tecnologias foram integrados para assegurar a alta disponibilidade, escalabilidade, segurança e desempenho da aplicação. A infraestrutura da Codeboard foi planejada para ser altamente disponível, incorporando redundância em todas as camadas, garantindo assim a capacidade de suportar um grande número de usuários simultâneos sem interrupções. Além disso, a arquitetura foi desenvolvida para ser dinamicamente escalável, permitindo que se adapte automaticamente às variações na demanda, minimizando a necessidade de ajustes manuais.
 
 \subsection{Visão Geral da Arquitetura Utilizada}
-% TODO: Rever
 
-Para garantir a alta disponibilidade e escalabilidade da plataforma Codeboard, a infraestrutura em nuvem do backend foi projetada para seguir o modelo \emph{Multi-Region Active-Active}\ref{multi-region-aa}, onde a aplicação é distribuída em várias regiões geográficas, de modo que, em caso de falha em uma região, o tráfego seja automaticamente redirecionado para outra região. A arquitetura em nuvem da plataforma Codeboard é composta por várias camadas, cada uma com um conjunto específico de serviços e funcionalidades. A Figura \ref{fig:cloud-architecture} demonstra a visão geral da arquitetura em nuvem da plataforma Codeboard. 
+A infraestrutura em nuvem da plataforma Codeboard adota o modelo \emph{Multi-Region Active-Active}, uma escolha estratégica para garantir alta disponibilidade, resiliência e escalabilidade global da aplicação. Este modelo permite que a aplicação seja distribuída por várias regiões geográficas, assegurando que, em caso de falha em uma região, o tráfego de usuários seja redirecionado automaticamente para outras regiões em operação. Esta abordagem não só maximiza a disponibilidade, mas também otimiza a experiência do usuário ao reduzir a latência através do balanceamento de carga geográficamente distribuído.
+
+O modelo Multi-Region Active-Active é particularmente eficaz para mitigar riscos como interrupções de serviço devido a falhas regionais, manutenções programadas e até mesmo ataques como DDoS. A escolha por esse modelo reflete o compromisso em entregar um serviço robusto e confiável, capaz de sustentar uma base de usuários diversificada e global.
+
+A arquitetura em nuvem da Codeboard é composta por várias camadas, cada uma projetada com um conjunto específico de serviços e funcionalidades que colaboram para alcançar nossos objetivos de disponibilidade e desempenho. A Figura \ref{fig:cloud-architecture} ilustra como esses componentes se interconectam, formando uma infraestrutura coesa e altamente eficiente.
 
 \begin{figure}[H]
     \centering
@@ -23,9 +19,10 @@ Para garantir a alta disponibilidade e escalabilidade da plataforma Codeboard, a
     \label{fig:cloud-architecture}
 \end{figure}
 
+Essas práticas e tecnologias não apenas promovem a alta disponibilidade e desempenho da aplicação, mas também preparam o ambiente para escalar rapidamente em resposta às demandas crescentes, tudo sem intervenção manual, alinhando-se com as melhores práticas de DevOps e com as demandas de uma aplicação moderna.
+
 
 \subsubsection{Planejamento de Infraestrutura}
-% TODO: Linkar melhor com active-active? Justificar sua escolha
 % Revisado
 
 O planejamento da infraestrutura da plataforma começou com a definição de requisitos e necessidades específicas da aplicação, que incluem:
@@ -36,12 +33,12 @@ O planejamento da infraestrutura da plataforma começou com a definição de req
     \item \textbf{Escalabilidade}: A plataforma deve suportar um grande número de usuários simultâneos, aumentando ou diminuindo seus recursos conforme a demanda.
     \item \textbf{Resiliência}: Codeboard precisa de mecanismos de recuperação automática frente a falhas de hardware ou software, sem impacto na experiência do usuário.
     \item \textbf{Custo-efetividade}: A infraestrutura deve ser otimizada para minimizar custos, evitando ociosidade de recursos.
-    \item \textbf{Facilidade de gerenciamento}: a infraestrutura deve ser simples de gerenciar, utilizando práticas de DevOps, como \emph{Infra-as-Code} (IaC) e \emph{Continuous Integration/Continuous Deployment} (CI/CD). % TODO: Abordar mais sobre a implantação da infraestrutura como código
+    \item \textbf{Facilidade de gerenciamento}: a infraestrutura deve ser simples de gerenciar, utilizando práticas de DevOps, como \emph{Infra-as-Code} (IaC).
     \item \textbf{Segurança}: A plataforma deve ser protegida contra ameaças e ataques cibernéticos.
     \item \textbf{Monitoramento}: A plataforma deve contar com métricas e logs para acompanhar desempenho e integridade.
 \end{itemize}
 
-A plataforma Codeboard foi hospedada na Amazon Web Services (AWS), uma escolha estratégica baseada em fatores como a ampla variedade de serviços, escalabilidade, confiabilidade e presença global de data centers. Utilizando a AWS, a Codeboard se beneficia de recursos essenciais para sua operação, como computação, armazenamento, banco de dados, redes, segurança e monitoramento. A infraestrutura global da AWS permite distribuir a aplicação em várias regiões, garantindo alta disponibilidade e baixa latência para os usuários. Além disso, o \emph{free tier} da AWS foi um diferencial importante, possibilitando o desenvolvimento e os testes iniciais sem custos significativos.
+A hospedagem na Amazon Web Services (AWS) tornou-se uma escolha estratégica devido à sua ampla variedade de serviços, escalabilidade, confiabilidade e presença global de data centers. A infraestrutura global da AWS habilita a arquitetura \emph{Multi-Region Active-Active}, crucial para atender aos requisitos de desempenho e disponibilidade descritos.  Além disso, o \emph{free tier} da AWS foi um diferencial importante, possibilitando o desenvolvimento e os testes iniciais sem custos significativos.
 
 Para atender a esses requisitos, foram escolhidos os seguintes serviços da AWS para compor a infraestrutura da plataforma Codeboard:
 
@@ -61,9 +58,19 @@ Para atender a esses requisitos, foram escolhidos os seguintes serviços da AWS 
 Essas escolhas de serviço atendem diretamente às necessidades de desempenho, segurança e custo, alinhando a infraestrutura às metas de alta disponibilidade e resiliência exigidas pela plataforma.
 
 
+\subsubsection{Implementação de Infraestrutura como Código com Terraform}
+% Revisado
+
+Para assegurar um processo de implantação de infraestrutura que seja eficiente, escalável e replicável, a plataforma Codeboard utiliza o \emph{Terraform} como ferramenta de \emph{Infrastructure as Code} (IaC). Terraform permite definir a infraestrutura como código, o que possibilita o versionamento, automação e repetibilidade do processo de provisão da infraestrutura em nuvem.
+
+Uma das principais vantagens do uso do Terraform é a capacidade de descrever toda a arquitetura em arquivos de configuração que podem ser facilmente armazenados, revisados e auditados. Ele utiliza sua própria linguagem, HCL (HashiCorp Configuration Language), que permite definir recursos da AWS, como instâncias EC2, balanceadores de carga, grupos de segurança e outros componentes necessários. O Terraform então interage diretamente com a API da AWS para provisionar e gerenciar esses recursos.
+
+Além disso, o uso do Terraform garante que a infraestrutura seja declarativa e idempotente, o que significa que recursos existentes não são recriados desnecessariamente a cada execução. Isso resulta em um gerenciamento mais eficiente dos recursos e em um controle de mudanças mais preciso. Foram estabelecidos módulos Terraform para tratar de diferentes aspectos da infraestrutura, como rede, segurança e recursos de computação, permitindo que seja possível trabalhar isoladamente em partes distintas da arquitetura sem necessidade de intervenção manual entre essas partes.
+
+
 \subsection{Infraestrutura de Computação}
 
-Tendo em vista que será utilizado o modelo \emph{Multi-Region Active-Active}, a infraestrutura de computação da plataforma Codeboard foi projetada para ser distribuída em várias regiões geográficas da AWS, de modo que, em caso de falha em uma região, o tráfego seja automaticamente redirecionado para outra região. A infraestrutura de computação é composta por instâncias EC2, balanceamento de carga, escalabilidade automática, controle de acesso e segurança, monitoramento, logs, gestão de incidentes, recuperação de desastres, entre outros.
+Dada a adoção do modelo \emph{Multi-Region Active-Active}, a infraestrutura de computação da Codeboard foi arquitetada para operar de maneira distribuída através de diferentes regiões geográficas da AWS. Essa abordagem garante, além de uma resposta eficiente a eventuais falhas regionais, uma proximidade maior com os usuários, o que ajuda a reduzir a latência. A infraestrutura de computação integra múltiplos componentes, incluindo instâncias EC2, balanceamento de carga, escalabilidade automática, monitoramento, e diversos mecanismos para segurança e recuperação de falhas, criando um ambiente robusto que sustenta a operação contínua e eficiente da plataforma Codeboard.
 
 \subsubsection{Servidor Virtual}
 % Revisado
@@ -274,7 +281,7 @@ Para assegurar a segurança dos dados em trânsito, um certificado SSL foi confi
 \subsubsection{Configuração da CDN}
 % Como a CDN foi configurada?
 
-\subsection{Monitoramento, Logs e Gestão de Incidentes}
+\subsection{Monitoramento}
 % Como o monitoramento é feito?
 
 \subsubsection{Monitoramento da Aplicação}
