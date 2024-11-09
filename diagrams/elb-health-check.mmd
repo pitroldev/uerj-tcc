@@ -6,17 +6,17 @@ sequenceDiagram
     alt Servidor responde dentro de 5s
         Server-->>ELB: 200 OK
         ELB->>ELB: Status: Healthy
-    else Servidor não responde ou erro > 5s
+    else Falha -> Retry 1
         ELB->>Server: Retry 1 (Timeout 5s)
-        alt Server responde no Retry 1
+        alt Servidor responde dentro de 5s
             Server-->>ELB: 200 OK
             ELB->>ELB: Status: Healthy
-        else Servidor não responde ou erro no Retry 1
+        else Falha -> Retry 2
             ELB->>Server: Retry 2 (Timeout 5s)
-            alt Server responde no Retry 2
+            alt Servidor responde dentro de 5s
                 Server-->>ELB: 200 OK
                 ELB->>ELB: Status: Healthy
-            else Servidor não responde ou erro no Retry 2
+            else Servidor não responde ou erro
                 ELB->>ELB: Status: Unhealthy
             end
         end

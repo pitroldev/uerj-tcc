@@ -2,13 +2,11 @@ sequenceDiagram
     participant PM2 as PM2 (Monitoramento de Saúde)
     participant App as Processo de Aplicação
 
-    loop Monitoramento Contínuo
-        PM2->>App: Verifica Saúde
-        alt Falha Detectada
-            App->>PM2: Falha ou Travamento
-            PM2->>App: Reinicialização Automática
-            App->>PM2: Reiniciado com Sucesso
-        else Sem Falhas
-            App->>PM2: Status OK
-        end
+    Note over PM2, App: PM2 verifica a saúde da<br/>aplicação continuamente
+    alt Falha Detectada
+        App->>PM2: Falha ou Travamento
+        PM2->>App: Reinicialização Automática
+        App->>PM2: Reiniciado com Sucesso
+    else Sem Falhas
+        App->>PM2: Status OK
     end

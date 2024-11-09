@@ -2,15 +2,17 @@
 
 % TODO!: FALAR SOBRE AS MULTIPLAS REGIÕES GEOGRÁFICAS
 
+% TODO: Revisar com GPTero
 
 \section{Infraestrutura Cloud}
-% Explicar sobre o que será abordado nesse capítulo
+% TODO: Explicar sobre o que será abordado nesse capítulo
 
 Neste capítulo, será apresentada a infraestrutura em nuvem utilizada para hospedar a plataforma Codeboard. Serão abordados os serviços de computação, banco de dados, controle de acesso, segurança, balanceamento de carga, escalabilidade, monitoramento, logs, gestão de incidentes, recuperação de desastres, entre outros. 
 
 A infraestrutura foi projetada para ser altamente disponível, com redundância em todas as camadas, de modo que a plataforma Codeboard possa suportar um grande número de usuários simultâneos sem interrupções. Além disso, a infraestrutura foi projetada para ser escalável, de modo que possa crescer ou diminuir de acordo com a demanda, sem a necessidade de intervenção manual.
 
-\subsection{Visão Geral da Arquitetura em Nuvem}
+\subsection{Visão Geral da Arquitetura Utilizada}
+% TODO: Rever
 
 Para garantir a alta disponibilidade e escalabilidade da plataforma Codeboard, a infraestrutura em nuvem do backend foi projetada para seguir o modelo \emph{Multi-Region Active-Active}\ref{multi-region-aa}, onde a aplicação é distribuída em várias regiões geográficas, de modo que, em caso de falha em uma região, o tráfego seja automaticamente redirecionado para outra região. A arquitetura em nuvem da plataforma Codeboard é composta por várias camadas, cada uma com um conjunto específico de serviços e funcionalidades. A Figura \ref{fig:cloud-architecture} demonstra a visão geral da arquitetura em nuvem da plataforma Codeboard. 
 
@@ -22,65 +24,77 @@ Para garantir a alta disponibilidade e escalabilidade da plataforma Codeboard, a
 \end{figure}
 
 
-\subsubsection{Provedor de Serviços Cloud}
-
-A plataforma Codeboard foi hospedada na Amazon Web Services (AWS), um dos principais provedores de serviços em nuvem do mercado. A escolha da AWS foi baseada em vários fatores, como a ampla gama de serviços oferecidos, a escalabilidade e a confiabilidade da plataforma, a presença global de data centers, a familiaridade com a AWS, entre outros. A AWS oferece uma variedade de serviços de computação, armazenamento, banco de dados, rede, segurança, monitoramento, entre outros, que são essenciais para a operação da plataforma Codeboard. Além disso, a AWS possui uma vasta rede de data centers em todo o mundo, o que permite a distribuição da aplicação em várias regiões geográficas para garantir alta disponibilidade e baixa latência para os usuários. O \emph{free tier} da AWS também foi um fator importante na escolha da plataforma, pois permite que a plataforma Codeboard seja iniciada sem custos significativos durante o desenvolvimento e testes iniciais.
-
-
 \subsubsection{Planejamento de Infraestrutura}
-O planejamento da infraestrutura da plataforma se iniciou com o levantamento dos requisitos e necessidades da aplicação, sendo eles os seguintes:
+% TODO: Linkar melhor com active-active? Justificar sua escolha
+% Revisado
+
+O planejamento da infraestrutura da plataforma começou com a definição de requisitos e necessidades específicas da aplicação, que incluem:
 
 \begin{itemize}
-    \item \textbf{Baixa latência}: a plataforma Codeboard, por ser uma aplicação em tempo real, precisa de baixa latência para garantir uma experiência de usuário fluida e responsiva.
-    \item \textbf{Alta disponibilidade}: a plataforma Codeboard deve estar disponível 24 horas por dia, 7 dias por semana, sem interrupções, mesmo durante atualizações e manutenções.
-    \item \textbf{Escalabilidade}: a plataforma Codeboard deve ser capaz de suportar um grande número de usuários simultâneos, crescendo ou diminuindo seus recursos de acordo com a demanda.
-    \item \textbf{Resiliência}: a plataforma Codeboard deve ser capaz de se recuperar automaticamente de falhas de hardware ou software, sem afetar a experiência do usuário.
-    \item \textbf{Recuperação de desastres}: a plataforma Codeboard deve ser resiliente a falhas e desastres, de modo que a operação seja mantida mesmo em caso de falhas em uma região geográfica do provedor de nuvem.
-    \item \textbf{Custo-efetividade}: a infraestrutura da plataforma Codeboard deve ser otimizada para minimizar os custos operacionais, evitando recursos ociosos e desnecessários.
-    \item \textbf{Facilidade de gerenciamento}: a infraestrutura da plataforma Codeboard deve ser fácil de gerenciar e manter, sendo implementada com boas práticas de DevOps e automação, como \emph{Infra-as-Code} (IaC) e \emph{Continuous Integration/Continuous Deployment} (CI/CD).
-    \item \textbf{Segurança}: a plataforma Codeboard deve ser segura e protegida contra ameaças e ataques cibernéticos.
-    \item \textbf{Conformidade}: a plataforma Codeboard deve estar em conformidade com as regulamentações e padrões de segurança da indústria.
-    \item \textbf{Monitoramento}: a plataforma Codeboard deve possuir métricas e logs para monitorar o desempenho e a integridade da aplicação. 
+    \item \textbf{Baixa latência}: Para assegurar uma experiência de usuário fluida e responsiva em tempo real, a plataforma Codeboard precisa operar com baixa latência.
+    \item \textbf{Alta disponibilidade}: Codeboard deve estar acessível 24/7, garantindo operação contínua, mesmo durante atualizações e manutenções.
+    \item \textbf{Escalabilidade}: A plataforma deve suportar um grande número de usuários simultâneos, aumentando ou diminuindo seus recursos conforme a demanda.
+    \item \textbf{Resiliência}: Codeboard precisa de mecanismos de recuperação automática frente a falhas de hardware ou software, sem impacto na experiência do usuário.
+    \item \textbf{Custo-efetividade}: A infraestrutura deve ser otimizada para minimizar custos, evitando ociosidade de recursos.
+    \item \textbf{Facilidade de gerenciamento}: a infraestrutura deve ser simples de gerenciar, utilizando práticas de DevOps, como \emph{Infra-as-Code} (IaC) e \emph{Continuous Integration/Continuous Deployment} (CI/CD). % TODO: Abordar mais sobre a implantação da infraestrutura como código
+    \item \textbf{Segurança}: A plataforma deve ser protegida contra ameaças e ataques cibernéticos.
+    \item \textbf{Monitoramento}: A plataforma deve contar com métricas e logs para acompanhar desempenho e integridade.
 \end{itemize}
 
-Com base nos requisitos e necessidades da plataforma Codeboard, foram escolhidos os seguintes serviços da AWS para compor a infraestrutura da aplicação:
+A plataforma Codeboard foi hospedada na Amazon Web Services (AWS), uma escolha estratégica baseada em fatores como a ampla variedade de serviços, escalabilidade, confiabilidade e presença global de data centers. Utilizando a AWS, a Codeboard se beneficia de recursos essenciais para sua operação, como computação, armazenamento, banco de dados, redes, segurança e monitoramento. A infraestrutura global da AWS permite distribuir a aplicação em várias regiões, garantindo alta disponibilidade e baixa latência para os usuários. Além disso, o \emph{free tier} da AWS foi um diferencial importante, possibilitando o desenvolvimento e os testes iniciais sem custos significativos.
+
+Para atender a esses requisitos, foram escolhidos os seguintes serviços da AWS para compor a infraestrutura da plataforma Codeboard:
 
 \begin{itemize}
-    \item Amazon Elastic Compute Cloud (EC2): serviço de computação em nuvem que fornece instâncias virtuais escaláveis e seguras para executar a aplicação.
-    \item Amazon Elastic Load Balancing (ELB): serviço de balanceamento de carga que distribui o tráfego entre várias instâncias EC2 para garantir alta disponibilidade e escalabilidade.
-    \item AWS Auto Scaling: serviço de escalabilidade automática que ajusta automaticamente a capacidade das instâncias EC2 com base na demanda.
-    % \item Amazon DocumentDB: serviço de banco de dados NoSQL que fornece instâncias gerenciadas de bancos de dados MongoDB.
-    % \item Amazon ElastiCache: serviço de cache em memória que fornece instâncias gerenciadas de Redis.
-    \item Amazon Virtual Private Cloud (VPC): serviço de rede virtual que permite a criação de sub-redes privadas, gateways de internet, regras de firewall, entre outros.
-    \item Amazon Route 53: serviço de DNS que permite a configuração de registros de DNS, balanceamento de carga, failover, entre outros.
-    \item Amazon CloudWatch: serviço de monitoramento e observabilidade que fornece métricas, logs e alarmes para monitorar a saúde e o desempenho da aplicação.
-    \item AWS Identity and Access Management (IAM): serviço de controle de acesso e segurança que permite a criação de usuários, grupos, políticas, papéis, entre outros.
-    \item AWS Certificate Manager (ACM): serviço de gerenciamento de certificados SSL/TLS que permite a criação, renovação e implantação de certificados SSL/TLS.
+    \item \textbf{Amazon Elastic Compute Cloud (EC2)}: Fornece instâncias virtuais escaláveis e seguras para execução da aplicação.
+    \item \textbf{Amazon Elastic Load Balancing (ELB)}: Distribui o tráfego entre instâncias EC2, garantindo alta disponibilidade e escalabilidade.
+    \item \textbf{AWS Auto Scaling}: Ajusta automaticamente a capacidade das instâncias EC2 conforme a demanda.
+    % \item \textbf{Amazon DocumentDB}: serviço de banco de dados NoSQL que fornece instâncias gerenciadas de bancos de dados MongoDB.
+    % \item \textbf{Amazon ElastiCache}: serviço de cache em memória que fornece instâncias gerenciadas de Redis.
+    \item \textbf{Amazon Virtual Private Cloud (VPC)}: Cria uma rede virtual com sub-redes privadas, gateways de internet e regras de firewall.
+    \item \textbf{Amazon Route 53}: Configura registros de DNS, oferece balanceamento de carga entre regiões geográficas e failover.
+    \item \textbf{Amazon CloudWatch}: Proporciona métricas, logs e alarmes para monitorar a saúde e o desempenho da aplicação.
+    \item \textbf{AWS Identity and Access Management (IAM)}: Gerencia o controle de acesso, permitindo a criação de usuários, grupos e políticas.
+    \item \textbf{AWS Certificate Manager (ACM)}: Facilita a criação, renovação e implantação de certificados SSL/TLS para segurança de dados.
 \end{itemize}
+
+Essas escolhas de serviço atendem diretamente às necessidades de desempenho, segurança e custo, alinhando a infraestrutura às metas de alta disponibilidade e resiliência exigidas pela plataforma.
+
 
 \subsection{Infraestrutura de Computação}
 
 Tendo em vista que será utilizado o modelo \emph{Multi-Region Active-Active}, a infraestrutura de computação da plataforma Codeboard foi projetada para ser distribuída em várias regiões geográficas da AWS, de modo que, em caso de falha em uma região, o tráfego seja automaticamente redirecionado para outra região. A infraestrutura de computação é composta por instâncias EC2, balanceamento de carga, escalabilidade automática, controle de acesso e segurança, monitoramento, logs, gestão de incidentes, recuperação de desastres, entre outros.
 
-\subsubsection{Máquinas Virtuais}
+\subsubsection{Servidor Virtual}
+% Revisado
 
-Para hospedar a aplicação da plataforma Codeboard, foram escolhidas instâncias EC2 do tipo \emph{t3.micro}, ela é uma instancia ideal para o estudo de caso pelos seguintes motivos: 
+Para hospedar a aplicação da plataforma Codeboard, foram escolhidas instâncias EC2 do tipo \emph{t3.micro}, adequadas ao estudo de caso pelos seguintes motivos: 
 
 \begin{itemize}
-    \item \textbf{Custo}: as instâncias \emph{t3.micro} são parte do \emph{free tier} da AWS, o que significa que elas são gratuitas durante os primeiros 12 meses de uso.
-    \item \textbf{Performance Escalável}: as instâncias \emph{t3.micro} possuem a capacidade de burst, o que significa que elas podem fornecer mais recursos de CPU temporariamente quando necessário, sem custos adicionais.
-    \item \textbf{2 vCPUs}: as instâncias \emph{t3.micro} possuem 2 vCPUs, que é o mínimo recomendado para a aplicação da plataforma Codeboard, que será executada em um \emph{cluster} de processos, onde cada processo é uma aplicação Node.js que é responsável pelo backend.
-    \item \textbf{1 GB de memória RAM}: as instâncias \emph{t3.micro} possuem 1 GB de memória RAM, que é mais que suficiente para a aplicação da plataforma Codeboard, que é leve e não requer muitos recursos de memória devido a sua natureza de ser um intermediário de mensagens em tempo real.
-    \item \textbf{Armazenamento em disco SSD}: as instâncias \emph{t3.micro} possuem armazenamento em disco SSD, que é mais rápido e confiável do que o armazenamento em disco magnético. Por mais que a aplicação da plataforma Codeboard não faça uso intensivo de disco, o armazenamento em disco SSD acaba sendo um benefício adicional.
+    \item \textbf{Custo}: As instâncias t3.micro fazem parte do \emph{free tier} da AWS, oferecendo 12 meses de uso gratuito, o que torna essa opção financeiramente viável para a fase inicial do projeto.
+    \item \textbf{Desempenho Escalável}: Com capacidade de burst, essas instâncias podem fornecer recursos adicionais de CPU temporariamente, sem custos extras, atendendo a picos de demanda.
+    \item \textbf{2 vCPUs}: As instâncias t3.micro possuem 2 vCPUs, que é o mínimo recomendado para a aplicação da plataforma Codeboard, que opera em um \emph{cluster} de processos, onde cada processo é uma aplicação Node.js que é responsável pelo backend.
+    \item \textbf{1 GB de memória RAM}: A memória de 1 GB é adequada para a Codeboard, pois sua função de intermediação de mensagens em tempo real requer um baixo consumo de memória.
+    \item \textbf{Armazenamento em disco SSD}: Embora a Codeboard não faça uso intensivo de disco, o armazenamento SSD nas instâncias t3.micro oferece maior velocidade e confiabilidade, beneficiando a estabilidade do sistema.
 \end{itemize}
 
-As instâncias EC2 foram configuradas com o sistema operacional \emph{Ubuntu 20.04 LTS}, o servidor web \emph{NGINX}, o gerenciador de processos \emph{PM2} e entre outras ferramentas. O Ubuntu 20.04 LTS foi escolhido por ser uma distribuição Linux estável e de longo prazo, com suporte a atualizações de segurança de longo prazo. O NGINX foi escolhido como servidor web reverso para redirecionar o tráfego HTTPS para o processo Node.js, que é responsável pela aplicação da plataforma Codeboard. O PM2 foi escolhido como gerenciador de processos para manter os processos Node.js em execução e reiniciá-los automaticamente em caso de falha. 
+As instâncias EC2 foram configuradas com o sistema operacional \emph{Ubuntu 24.04 LTS}, o servidor web \emph{NGINX}, o gerenciador de processos \emph{PM2} e entre outras ferramentas. A escolha do Ubuntu 24.04 LTS deve-se à sua estabilidade e suporte de longo prazo para atualizações de segurança. O NGINX atua como um servidor web reverso, redirecionando o tráfego HTTPS para os processos Node.js que executam a Codeboard. Já o PM2 gerencia esses processos, mantendo-os ativos e reiniciando automaticamente em caso de falhas.
 
-\subsubsection{Balanceamento de Carga entre Processos e Tolerancia à Falhas de Processos}
+\subsection{Balanceamento de Carga, Escalabilidade e Recuperação de Falhas}
+% Revisado
 
-Como a aplicação da plataforma Codeboard é executada em um \emph{cluster} de processos, foi necessário implementar um balanceamento de carga entre os processos para distribuir o tráfego de entrada de forma equilibrada e eficiente. Para isso, o PM2 foi configurado com o modo \emph{cluster}, que cria vários processos Node.js que compartilham o mesmo \emph{socket} de rede, permitindo que o NGINX redirecione o tráfego entre eles. O NGINX foi configurado com o módulo \emph{proxy\_pass} para redirecionar o tráfego HTTP para o processo Node.js, que é responsável pela aplicação da plataforma Codeboard. 
+A arquitetura da plataforma Codeboard foi projetada com uma estratégia de balanceamento de carga, escalabilidade e recuperação de falhas que abrange múltiplos níveis de operação, assegurando alta disponibilidade, baixa latência e resiliência. Esta seção apresenta a abordagem utilizada para distribuir de forma eficiente o tráfego e garantir que a aplicação responda de maneira otimizada, mesmo em cenários de alta demanda ou falhas inesperadas.
 
-O algoritimo de balanceamento de carga configurado é o \emph{Round Robin}, que distribui o tráfego de entrada de forma alternada entre os processos do \emph{cluster}, garantindo que todos os processos recebam uma quantidade igual de requisições. A Figura \ref{fig:round-robin-load-balancing} demonstra o funcionamento do algoritmo Round Robin e a Figura \ref{fig:pm2-cluster-mode} demonstra o funcionamento do modo \emph{cluster} do PM2.
+Em primeiro lugar, o balanceamento de carga entre processos permite uma distribuição equitativa das requisições entre processos individuais da aplicação, garantindo o uso eficiente dos recursos da instância. Para lidar com o tráfego em servidores múltiplos, foi configurado um segundo nível de balanceamento de carga que distribui as requisições entre instâncias EC2 da AWS, de modo que a aplicação possa escalar horizontalmente conforme a demanda. Por fim, para maximizar a disponibilidade global e reduzir a latência para usuários em diferentes localidades, foi implementado um balanceamento de carga geográfico entre regiões da AWS, utilizando o Route 53 para redirecionar o tráfego para a região mais próxima do usuário.
+
+Além disso, mecanismos de recuperação automática de falhas foram configurados em cada nível. Esses mecanismos monitoram continuamente a saúde dos processos e das instâncias, substituindo automaticamente recursos que falhem e garantindo a continuidade da aplicação. Essa estrutura multissetorial de balanceamento e recuperação permite que a plataforma Codeboard mantenha uma operação robusta e confiável, capaz de lidar com flutuações de carga e com interrupções inesperadas.
+
+\subsubsection{Balanceamento de Carga entre Processos}
+% Revisado
+
+A aplicação Codeboard opera em um \emph{cluster} de processos, o que torna o balanceamento de carga essencial para distribuir o tráfego de entrada de maneira eficiente. Para isso, o PM2 foi configurado no modo cluster, permitindo a criação de múltiplos processos Node.js que compartilham o mesmo \emph{socket} de rede. Dessa forma, o NGINX redireciona o tráfego entre os processos por meio do módulo \emph{proxy\_pass}, que envia as requisições HTTP para o processo Node.js que executa a Codeboard.
+
+O algoritimo de balanceamento de carga utilizado é o \emph{Round Robin}, que distribui o tráfego de entrada de forma alternada entre os processos do cluster, assegurando que cada processo receba uma quantidade igual de solicitações. A Figura \ref{fig:round-robin-load-balancing} ilustra o funcionamento do algoritmo Round Robin, enqunato a Figura \ref{fig:pm2-cluster-mode} mostra o modo cluster do PM2 em ação.
 
 \begin{figure}[H]
     \centering
@@ -96,9 +110,15 @@ O algoritimo de balanceamento de carga configurado é o \emph{Round Robin}, que 
     \label{fig:pm2-cluster-mode}
 \end{figure}
 
-O balanceamento de carga entre os processos garante que os recursos de CPU e memória sejam utilizados de forma eficiente, distribuindo a carga de trabalho de forma equilibrada entre os vCPUs disponíveis nas instâncias EC2. Além disso, o balanceamento de carga entre os processos aumenta a disponibilidade e a confiabilidade da aplicação, pois, em caso de falha em um processo, o tráfego é automaticamente redirecionado para outro processo, sem interrupções para os usuários.
+O balanceamento de carga entre processos otimiza o uso dos recursos de CPU e memória, distribuindo a carga de trabalho de maneira uniforme entre os vCPUs das instâncias EC2, garantindo um desempenho estável e eficiente.
 
-Para garantir a tolerância à falhas e a alta disponibilidade da aplicação, foram configurados, no PM2, mecanismos de monitoramento e recuperação de falhas, que monitora os processos Node.js e os reinicia automaticamente em caso de falha. A Figura \ref{fig:pm2-fault-tolerance} demonstra como o PM2 monitora os processos Node.js e os reinicia em caso de falha.
+\subsubsection{Recuperação Automática de Falhas em Processos}
+% Revisado
+
+O balanceamento de carga entre processos também contribui para a alta disponibilidade e confiabilidade da aplicação. Em caso de falha de um dos processos, o tráfego é automaticamente redirecionado para outros, evitando interrupções para os usuários.
+
+Para reforçar a tolerância a falhas e garantir a alta disponibilidade, foram configurados no PM2 mecanismos de monitoramento e recuperação automática. Esse monitoramento verifica continuamente os processos Node.js e, ao detectar uma falha, reinicia o processo comprometido. A Figura\ref{fig:pm2-fault-tolerance} ilustra o funcionamento do monitoramento e recuperação de falhas pelo PM2, garantindo que a aplicação permaneça em funcionamento mesmo diante de falhas pontuais.
+
 
 \begin{figure}[H]
     \centering
@@ -107,30 +127,22 @@ Para garantir a tolerância à falhas e a alta disponibilidade da aplicação, f
     \label{fig:pm2-fault-tolerance}
 \end{figure}
 
-\subsubsection{Controle de Acesso e Segurança}
 
-Para garantir a segurança da infraestrutura de computação da plataforma Codeboard, foram implementadas várias políticas de segurança, como:
+\subsubsection{Balanceamento de Carga entre os Servidores}
+% Revisado
 
-\begin{itemize}
-    \item \textbf{AWS Identity and Access Management (IAM)}: foram criados políticas e papéis no IAM para controlar o acesso aos recursos da AWS. Utilizando permissões restritas para as instâncias EC2, permitindo apenas as ações necessárias para a execução da aplicação, de acordo com o princípio do menor privilégio. % TODO?: Possível Referência?
-    \item \textbf{Firewall}: foram configuradas regras de firewall no \emph{Security Group} da VPC para restringir o tráfego de entrada e saída para as instâncias EC2. Foram permitidas apenas as portas necessárias para o funcionamento da aplicação. Com exceção da porta 80 (HTTP) e a porta 22 (SSH) que é aberta apenas para os endereços IP autorizados, todas as outras portas entrantes são bloqueadas.
-    \item \textbf{Chaves SSH}: foram criadas chaves SSH para autenticação de usuários durante o acesso remoto às instâncias EC2. 
-\end{itemize}
+A infraestrutura de computação da plataforma Codeboard foi projetada para ser distribuída e redundante, assegurando que o tráfego seja balanceado entre várias instâncias EC2 e entre diferentes regiões geográficas. Para essa finalidade, utilizou-se o AWS Elastic Load Balancing (ELB), que distribui o tráfego de entrada de forma equilibrada entre as instâncias, garantindo alta disponibilidade e escalabilidade da aplicação.
 
-As instâncias EC2 não são acessadas diretamente, elas recebem o tráfego de entrada através do balanceamento de carga do ELB, que distribui o tráfego de forma equilibrada entre as instâncias EC2. Nele foi configurado um certificado SSL para garantir a criptografia do tráfego entre o cliente e o servidor, garantindo a segurança dos dados em trânsito. O ELB também foi configurado com um \emph{Security Group} para restringir o tráfego de entrada, permitindo apenas a porta 443 (HTTPS) e para o tráfego de entrada.
+Entre os tipos de ELB disponíveis, como o Application Load Balancer (ALB), Network Load Balancer (NLB) e Classic Load Balancer (CLB), escolheu-se o ALB. Esse balanceador de camada 7 permite o roteamento de tráfego com base em critérios específicos, como URL, cabeçalhos HTTP e métodos HTTP. O ALB foi configurado com um certificado SSL para assegurar a segurança do tráfego HTTPS entre clientes e servidores.
 
-\subsubsection{Balanceamento de Carga entre Máquinas Virtuais}
+O algoritmo de balanceamento de carga adotado foi o \emph{Round Robin}, que distribui o tráfego de forma equitativa entre as instâncias EC2, garantindo uma divisão equilibrada de requisições.
 
-A infraestrutura de computação da plataforma Codeboard foi projetada para ser altamente distribuída e redundante, de modo que o tráfego seja distribuído entre várias instâncias EC2 em diferentes regiões geográficas. Para isso, foi configurado um balanceamento de carga entre as instâncias EC2, utilizando o serviço AWS Elastic Load Balancing (ELB). O ELB distribui o tráfego de entrada de forma equilibrada entre as instâncias EC2, garantindo alta disponibilidade e escalabilidade da aplicação.
 
-Existem vários tipos de ELB disponíveis na AWS, como o Application Load Balancer (ALB), Network Load Balancer (NLB) e Classic Load Balancer (CLB). Para a plataforma Codeboard, foi escolhido o Application Load Balancer (ALB), que é um balanceador de carga de camada 7 que opera no nível de aplicação, permitindo o roteamento de tráfego com base em regras de conteúdo, como URL, cabeçalhos HTTP, métodos HTTP, entre outros. O ALB foi configurado com um certificado SSL para garantir a segurança do tráfego HTTPS entre o cliente e o servidor.
+% TODO: Voltar no capítulo 3 para explicar a importância do Health Check? Testar se a conexão com o banco de dados está funcionando, se a aplicação está respondendo, etc.
 
-O algoritmo de balanceamento de carga utilizado pelo ELB foi configurado como \emph{Round Robin}, que distribui o tráfego de entrada de forma equilibrada entre as instâncias EC2, garantindo que todas as instâncias recebam uma quantidade igual de requisições. 
+Para garantir que apenas instâncias saudáveis recebam tráfego, foram configurados \emph{Health Checks} para monitorar a saúde das instâncias EC2. Os Health Checks realizam verificações periódicas em uma rota específica da aplicação Codeboard, permitindo que o ELB detecte se cada instância está respondendo corretamente. Se uma instância não responder adequadamente ao Health Check, o ELB a marca como indisponível e redireciona o tráfego para outras instâncias saudáveis.
 
-% TODO?: Voltar no capítulo 3 para explicar a importância do Health Check? Testar se a conexão com o banco de dados está funcionando, se a aplicação está respondendo, etc.
-Para garantir que apenas instâncias saudáveis recebam tráfego, foram configurados \emph{Health Checks} para monitorar a saúde das instâncias EC2. Health Checks são verificações periódicas que o ELB realiza em cada instância para garantir que ela esteja saudável e pronta para receber tráfego. Uma rota de Health Check foi implementada na aplicação da plataforma Codeboard, de modo que o ELB possa verificar se a aplicação está respondendo corretamente. Se uma instância falhar no Health Check, o ELB a marca como indisponível e redireciona o tráfego para outras instâncias saudáveis. 
-
-O Health Check foi configurado com um intervalo de tempo de 30 segundos e um tempo limite de 5 segundos, o que significa que o ELB verifica a saúde de cada instância a cada 30 segundos e espera uma resposta em até 5 segundos. Se uma instância falhar no Health Check por 2 vezes consecutivas, ela é marcada como indisponível e o tráfego é redirecionado para outras instâncias saudáveis. A Figura \ref{fig:elb-health-check} demonstra como funciona o Health Check do ELB.
+Configurou-se o Health Check com um intervalo de 30 segundos e um tempo limite de 5 segundos, o que significa que o ELB realiza uma verificação a cada 30 segundos e aguarda uma resposta dentro de 5 segundos. Após duas falhas consecutivas, a instância é marcada como indisponível e o tráfego é redirecionado para outras instâncias saudáveis. A Figura \ref{fig:elb-health-check} ilustra o funcionamento do Health Check do ELB.
 
 \begin{figure}[H]
     \centering
@@ -140,11 +152,12 @@ O Health Check foi configurado com um intervalo de tempo de 30 segundos e um tem
 \end{figure}
 
 
-\subsubsection{Escalabilidade Horizontal e Recuperação Automática de Falhas}
+\subsubsection{Escalabilidade Horizontal com Auto Scaling}
+% Revisado
 
-Como um dos requisitos da plataforma Codeboard é a alta disponibilidade, a infraestrutura de computação foi projetada para ser escalável horizontalmente, de modo que a aplicação possa aumentar ou diminuir seus recursos acordo com a demanda, sem a necessidade de intervenção manual. Para isso, foi configurado o serviço AWS Auto Scaling, que ajusta automaticamente a quantidade de instâncias EC2 com base na demanda.
+Para garantir a alta disponibilidade da plataforma Codeboard, a infraestrutura foi projetada para escalar horizontalmente, permitindo que a aplicação aumente ou reduza seus recursos de acordo com a demanda, sem necessidade de intervenção manual. Essa escalabilidade automática foi implementada com o AWS Auto Scaling, que ajusta a quantidade de instâncias EC2 com base na utilização de recursos.
 
-O Auto Scaling foi implementado com um Auto Scaling Group (ASG) que monitora a utilização da CPU das instâncias EC2 e ajusta a quantidade de instâncias com base em uma política de escalabilidade. Foram definidos gatilhos de escalabilidade para aumentar ou diminuir a quantidade de instâncias com base na utilização da CPU. Se a utilização da CPU de uma instância ultrapassar um determinado limite por um período de tempo, o ASG adiciona uma nova instância para distribuir a carga de trabalho. Se a utilização da CPU de uma instância cair abaixo de um determinado limite por um período de tempo, o ASG remove a instância para economizar custos. Além disso, ele foi configurado com um número mínimo e máximo de instâncias para garantir que os custos sejam controlados e um nível mínimo de capacidade seja mantido. A Figura \ref{fig:auto-scaling-horizontal-scalability} demonstra como funciona a escalabilidade horizontal com o Auto Scaling.
+O Auto Scaling utiliza um Auto Scaling Group (ASG) para monitorar a utilização de CPU nas instâncias EC2 e ajustar a quantidade de instâncias conforme uma política de escalabilidade. Definiram-se gatilhos específicos: quando a utilização de CPU ultrapassa um limite predefinido, uma nova instância é adicionada ao grupo, distribuindo melhor a carga. Inversamente, se a utilização de CPU cair abaixo de um limite, o ASG reduz o número de instâncias, otimizando custos. Foi configurado um número mínimo e máximo de instâncias, garantindo um custo controlado e uma capacidade mínima sempre disponível. A Figura \ref{fig:auto-scaling-horizontal-scalability} ilustra essa escalabilidade horizontal com o Auto Scaling.
 
 \begin{figure}[H]
     \centering
@@ -153,9 +166,12 @@ O Auto Scaling foi implementado com um Auto Scaling Group (ASG) que monitora a u
     \label{fig:auto-scaling-horizontal-scalability}
 \end{figure}
 
-Os valores de configuração dos gatilhos de escabilidade foram decididos arbitrariamente, com base em testes e observações do comportamento da aplicação. Foi definido um limite de 70\% de utilização da CPU para adicionar uma nova instância e um limite de 30\% de utilização da CPU para remover uma instância. Além disso, foi definido um número mínimo de 1 instância e um número máximo de 5 instâncias em execução. Esses valores podem ser ajustados conforme necessário, com base em previsões de tráfego, sazonalidade, eventos especiais, entre outros.
+Os limites de gatilhos de escalabilidade foram definidos com base em testes e monitoramento da aplicação, estabelecendo 70\% de uso de CPU para adicionar uma nova instância e 30\% para removê-la. Os valores de instâncias mínima e máxima foram configurados entre 1 e 5, podendo ser ajustáveis conforme previsões de tráfego, sazonalidade e eventos especiais.
 
-O Auto Scaling também foi configurado com um mecanismo de recuperação automática de falhas, que monitora a saúde das instâncias EC2 e as substitui em caso de falha. Se uma instância falhar no Health Check e for marcada como indisponível pelo ELB, o Auto Scaling a substitui por uma nova instância saudável, garantindo que a aplicação permaneça disponível e resiliente a falhas. A combinação do Auto Scaling com o ELB e o PM2 garante que a aplicação da plataforma Codeboard seja altamente disponível, escalável e resiliente a falhas. A Figura \ref{fig:auto-scaling-fault-tolerance} demonstra como funciona a recuperação automática de falhas com o Auto Scaling.
+\subsubsection{Recuperação Automática de Falhas em Servidores}
+% Revisado
+
+O Auto Scaling do AWS também possui um mecanismo de recuperação automática de falhas, que monitora continuamente a saúde das instâncias EC2. Quando uma instância é marcada como indisponível pelo ELB (por falhar em um Health Check), o Auto Scaling substitui automaticamente a instância defeituosa por uma nova, garantindo que a aplicação da plataforma Codeboard permaneça sempre disponível e resiliente a falhas. Essa combinação de Auto Scaling, ELB e PM2 resulta em uma arquitetura altamente disponível, escalável e confiável. A Figura \ref{fig:auto-scaling-fault-tolerance} ilustra o funcionamento da recuperação automática de falhas com o Auto Scaling.
 
 \begin{figure}[H]
     \centering
@@ -163,6 +179,51 @@ O Auto Scaling também foi configurado com um mecanismo de recuperação automá
     \caption{Recuperação Automática de Falhas com Auto Scaling}
     \label{fig:auto-scaling-fault-tolerance}
 \end{figure}
+
+Durante a inicialização de uma nova instância, o Auto Scaling aplica um \emph{warmup time} de 180 segundos, período necessário para que a instância esteja completamente operacional. Nesse tempo, são realizadas tarefas como configuração da instância, inicialização da aplicação e estabelecimento de conexões com o banco de dados. Durante o warmup time, a instância permanece indisponível para o ELB, e o tráfego é direcionado para outras instâncias saudáveis. Após o término do warmup, a instância é marcada como disponível e começa a receber tráfego. Esse warmup time ajuda a evitar interrupções na aplicação, garantindo que apenas instâncias totalmente preparadas participem da distribuição de carga.
+
+
+\subsubsection{Balanceamento de Carga entre Regiões Geográficas}
+% Revisado
+
+A infraestrutura da plataforma Codeboard foi projetada para operar em várias regiões geográficas da AWS, permitindo distribuição do tráfego de usuários entre essas regiões para assegurar alta disponibilidade e baixa latência. Essa configuração de várias regiões não só oferece resiliência em caso de falhas regionais (devido a desastres naturais, falhas de hardware, ou manutenção programada), mas também aproxima a aplicação dos usuários, o que reduz a latência e aprimora a experiência de uso.
+
+Para essa distribuição de tráfego entre regiões, foi configurado o Amazon Route 53, o serviço de DNS da AWS que também oferece balanceamento de carga e failover. Um registro de DNS foi criado para a aplicação da plataforma Codeboard no Route 53, o qual direciona o tráfego para o ELB de cada região geográfica. Devido à natureza de comunicação em tempo real da plataforma, o Route 53 foi configurado com balanceamento de carga baseado em latência, de forma que redireciona o tráfego para a região geográfica mais próxima do usuário, garantindo uma experiência rápida e eficiente. A Figura \ref{fig:route-53-geographic-load-balancing} demonstra o funcionamento do balanceamento de carga baseado em latência do Route 53.
+
+% TODO: Criar diagrama do Route 53 com balanceamento de carga baseado em latência
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=\textwidth]{diagrams/route-53-geographic-load-balancing.png}
+%     \caption{Balanceamento de Carga Baseado em Latência com Route 53}
+%     \label{fig:route-53-geographic-load-balancing}
+% \end{figure}
+
+\subsection{Segurança da Infraestrutura}
+% Revisado
+
+A segurança da infraestrutura é um aspecto essencial para garantir a proteção dos dados e a continuidade das operações da plataforma Codeboard. Nesta seção, são discutidas as medidas de segurança implementadas para prevenir acesso não autorizado, proteger o tráfego de dados e garantir a confiabilidade da infraestrutura. Essas práticas abrangem desde o controle de acesso aos recursos de computação até a aplicação de criptografia de dados, assegurando a integridade e a privacidade das informações dos usuários. 
+
+\subsubsection{Controle de Acesso}
+% Revisado
+
+Para proteger a infraestrutura computacional da plataforma Codeboard, várias políticas de segurança foram implementadas, incluindo:
+
+\begin{itemize}
+    \item \textbf{AWS Identity and Access Management (IAM)}: políticas e papéis no IAM foram criados para controlar o acesso aos recursos da AWS, aplicando o princípio do menor privilégio. As instâncias EC2, por exemplo, possuem permissões restritas, limitadas apenas às ações necessárias para o funcionamento da aplicação.
+    \item \textbf{Firewall}: regras de firewall foram configuradas no \emph{Security Group} da VPC para restringir o tráfego de entrada e saída das instâncias EC2. Somente as portas essenciais para a aplicação estão abertas: a porta 80 (HTTP) é acessível apenas pelo ELB, enquanto a porta 22 (SSH) está disponível exclusivamente para IPs autorizados. Todas as demais portas de entrada são bloqueadas.
+    \item \textbf{Chaves SSH}: chaves SSH foram geradas para garantir a autenticação segura de usuários no acesso remoto às instâncias EC2.
+\end{itemize}
+
+Além disso, as instâncias EC2 não são acessadas diretamente; o tráfego de entrada passa pelo ELB, que distribui as conexões de forma uniforme. O ELB está configurado com um certificado SSL para garantir a criptografia do tráfego entre cliente e servidor, protegendo os dados em trânsito. Seu Security Group permite apenas o tráfego de entrada na porta 443 (HTTPS).
+
+\subsubsection{Criptografia de Dados em Trânsito}
+% Revisado
+
+A criptografia de dados em trânsito é uma técnica que protege as informações enquanto são transferidas entre diferentes pontos de uma rede, como entre o navegador de um usuário e um servidor. Ao criptografar esses dados, evita-se que terceiros consigam interceptá-los e acessá-los sem autorização, garantindo que apenas o remetente e o destinatário possam interpretá-los. Essa medida é fundamental para proteger a privacidade dos usuários e a integridade das informações, especialmente em plataformas que processam dados sensíveis, evitando problemas como roubo de informações e ataques de espionagem.
+
+Para assegurar a segurança dos dados em trânsito, um certificado SSL foi configurado no ELB para criptografar o tráfego entre o cliente e o servidor. Esse certificado, emitido pelo AWS Certificate Manager (ACM), é gratuito e gerenciado, sendo adequado para serviços da AWS. A configuração inclui um domínio personalizado da plataforma Codeboard, disponível em https://codeboard.pitrol.dev/, o que garante a autenticidade e a integridade das conexões HTTPS. Com isso, a criptografia dos dados em trânsito protege contra interceptações e garante a privacidade e a segurança dos usuários.
+
+% TODO?: \subsubsection{Rotatividade de Chaves e Segredos}
 
 \subsection{Banco de Dados MongoDB}
 
@@ -198,17 +259,8 @@ O Auto Scaling também foi configurado com um mecanismo de recuperação automá
 % Como o controle de acesso foi configurado?
 % Quais são as políticas de segurança?
 
-\subsection{Estrutura de Subnets e Controle de Acesso à Rede}
+% \subsection{Estrutura de Subnets e Controle de Acesso à Rede}
 
-\subsection{Controle de Tráfego}
-
-\subsubsection{Configurações de DNS}
-% Como o DNS é configurado? Para onde ele aponta?
-% Como o tráfego é controlado? Como é feito o balanceamento de carga?
-
-\subsubsection{Balanceamento de Carga entre Regiões}
-
-\subsubsection{Configurações de SSL}
 
 \subsection{Distribuição de Conteúdo (CDN)}
 % Por que usar Vercel ao invés de outro?
@@ -235,7 +287,7 @@ O Auto Scaling também foi configurado com um mecanismo de recuperação automá
 
 \subsubsection{Monitoramento de Logs}
 
-\subsubsection{Gestão de Incidentes}
+% \subsubsection{Gestão de Incidentes}
 % Como os incidentes são gerenciados?
 % Quais alertas são configurados?
 

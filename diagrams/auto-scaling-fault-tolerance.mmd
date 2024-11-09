@@ -5,12 +5,12 @@ sequenceDiagram
     Note over AutoScalingGroup, EC2: Auto Scaling verifica a saúde das instâncias periodicamente
 
     alt Instância está saudável
-        EC2-->>AutoScalingGroup: Status Healthy
+        EC2-->>AutoScalingGroup: Status: Healthy
         AutoScalingGroup->>EC2: Mantém a instância em execução
     else Instância falha o health check
-        EC2-->>AutoScalingGroup: Status Unhealthy
+        EC2-->>AutoScalingGroup: Status: Unhealthy
         AutoScalingGroup->>EC2: Lança uma nova instância para substituir a instância com falha
         AutoScalingGroup->>EC2: Termina a instância com falha
     end
 
-    Note over AutoScalingGroup: Garante o número desejado de<br/>instâncias saudáveis
+    Note over AutoScalingGroup, EC2: Auto Scaling garante o número desejado de instâncias saudáveis

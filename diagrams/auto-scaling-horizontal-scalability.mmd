@@ -3,7 +3,7 @@ sequenceDiagram
     participant AutoScalingGroup as Auto Scaling Group
     participant EC2 as Instâncias EC2
 
-    Note over CloudWatch: Monitora a utilização da CPU 
+    Note over CloudWatch, EC2: Monitora a utilização da CPU das instâncias EC2
 
     alt Utilização de CPU > 70%
         CloudWatch-->>AutoScalingGroup: Alerta de alta utilização (CPU > 70%)
@@ -13,4 +13,4 @@ sequenceDiagram
         AutoScalingGroup->>EC2: Remove uma instância EC2<br/>(mínimo de 1 instância)
     end
 
-    Note over AutoScalingGroup: Limites configurados:<br/>1 a 5 instâncias
+    Note over EC2, AutoScalingGroup: Limites configurados:<br/>1 a 5 instâncias
