@@ -1,5 +1,3 @@
-% TODO: Falar sobre a infraestrutura cloud do front-end
-
 \section{Infraestrutura Cloud}
 
 Neste capítulo, será detalhada a infraestrutura em nuvem empregada para hospedar a plataforma Codeboard. O foco será em como os serviços, práticas e tecnologias foram integrados para assegurar a alta disponibilidade, escalabilidade, segurança e desempenho da aplicação. A infraestrutura da Codeboard foi planejada para ser altamente disponível, incorporando redundância em todas as camadas, garantindo assim a capacidade de suportar um grande número de usuários simultâneos sem interrupções. Além disso, a arquitetura foi desenvolvida para ser dinamicamente escalável, permitindo que se adapte automaticamente às variações na demanda, minimizando a necessidade de ajustes manuais.
@@ -197,13 +195,12 @@ A infraestrutura da plataforma Codeboard foi projetada para operar em várias re
 
 Para essa distribuição de tráfego entre regiões, foi configurado o Amazon Route 53, o serviço de DNS da AWS que também oferece balanceamento de carga e failover. Um registro de DNS foi criado para a aplicação da plataforma Codeboard no Route 53, o qual direciona o tráfego para o ELB de cada região geográfica. Devido à natureza de comunicação em tempo real da plataforma, o Route 53 foi configurado com balanceamento de carga baseado em latência, de forma que redireciona o tráfego para a região geográfica mais próxima do usuário, garantindo uma experiência rápida e eficiente. A Figura \ref{fig:route-53-geographic-load-balancing} demonstra o funcionamento do balanceamento de carga baseado em latência do Route 53.
 
-% TODO: Criar diagrama do Route 53 com balanceamento de carga baseado em latência
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=\textwidth]{diagrams/route-53-geographic-load-balancing.png}
-%     \caption{Balanceamento de Carga Baseado em Latência com Route 53}
-%     \label{fig:route-53-geographic-load-balancing}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{diagrams/route-53-geographic-load-balancing.png}
+    \caption{Balanceamento de Carga Baseado em Latência com Route 53}
+    \label{fig:route-53-geographic-load-balancing}
+\end{figure}
 
 \subsection{Segurança da Infraestrutura}
 % Revisado
@@ -270,6 +267,7 @@ Para assegurar a segurança dos dados em trânsito, um certificado SSL foi confi
 
 
 \subsection{Distribuição de Conteúdo (CDN)}
+% TODO: Falar sobre a infraestrutura cloud do front-end
 % Por que usar Vercel ao invés de outro?
 % Vercel é um PaaS, por que escolher um PaaS ao invés de um IaaS?
 

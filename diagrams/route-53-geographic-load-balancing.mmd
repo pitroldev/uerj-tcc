@@ -1,0 +1,30 @@
+flowchart TD
+    A[Usuário] -->|Requisição DNS| B[Amazon Route 53]
+
+    B -->|Consulta de Latência| C1[Endpoint Reg. US East]
+    B -->|Consulta de Latência| C2[Endpoint Reg. EU West]
+    B -->|Consulta de Latência| C3[Endpoint Reg. AP Southeast]
+
+    subgraph Regiões
+        C1
+        C2
+        C3
+    end
+
+    C1 -->|Resposta com menor latência| D1[Serviço em US East]
+    C2 -->|Resposta com latência maior| D2[Serviço em EU West]
+    C3 -->|Resposta com latência maior| D3[Serviço em AP Southeast]
+
+    subgraph Recursos
+        D1
+        D2
+        D3
+    end
+
+    style B fill:#1E90FF,stroke:#000,stroke-width:2px
+    style C1 fill:#00FF7F,stroke:#32CD32,stroke-width:2px
+    style C2 fill:#F08080
+    style C3 fill:#F08080
+    style D1 fill:#FFD700,stroke:#32CD32,stroke-width:2px
+    style D2 fill:#FFD700
+    style D3 fill:#FFD700
