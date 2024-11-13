@@ -230,15 +230,26 @@ Para assegurar a segurança dos dados em trânsito, um certificado SSL foi confi
 % TODO?: \subsubsection{Rotatividade de Chaves e Segredos}
 
 \subsection{Banco de Dados MongoDB}
+% TODO: Rever?
 
-\subsubsection{Provedor de Banco de Dados}
-% Onde o banco de dados está hospedado?
-% Benefícios de usar MongoDB Atlas ao invés de um banco de dados local
+Para armazenar e gerenciar os dados da plataforma Codeboard, foi utilizado o banco de dados NoSQL MongoDB, que oferece flexibilidade, escalabilidade e desempenho para aplicações modernas. Existem diversas opções para hospedar um banco de dados MongoDB, como instalação local, máquinas virtuais, contêineres Docker e serviços gerenciados em nuvem. Para a Codeboard, optou-se por utilizar o MongoDB Atlas, um serviço de banco de dados gerenciado pela própria MongoDB, que oferece uma infraestrutura robusta, escalável e segura para hospedar bancos de dados MongoDB na nuvem.
+
+Por mais que o MongoDB Atlas seja um serviço gerenciado pela própria MongoDB, a infraestrutura do MongoDB Atlas é alocada dentro da AWS, o que garante alta disponibilidade, escalabilidade e segurança dos dados. O MongoDB Atlas oferece uma série de recursos e funcionalidades, como backups automáticos, monitoramento em tempo real, escalabilidade vertical e horizontal, criptografia de dados em repouso e em trânsito, e integração com outras ferramentas da AWS.
+
+Foi escolhido a instância \emph{M10} do MongoDB Atlas, que oferece 2 GB de armazenamento e 0,5 GB de RAM, suficiente para atender às necessidades iniciais da aplicação. Essa instância é escalável, o que significa que pode ser facilmente ajustada para atender a demandas crescentes de armazenamento e processamento de dados. 
+% A infraestrutura do MongoDB Atlas foi configurada para garantir alta disponibilidade e recuperação de desastres, com replicação de dados em múltiplas zonas de disponibilidade e backups automáticos diários.
 
 \subsubsection{Escalabilidade Vertical Automática}
 % Por que usar escalabilidade vertical ao invés de horizontal? (custo, complexidade, etc)
 % Como a escalabilidade vertical foi configurada?
 % Quais são os gatilhos para aumentar ou diminuir a capacidade do banco de dados?
+
+Assim como a aplicação da Codeboard, o banco de dados MongoDB também precisa ser escalável para atender às demandas crescentes de armazenamento e processamento de dados. No MongoDB Atlas, a escalabilidade vertical é uma opção viável para aumentar a capacidade de armazenamento e desempenho do banco de dados sem a necessidade de intervenção manual. A escalabilidade vertical é uma abordagem mais simples e direta, que consiste em aumentar a capacidade de recursos de uma única instância, como CPU, memória e armazenamento.
+
+A escolha pela escalabilidade vertical em vez da horizontal foi motivada pela baixa utilização de recursos do banco de dados MongoDB, que não justificava a complexidade e o custo adicional da escalabilidade horizontal. Utilizando gatilhos configurados no MongoDB Atlas, a capacidade do banco de dados é ajustada automaticamente com base na utilização de recursos. Quando a utilização de CPU ou memória ultrapassa um limite predefinido, o MongoDB Atlas aumenta a capacidade da instância, adicionando mais recursos. Da mesma forma, se a utilização de recursos cai abaixo de um limite, a capacidade é reduzida para otimizar custos. A Figura \ref{fig:mongodb-atlas-vertical-scalability} ilustra a escalabilidade vertical automática do MongoDB Atlas.
+
+% TODO: Diagrama de escalabilidade vertical do MongoDB Atlas
+
 
 \subsubsection{Backup e Recuperação de Dados}
 % Como os backups são feitos?
