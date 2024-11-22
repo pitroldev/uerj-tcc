@@ -1,0 +1,18 @@
+sequenceDiagram
+    participant User1 as Usuários<br/>(Brasil)
+    participant Server1 as Servidor 1<br/>(Brasil)
+    participant Redis as Redis Server<br/>(Global)
+    participant Server2 as Servidor 2<br/>(EUA)
+    participant User2 as Usuários<br/>(EUA)
+
+    User1->>Server1: Envia atualização no código
+    Server1->>Redis: Publica no canal
+    Redis-->>Server1: Confirma recebimento
+    par Atualização propagada
+        Redis-->>Server1: Propaga atualização 
+        Server1-->>User1: Notifica com a atualização
+    end
+    par Atualização propagada
+        Redis-->>Server2: Propaga atualização 
+        Server2-->>User2: Notifica com a atualização
+    end

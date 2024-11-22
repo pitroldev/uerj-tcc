@@ -1,0 +1,16 @@
+sequenceDiagram
+    participant Metrics as Monitor de Métricas
+    participant Atlas as MongoDB Atlas
+    participant DB as Banco de Dados
+
+    Note over Metrics, DB: Monitoramento contínuo da utilização de recursos do banco de dados
+
+    alt Utilização de CPU ou Memória > 80%
+        Metrics-->>Atlas: Alerta de alta utilização (CPU/Memória > 80%)
+        Atlas->>DB: Escala verticalmente (e.g., M10 → M20)
+    else Utilização de CPU ou Memória < 40%
+        Metrics-->>Atlas: Alerta de baixa utilização (CPU/Memória < 40%)
+        Atlas->>DB: Reduz verticalmente (e.g., M20 → M10)
+    end
+
+    Note over DB, Atlas: Limites configurados:<br/>M10 a M40

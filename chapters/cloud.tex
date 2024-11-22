@@ -1,6 +1,7 @@
 \section{Infraestrutura Cloud}
+% Revisado
 
-Neste capítulo, será detalhada a infraestrutura em nuvem empregada para hospedar a plataforma Codeboard. O foco será em como os serviços, práticas e tecnologias foram integrados para assegurar a alta disponibilidade, escalabilidade, segurança e desempenho da aplicação. A infraestrutura da Codeboard foi planejada para ser altamente disponível, incorporando redundância em todas as camadas, garantindo assim a capacidade de suportar um grande número de usuários simultâneos sem interrupções. Além disso, a arquitetura foi desenvolvida para ser dinamicamente escalável, permitindo que se adapte automaticamente às variações na demanda, minimizando a necessidade de ajustes manuais.
+Neste capítulo, será apresentada a infraestrutura em nuvem utilizada para hospedar a plataforma Codeboard. O foco estará na integração de serviços, práticas e tecnologias que asseguram alta disponibilidade, escalabilidade, segurança e desempenho da aplicação. A infraestrutura foi projetada com redundância em todas as camadas, garantindo suporte a um grande número de usuários simultâneos sem interrupções. Além disso, a arquitetura foi concebida para ser escalável de forma dinâmica, adaptando-se automaticamente às variações de demanda e reduzindo a necessidade de intervenções manuais.
 
 \subsection{Visão Geral da Arquitetura Utilizada}
 
@@ -230,87 +231,160 @@ Para assegurar a segurança dos dados em trânsito, um certificado SSL foi confi
 % TODO?: \subsubsection{Rotatividade de Chaves e Segredos}
 
 \subsection{Banco de Dados MongoDB}
-% TODO: Rever?
+% Revisado
 
-Para armazenar e gerenciar os dados da plataforma Codeboard, foi utilizado o banco de dados NoSQL MongoDB, que oferece flexibilidade, escalabilidade e desempenho para aplicações modernas. Existem diversas opções para hospedar um banco de dados MongoDB, como instalação local, máquinas virtuais, contêineres Docker e serviços gerenciados em nuvem. Para a Codeboard, optou-se por utilizar o MongoDB Atlas, um serviço de banco de dados gerenciado pela própria MongoDB, que oferece uma infraestrutura robusta, escalável e segura para hospedar bancos de dados MongoDB na nuvem.
+O banco de dados escolhido para a plataforma Codeboard foi o MongoDB, uma solução NoSQL amplamente utilizada por sua flexibilidade, escalabilidade e alto desempenho em aplicações modernas. Diversas abordagens poderiam ser adotadas para hospedar o MongoDB, incluindo instalações locais, máquinas virtuais, contêineres Docker e serviços gerenciados na nuvem. No caso da Codeboard, optou-se pelo \emph{MongoDB Atlas}, um serviço gerenciado pela própria MongoDB que opera sobre infraestruturas robustas como a AWS, Google Cloud Platform e Microsoft Azure.
 
-Por mais que o MongoDB Atlas seja um serviço gerenciado pela própria MongoDB, a infraestrutura do MongoDB Atlas é alocada dentro da AWS, o que garante alta disponibilidade, escalabilidade e segurança dos dados. O MongoDB Atlas oferece uma série de recursos e funcionalidades, como backups automáticos, monitoramento em tempo real, escalabilidade vertical e horizontal, criptografia de dados em repouso e em trânsito, e integração com outras ferramentas da AWS.
+Essa escolha trouxe diversas vantagens, incluindo alta disponibilidade, escalabilidade e segurança integradas. O MongoDB Atlas proporciona funcionalidades como backups automáticos, monitoramento em tempo real, escalabilidade ajustável e criptografia de dados em trânsito e em repouso, além de integração com outros serviços da AWS. Para atender às necessidades iniciais da aplicação, foi selecionada a instância \emph{M10}, que oferece 2 GB de armazenamento e 0,5 GB de RAM, com suporte a escalabilidade para acomodar futuras demandas.
 
-Foi escolhido a instância \emph{M10} do MongoDB Atlas, que oferece 2 GB de armazenamento e 0,5 GB de RAM, suficiente para atender às necessidades iniciais da aplicação. Essa instância é escalável, o que significa que pode ser facilmente ajustada para atender a demandas crescentes de armazenamento e processamento de dados. 
-% A infraestrutura do MongoDB Atlas foi configurada para garantir alta disponibilidade e recuperação de desastres, com replicação de dados em múltiplas zonas de disponibilidade e backups automáticos diários.
+A adoção do MongoDB Atlas permite que a equipe foque no desenvolvimento da aplicação, enquanto a gestão do banco de dados é simplificada por meio de recursos automatizados, garantindo a robustez e a eficiência no gerenciamento dos dados da plataforma.
+
 
 \subsubsection{Escalabilidade Vertical Automática}
-% Por que usar escalabilidade vertical ao invés de horizontal? (custo, complexidade, etc)
-% Como a escalabilidade vertical foi configurada?
-% Quais são os gatilhos para aumentar ou diminuir a capacidade do banco de dados?
+% Revisado
 
-Assim como a aplicação da Codeboard, o banco de dados MongoDB também precisa ser escalável para atender às demandas crescentes de armazenamento e processamento de dados. No MongoDB Atlas, a escalabilidade vertical é uma opção viável para aumentar a capacidade de armazenamento e desempenho do banco de dados sem a necessidade de intervenção manual. A escalabilidade vertical é uma abordagem mais simples e direta, que consiste em aumentar a capacidade de recursos de uma única instância, como CPU, memória e armazenamento.
+O banco de dados MongoDB da plataforma Codeboard foi configurado para escalar verticalmente de maneira automática, garantindo que possa atender ao crescimento das demandas de forma eficiente. A escalabilidade vertical consiste em aumentar os recursos de uma única instância, como CPU, memória e armazenamento, sem a necessidade de configurar múltiplas réplicas ou lidar com a complexidade da escalabilidade horizontal.
 
-A escolha pela escalabilidade vertical em vez da horizontal foi motivada pela baixa utilização de recursos do banco de dados MongoDB, que não justificava a complexidade e o custo adicional da escalabilidade horizontal. Utilizando gatilhos configurados no MongoDB Atlas, a capacidade do banco de dados é ajustada automaticamente com base na utilização de recursos. Quando a utilização de CPU ou memória ultrapassa um limite predefinido, o MongoDB Atlas aumenta a capacidade da instância, adicionando mais recursos. Da mesma forma, se a utilização de recursos cai abaixo de um limite, a capacidade é reduzida para otimizar custos. A Figura \ref{fig:mongodb-atlas-vertical-scalability} ilustra a escalabilidade vertical automática do MongoDB Atlas.
+A escolha pela escalabilidade vertical, em vez da horizontal, foi fundamentada por duas razões principais:
+\begin{enumerate}
+    \item \textbf{Custo e Complexidade}: A escalabilidade horizontal envolve a distribuição de dados e cargas de trabalho entre múltiplas instâncias, o que requer configurações avançadas e ferramentas específicas, como sharding. Para um banco de dados com baixa utilização de recursos, a escalabilidade horizontal representaria um custo desnecessário e maior complexidade operacional.
+    \item \textbf{Adequação ao Escopo Atual}: O uso inicial da instância M10 do MongoDB Atlas, com 2 GB de armazenamento e 0,5 GB de RAM, provou ser suficiente para as necessidades da aplicação. No entanto, a escalabilidade vertical automática garante que, conforme a demanda cresça, a infraestrutura acompanhe esse crescimento sem interrupções.
+\end{enumerate}
 
-% TODO: Diagrama de escalabilidade vertical do MongoDB Atlas
+O MongoDB Atlas permite configurar a escalabilidade vertical de forma automática, ajustando a capacidade da instância com base na utilização de recursos. Os gatilhos predefinidos monitoram métricas de desempenho, como:
+\begin{itemize}
+    \item \textbf{CPU}: Se a utilização ultrapassar um limite definido (e.g., 80\%) por um período contínuo, a capacidade da instância é aumentada automaticamente.
+    \item \textbf{Memória}: Um uso persistente acima de uma faixa segura dispara o aumento de recursos.
+    \item \textbf{Armazenamento}: Quando o espaço disponível atinge um limite crítico (e.g., 85\%), a capacidade de armazenamento é ampliada.
+\end{itemize}
 
 
-\subsubsection{Backup e Recuperação de Dados}
-% Como os backups são feitos?
-% Como os backups são armazenados?
+Da mesma forma, a escalabilidade vertical também reduz a capacidade da instância quando os recursos são subutilizados, ajudando a otimizar custos operacionais sem sacrificar o desempenho. A Figura \ref{fig:mongodb-atlas-vertical-scalability} ilustra o funcionamento da escalabilidade vertical automática configurada no MongoDB Atlas.
 
-\subsubsection{Controle de Acesso e Segurança}
-% Como o controle de acesso foi configurado?
-% Quais são as políticas de segurança?
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{diagrams/mongodb-atlas-vertical-scalability.png}
+    \caption{Escalabilidade Vertical Automática no MongoDB Atlas}
+    \label{fig:mongodb-atlas-vertical-scalability}
+\end{figure} 
+
+Os benefícios da escalabilidade vertical automática no MongoDB Atlas são diversos e contribuem significativamente para a eficiência operacional da plataforma Codeboard, diminuindo a complexidade, reduzindo custos e automatizando o gerenciamento de recursos do banco de dados. Essa abordagem garante que o banco esteja sempre preparado para atender às demandas crescentes da aplicação, sem a necessidade de interrupções ou intervenções manuais.
+
+
+\subsubsection{Backup, Controle de Acesso e Segurança de Dados}
+% Revisado
+
+Para atender aos requisitos de segurança e confiabilidade da plataforma Codeboard, foi implementada uma estratégia robusta que abrange tanto o gerenciamento de backups quanto o controle de acesso ao banco de dados e a proteção dos dados em trânsito e em repouso.
+
+Os backups automáticos realizados pelo MongoDB Atlas garantem a preservação e recuperação de dados em caso de falhas ou perdas acidentais, com uma política de retenção que permite a restauração para pontos no tempo ao longo de 14 dias. Adicionalmente, backups sob demanda oferecem flexibilidade para proteger os dados em momentos críticos, como antes de atualizações ou mudanças significativas.
+
+No que diz respeito à segurança, políticas rigorosas de controle de acesso foram implementadas para restringir conexões não autorizadas. Isso inclui o uso de \emph{Whitelists} de IPs e autenticação com credenciais específicas para diferentes níveis de permissão. Além disso, a criptografia de dados, tanto em trânsito quanto em repouso, protege contra interceptações e acessos indevidos, utilizando tecnologias SSL e armazenamento seguro no MongoDB Atlas.
+
+Essas medidas asseguram que os dados da plataforma permaneçam seguros, disponíveis e protegidos contra uma ampla gama de riscos e ameaças.
 
 \subsection{Banco de dados Redis}
+% Revisado
+
+O Redis desempenha um papel crucial na infraestrutura da plataforma Codeboard, servindo como um banco de dados chave-valor em memória de alta performance. Sua velocidade, simplicidade e capacidade de escalabilidade o tornam ideal para atender às necessidades de aplicações que exigem processamento rápido de dados em tempo real, como é o caso da Codeboard. Nesta seção, serão explorados os detalhes de sua configuração, os benefícios de utilizar uma solução gerenciada e as práticas implementadas para garantir a segurança, disponibilidade e desempenho do banco de dados.
 
 \subsubsection{Provedor de Banco de Dados}
-% Onde o banco de dados está hospedado?
-% Benefícios de usar Redis ao invés de um banco de dados local
+% Revisado
+
+O banco de dados Redis da plataforma Codeboard está hospedado no \emph{Redis Cloud}, uma solução gerenciada pela própria Redis. Essa escolha foi motivada pela robustez e confiabilidade do serviço, que elimina a necessidade de gerenciamento manual da infraestrutura de banco de dados, além de oferecer recursos avançados como monitoramento, backup e suporte técnico especializado.
+
+O Redis Cloud proporciona uma infraestrutura otimizada para alta disponibilidade e desempenho, com suporte a escalabilidade automática para lidar com variações de carga. Além disso, o uso de uma solução gerenciada permite que a equipe foque no desenvolvimento e na operação da aplicação, ao invés de dedicar tempo e recursos ao gerenciamento do banco de dados.
 
 \subsubsection{Sharding e Replicação}
-% Por que usar escalabilidade horizontal ao invés de vertical? (disponibilidade, latência, etc)
-% Como o sharding foi configurado?
-% Como a replicação foi configurada?
+% Revisado
+
+Para garantir alta disponibilidade e baixa latência, o Redis foi configurado com sharding e replicação. A abordagem de escalabilidade horizontal, baseada no sharding, distribui os dados entre múltiplas réplicas em diferentes nós, permitindo que o banco de dados suporte um grande volume de transações simultâneas sem comprometer o desempenho.
+
+O sharding foi configurado de forma automática pelo Redis Cloud, que gerencia a alocação de dados e o balanceamento de carga entre shards. Já a replicação assegura a resiliência do sistema, criando réplicas secundárias de cada shard. Em caso de falha de um nó, o Redis Cloud promove automaticamente uma réplica para substituí-lo, garantindo continuidade no serviço.
 
 \subsubsection{Controle de Acesso e Segurança}
-% Como o controle de acesso foi configurado?
-% Quais são as políticas de segurança?
+% Revisado
 
-% \subsection{Estrutura de Subnets e Controle de Acesso à Rede}
+A segurança do banco de dados Redis foi configurada com foco em prevenir acessos não autorizados e proteger os dados transmitidos. As políticas de controle de acesso incluem autenticação por senha e restrições baseadas em IP, permitindo conexões apenas de hosts autorizados. Essa abordagem reduz significativamente o risco de acessos externos indevidos.
+
+Para garantir a proteção dos dados em trânsito, o tráfego entre os clientes e o Redis é criptografado utilizando TLS, prevenindo interceptações e acessos maliciosos.
+
+Dado o papel do Redis na plataforma Codeboard, que é utilizado principalmente para dados temporários, não foram configurados backups automáticos. Os dados críticos da aplicação são armazenados no MongoDB, que conta com backups automáticos e políticas de retenção robustas. Essa estratégia assegura que, mesmo em caso de perda de dados no Redis, eles possam ser facilmente regenerados sem impacto significativo na operação.
 
 
 \subsection{Distribuição de Conteúdo (CDN)}
-% TODO: Falar sobre a infraestrutura cloud do front-end
-% Por que usar Vercel ao invés de outro?
-% Vercel é um PaaS, por que escolher um PaaS ao invés de um IaaS?
+% Revisado
 
-\subsubsection{Plataforma de Distribuição de Conteúdo}
-% Por que usar Vercel ao invés de outro?
-% O que é CDN e por que é importante?
-% Benefícios de usar CDN
+Uma \emph{Content Delivery Network} (CDN) é uma rede de servidores distribuídos geograficamente que trabalham em conjunto para entregar conteúdos da web com rapidez e eficiência. Ao armazenar cópias dos arquivos em locais próximos aos usuários finais, uma CDN reduz o tempo de carregamento, diminui a carga no servidor de origem e melhora a experiência do usuário.
+
+\subsubsection{Plataforma de CDN}
+% Revisado
+
+A utilização de uma CDN desempenha um papel essencial na entrega rápida e eficiente do front-end da plataforma Codeboard. A infraestrutura foi implementada utilizando a plataforma \emph{Vercel}, que combina os benefícios de uma CDN global com recursos de plataforma como serviço (PaaS), otimizando a experiência dos usuários finais.
+
+O uso da CDN integrada ao Vercel traz diversos benefícios, incluindo:
+
+\begin{itemize}
+    \item Redução de latência: Ao distribuir o conteúdo para servidores localizados próximos aos usuários, o tempo de resposta é minimizado.
+    \item Alta disponibilidade: A CDN utiliza redundância para garantir que os conteúdos estejam sempre acessíveis, mesmo em caso de falhas em servidores específicos.
+    \item Escalabilidade automática: A infraestrutura da CDN lida automaticamente com picos de tráfego, assegurando desempenho consistente.
+    \item Segurança aprimorada: Recursos como mitigação de DDoS e controle de acesso a nível de borda ajudam a proteger a plataforma contra ataques.
+\end{itemize}
 
 \subsubsection{Configuração da CDN}
-% Como a CDN foi configurada?
+% Revisado
+
+No contexto da Codeboard, a configuração da CDN foi simplificada pela utilização do Vercel. A plataforma automaticamente gerencia o cache de conteúdo estático e implementa o cache dinâmico conforme necessário, baseado nos cabeçalhos de resposta configurados na aplicação. Regras de invalidade de cache são aplicadas automaticamente durante os deploys, garantindo que os usuários sempre acessem a versão mais recente da aplicação.
+
+Além disso, a CDN do Vercel está totalmente integrada com o sistema de build e deploy contínuos, sincronizando alterações no front-end com a rede de distribuição em tempo real. Essa abordagem garante alta performance e agilidade no lançamento de novas funcionalidades.
+
 
 \subsection{Monitoramento}
-% Como o monitoramento é feito?
+% Revisado
+
+% Por que monitoramento é importante? R: Garantir a disponibilidade, desempenho e segurança da aplicação, atuando proativamente para evitar falhas e interrupções.
+
+O monitoramento é um elemento crítico para garantir a disponibilidade, o desempenho e a segurança da aplicação. Por meio do acompanhamento contínuo de métricas e logs, é possível identificar e mitigar problemas proativamente, antes que causem interrupções ou degradação no serviço. Esta seção detalha como o monitoramento é implementado na plataforma Codeboard, abrangendo tanto a aplicação quanto os recursos de infraestrutura em nuvem.
 
 \subsubsection{Monitoramento da Aplicação}
-% Como o monitoramento da aplicação é feito?
-% Quais métricas são monitoradas?
+% Revisado
+
+% Como o monitoramento da aplicação é feito? R: CloudWatch
+% Quais métricas são monitoradas? R: Requisições, logs de erros, etc.
+
+O monitoramento da aplicação é realizado utilizando o \emph{Amazon CloudWatch}, um serviço nativo da AWS que permite coletar, analisar e agir com base em dados e logs de desempenho. As métricas monitoradas incluem:
+
+\begin{itemize}
+    \item \textbf{Requisições}: Número de requisições recebidas, permitindo analisar padrões de tráfego e identificar possíveis gargalos.
+    \item \textbf{Logs de erros}: Registro de falhas e exceções capturados em tempo real, possibilitando a identificação de problemas no código ou na infraestrutura.
+    \item \textbf{Latência}: Tempo médio de resposta das requisições, monitorando a eficiência da aplicação e identificando possíveis pontos de melhoria.
+\end{itemize}
+
+Os dados coletados são apresentados em dashboards personalizados, oferecendo uma visão consolidada da saúde da aplicação e facilitando a identificação de padrões anormais.
+
 
 \subsubsection{Monitoramento de Recursos da Nuvem}
-% Como o monitoramento de recursos da nuvem é feito?
-% Quais métricas são monitoradas?
+% Revisado
 
-\subsubsection{Monitoramento de Logs}
+% Como o monitoramento de recursos da nuvem é feito? R: CloudWatch
+% Quais métricas são monitoradas? R: CPU, memória, etc.
 
-% \subsubsection{Gestão de Incidentes}
-% Como os incidentes são gerenciados?
-% Quais alertas são configurados?
+Além da aplicação, os recursos da infraestrutura de computação em nuvem também são monitorados por meio do Amazon CloudWatch. Essa abordagem assegura que os componentes subjacentes, como os servidores, operem dentro dos parâmetros esperados.
 
-\subsection{Recuperação de Desastres}
-% Como a recuperação de desastres é feita? (multi-region, backups, etc)
-% Quais são os planos de contingência?
-% Como é feito o backup e a recuperação de dados?
+As principais métricas monitoradas incluem:
 
-% \subsection{Considerações de Latência e Custo}
+\begin{itemize}
+    \item \textbf{Uso de CPU}: Percentual de utilização do processador, indicando se os recursos estão sendo subutilizados ou sobrecarregados.
+    \item \textbf{Uso de memória}: Quantidade de memória consumida, essencial para evitar problemas de desempenho devido à falta de recursos.
+    \item \textbf{Tamanho de disco}: Utilização de armazenamento, permitindo antecipar a necessidade de expansão.
+\end{itemize}
 
+O monitoramento desses recursos é fundamental para identificar gargalos de desempenho e escalonar a infraestrutura de maneira eficiente.
+
+\subsubsection{Alertas e Notificações}
+% Revisado
+
+O sistema de monitoramento da plataforma Codeboard conta com uma estratégia robusta de alertas para garantir respostas rápidas a possíveis incidentes. Os alertas são configurados no Amazon CloudWatch, permitindo a detecção e notificação de anomalias em tempo real.
+
+As principais características do sistema de alertas incluem critérios personalizáveis, permitindo a configuração de limites para métricas específicas, como latência acima de 500ms, uso de CPU superior a 80\% ou erros 5xx que excedam um determinado volume. Além disso, há integração com ferramentas de comunicação, com notificações automáticas enviadas para canais como Slack e e-mail, garantindo que os responsáveis sejam informados imediatamente.
+
+Com essa abordagem, o sistema de alertas fortalece a capacidade da plataforma de reagir rapidamente a eventos adversos, reduzindo o impacto nos usuários e assegurando a continuidade do serviço.

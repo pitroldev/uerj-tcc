@@ -62,7 +62,7 @@ A funcionalidade de gerenciamento de salas, ilustrada na Figura \ref{fig:rooms-p
 \end{figure}
 
 
-Além disso, o usuário pode criar uma nova sala diretamente na tela inicial, utilizando o botão de criação de sala. Ao clicar no botão, o usuário é redirecionado para a página de criação de sala, mostrada na Figura \ref{fig:create-room-page}. Nessa página, é possível inserir o nome e a descrição da sala para concluir a criação
+Além disso, o usuário pode criar uma nova sala diretamente na tela inicial, utilizando o botão de criação de sala. Ao clicar no botão, o usuário é redirecionado para a página de criação de sala, mostrada na Figura \ref{fig:create-room-page}. Nessa página, é possível inserir o nome e a descrição da sala para concluir a criação.
 
 \begin{figure}[H]
     \centering
@@ -151,47 +151,47 @@ Existem algumas regras de negócio que devem ser seguidas para garantir o bom fu
 \paragraph{Autenticação}
 
 \begin{itemize}
-    \item \textbf{Cadastro de Usuários}: A plataforma deve fornecer um mecanismo de cadastro de usuários que permita aos usuários se registrarem na plataforma. Para isso, é necessário solicitar os dados dos usuários, como nome, e-mail e senha, e armazená-los de forma segura e protegida no banco de dados.
-    \item \textbf{Validação de Dados}: A plataforma deve garantir que os dados dos usuários sejam válidos e consistentes. Para isso, é necessário validar os dados dos usuários durante o processo de cadastro e login e garantir que os dados sejam consistentes e íntegros.
-    \item \textbf{Proteção de Dados}: A plataforma deve garantir que os dados dos usuários sejam protegidos e seguros. Para isso, é necessário armazenar os dados dos usuários de forma segura e protegida, utilizando técnicas de criptografia e hash de senhas.
-    \item \textbf{Login de Usuários}: A plataforma deve garantir que somente usuários cadastrados possam fazer login. Para isso, é necessário verificar se o e-mail e a senha informados são válidos durante o processo de login e gerar um token de autenticação para manter o usuário autenticado.
-    \item \textbf{Gerenciamento de Sessões}: A plataforma deve garantir que as sessões dos usuários sejam gerenciadas de forma segura e eficiente. Para isso, é necessário gerar tokens de autenticação para manter os usuários autenticados e garantir que as sessões sejam encerradas após um período de inatividade.
-    \item \textbf{Restrição de Acesso}: A plataforma deve garantir que somente usuários autenticados tenham acesso às funcionalidades da plataforma. Para isso, é necessário verificar se o usuário está autenticado antes de permitir o acesso às funcionalidades.
+    \item \textbf{Cadastro de Usuários}: A plataforma deve fornecer um mecanismo de registro que permita aos usuários criarem suas contas. Durante esse processo, serão solicitados dados como nome, e-mail e senha, que devem ser armazenados com segurança no banco de dados.
+    \item \textbf{Validação de Dados}: É essencial que a plataforma assegure a qualidade e integridade das informações fornecidas pelos usuários. Isso inclui verificar a consistência dos dados durante o cadastro e o login, garantindo que apenas entradas válidas sejam aceitas.
+    \item \textbf{Proteção de Dados}: Para resguardar as informações dos usuários, a plataforma deve aplicar técnicas de criptografia e hashing no armazenamento de dados sensíveis, prevenindo acessos não autorizados.
+    \item \textbf{Login de Usuários}: O sistema de login deve verificar as credenciais informadas, como e-mail e senha, permitindo acesso apenas a usuários previamente cadastrados. Após a autenticação bem-sucedida, será gerado um token para manter a sessão ativa.
+    \item \textbf{Gerenciamento de Sessões}: É fundamental administrar as sessões de forma eficiente, utilizando tokens de autenticação para identificar os usuários e encerrando sessões automaticamente após períodos prolongados de inatividade.
+    \item \textbf{Restrição de Acesso}: Para proteger as funcionalidades da plataforma, o acesso deve ser limitado a usuários autenticados. A verificação da autenticação será realizada antes de liberar qualquer recurso ou serviço.
 \end{itemize}
 
 \paragraph{Gerenciamento de Salas}
 
 \begin{itemize}
-    \item \textbf{Criação de Salas}: A plataforma deve fornecer um mecanismo de criação de salas que permita aos usuários criarem novas salas. Para isso, é necessário solicitar os dados das salas, como nome e descrição, e armazená-los de forma segura e protegida no banco de dados.
-    \item \textbf{Validação de Dados}: A plataforma deve garantir que os dados das salas sejam válidos e consistentes. Para isso, é necessário validar os dados das salas durante o processo de criação e edição e garantir que os dados sejam consistentes e íntegros.
-    \item \textbf{Restrição de Acesso}: A plataforma deve garantir que somente participantes da sala tenham acesso à ela. Para isso, é necessário verificar se o usuário é dono ou membro da sala antes de permitir o acesso à sala.
-    \item \textbf{Gerenciamento de Participantes}: A plataforma deve fornecer um mecanismo de adição e remoção de participantes que permita aos usuários gerenciarem os participantes das salas. Para isso, é necessário verificar se o usuário é dono da sala antes de permitir a adição ou remoção de participantes.
-    \item \textbf{Restrição de Edição}: A plataforma deve garantir que somente o dono da sala possa editar os dados da sala. Para isso, é necessário verificar se o usuário é dono da sala antes de permitir a edição dos dados da sala.
+    \item \textbf{Criação de Salas}: A plataforma deve permitir que os usuários criem novas salas fornecendo informações como nome e descrição. Esses dados devem ser armazenados de forma segura no banco de dados.
+    \item \textbf{Validação de Dados}: Para assegurar a integridade das informações, os dados das salas devem ser verificados durante os processos de criação e edição, garantindo consistência e validade.
+    \item \textbf{Restrição de Acesso}: O acesso às salas será concedido apenas a participantes autorizados, com a confirmação de que o usuário é dono ou membro da sala antes de permitir a entrada.
+    \item \textbf{Gerenciamento de Participantes}: Apenas usuários com permissões administrativas, como os proprietários das salas, poderão adicionar ou remover participantes.
+    \item \textbf{Restrição de Edição}: A edição das informações da sala será limitada exclusivamente ao proprietário, mediante validação da propriedade antes de qualquer alteração.
 \end{itemize}
 
 \paragraph{Quadro de Programação}
 
 \begin{itemize}
-    \item \textbf{Editor em Tempo Real}: A plataforma deve fornecer um mecanismo de edição de código em tempo real que permita aos usuários escrever códigos de programação diretamente no navegador. Para isso, é necessário implementar um editor de código que suporte as funcionalidades básicas de um IDE, como coloração de sintaxe, auto-completar e formatação de código.
-    \item \textbf{Restrição de Escrita}: A plataforma deve garantir que não haja conflitos de escrita durante a edição do código em tempo real. Para isso, é necessário implementar um mecanismo de bloqueio de escrita que permita que somente o proprietário do código possa editá-lo.
-    \item \textbf{Marcação de Código}: A plataforma deve fornecer um mecanismo de marcação de texto que permita aos usuários visualizarem e interagirem com o código de outros usuários. Para isso, é necessário implementar um mecanismo de marcação que exiba as alterações em tempo real para os outros usuários presentes no quadro.
-    \item \textbf{Seleção de Linguagem}: A plataforma deve fornecer um mecanismo de seleção de linguagem que permita aos usuários escolher a linguagem de programação desejada. Para isso, é necessário implementar um seletor de linguagem que altere a coloração de sintaxe do editor de código.
-    \item \textbf{Visualização de Usuários}: A plataforma deve fornecer um mecanismo de visualização de usuários que permita aos usuários saber quem está visualizando o seu código. Para isso, é necessário implementar uma lista de visualizadores que exiba os usuários presentes no quadro.
+    \item \textbf{Editor em Tempo Real}: A plataforma deve disponibilizar um editor de código em tempo real, permitindo que os usuários programem diretamente no navegador. O editor deve incluir funcionalidades típicas de um IDE, como coloração de sintaxe, auto-completar e formatação de código.
+    \item \textbf{Restrição de Escrita}: Conflitos durante a edição colaborativa serão evitados ao permitir que apenas o proprietário do código realize alterações, utilizando um mecanismo que bloqueia a escrita para os demais participantes
+    \item \textbf{Marcação de Código}: O sistema deve possibilitar o destaque de trechos de código em tempo real, permitindo que os usuários acompanhem e interajam com as edições feitas por outros colaboradores no quadro.
+    \item \textbf{Seleção de Linguagem}: A plataforma deve permitir a escolha da linguagem de programação diretamente no editor, ajustando automaticamente a coloração de sintaxe para a linguagem selecionada.
+    \item \textbf{Visualização de Usuários}: Os usuários devem ter acesso a uma lista que mostre, em tempo real, quem está visualizando ou interagindo com o código no quadro.
 \end{itemize}
 
 \paragraph{Lista de Participantes}
 
 \begin{itemize}
-    \item \textbf{Visualização de Participantes}: A plataforma deve fornecer um mecanismo de visualização de participantes que permita aos usuários saber quem está presente na sala. Para isso, é necessário implementar uma lista de participantes que exiba os usuários presentes na sala.
-    \item \textbf{Indicadores de Presença}: A plataforma deve fornecer um mecanismo de indicação de presença que permita aos usuários saber quem está online e quem está editando o código. Para isso, é necessário implementar indicadores de presença que exibam se o usuário está online e se está editando o código.
-    \item \textbf{Seleção de Participantes}: A plataforma deve fornecer um mecanismo de seleção de participantes que permita aos usuários visualizarem e interagirem com o código de outros participantes. Para isso, é necessário implementar um seletor de participantes que permita selecionar o participante desejado.
+    \item \textbf{Visualização de Participantes}: A plataforma deve exibir uma lista que informe aos usuários quem está presente na sala, facilitando a identificação dos participantes ativos.
+    \item \textbf{Indicadores de Presença}: Os usuários devem ter acesso a indicadores que mostrem quem está online e quem está editando o código no momento, tornando a colaboração mais clara e eficiente.
+    \item \textbf{Seleção de Participantes}: Será possível selecionar participantes específicos para visualizar e interagir com o código deles, utilizando uma interface que permita essa escolha de forma simples e intuitiva.
 \end{itemize}
 
 
-\subsection{Arquitetura da Plataforma}
+\subsection{Implementação}
 % Revisado
 
-Nesta seção, será apresentada a arquitetura da plataforma Codeboard UERJ. A plataforma é estruturada em três camadas principais: o backend, o banco de dados e o frontend. Cada uma dessas camadas desempenha um papel específico na plataforma, sendo responsável pelas regras de negócio, o armazenamento de dados e a interface com o usuário, respectivamente.
+Nesta seção, será apresentada a implementação da plataforma Codeboard UERJ. A plataforma é estruturada em três componentes principais: o backend, o banco de dados e o frontend. Cada um deles desempenha um papel específico na plataforma, sendo responsável pelas regras de negócio, o armazenamento de dados e a interface com o usuário, respectivamente.
 
 \subsubsection{Backend}
 % Revisado
@@ -213,7 +213,7 @@ A comunicação entre o cliente e o servidor ocorre através de duas interfaces 
 
 A plataforma utiliza o MongoDB, um banco de dados NoSQL orientado a documentos, devido à sua flexibilidade, escalabilidade horizontal e eficiência no armazenamento de grandes volumes de dados. Além disso, a integração simples com o NodeJS fez do MongoDB uma escolha natural para a plataforma Codeboard UERJ.
 
-O banco de dados é estruturado em três coleções principais: a coleção de usuários, a de salas e a de quadros de programação. Essa organização está diretamente ligada às funcionalidades da plataforma, proporcionando armazenamento e recuperação eficazes dos dados dos usuários, das salas e dos quadros de programação. A Figura \ref{fig:database-schema} ilustra como essas coleções estão organizadas e como se relacionam no banco de dados.
+O banco de dados é estruturado em três coleções principais: a coleção de usuários (Users), a de salas (Rooms) e a de quadros de programação (Board). Essa organização está diretamente ligada às funcionalidades da plataforma, proporcionando armazenamento e recuperação eficazes dos dados dos usuários, das salas e dos quadros de programação. A Figura \ref{fig:database-schema} ilustra como essas coleções estão organizadas e como se relacionam no banco de dados.
 
 \begin{figure}[H]
     \centering
@@ -333,7 +333,8 @@ A coleção de quadros de programação armazena os códigos escritos pelos usu�
 
 A coleção Board, possui os campos user e room, que contêm os identificadores do usuário proprietário do quadro e da sala à qual ele pertence, respectivamente. Esses relacionamentos garantem a organização dos dados e facilitam o gerenciamento de quadros de programação criados por diferentes usuários dentro de diferentes salas.
 
-Apesar de o MongoDB ser um banco de dados NoSQL, a plataforma Codeboard UERJ segue um esquema de dados bem definido para garantir a consistência e integridade das informações armazenadas. Esse esquema é modelado e gerenciado no backend da plataforma com o auxílio da biblioteca mongoose, que simplifica o processo de modelagem e interação com o banco de dados MongoDB, permitindo a criação de schemas, validações e relações de maneira eficiente e segura.
+Apesar de o MongoDB ser um banco de dados NoSQL, a plataforma Codeboard UERJ segue um esquema de dados bem definido para garantir a consistência e integridade das informações armazenadas, ou seja, foram estabelecidos estruturas de dados pré-determinadas para cada coleção, especificando os campos, tipos de dados, relações entre diferentes coleções e regra de validação que cada documento deve seguir. Isso é fundamental para evitar inconsistências, como a inserção de dados inválidos ou incompletos, além de facilitar a manutenção e a evolução do sistema. Esse esquema é modelado e gerenciado no backend da plataforma com o auxílio da biblioteca \emph{Mongoose}, que simplifica o processo de modelagem e interação com o banco de dados MongoDB.
+
 
 \subsubsection{Comunicação Síncrona via REST API}
 % Revisado
@@ -375,22 +376,36 @@ A Tabela \ref{tab:rest-api-routes} apresenta as rotas da REST API da plataforma 
 \subsubsection{Sistema de Autenticação}
 % Revisado
 
-As rotas descritas na tabela \ref{tab:rest-api-routes} que requerem autenticação, são protegidas por um middleware que verifica se o usuário está autenticado antes de permitir o acesso. A autenticação do usuário na plataforma é realizada através de um token, que é gerado no servidor e enviado ao cliente após o login. 
+As rotas descritas na Tabela \ref{tab:rest-api-routes} que requerem autenticação, são protegidas por um middleware que verifica se o usuário está autenticado antes de permitir o acesso. A autenticação do usuário na plataforma é realizada através de um token, que é gerado no servidor e enviado ao cliente após o login. 
 
-O token de autenticação é gerado utilizando a biblioteca "jsonwebtoken", que implementa o padrão JWT (JSON Web Token). A escolha do JWT como mecanismo de autenticação foi motivada pela necessidade de suportar a infraestrutura horizontal da plataforma, que facilita a escalabilidade e a distribuição dos servidores. Como o JWT é um mecanismo stateless, não é necessário armazenar o estado da sessão no servidor. Isso o torna ideal para aplicações distribuídas e escaláveis, pois o estado da sessão é armazenado no próprio token, que é enviado ao cliente.
+O token de autenticação é gerado utilizando a biblioteca "jsonwebtoken", que implementa o padrão JWT (JSON Web Token). A escolha do JWT como mecanismo de autenticação foi motivada pela necessidade de suportar a infraestrutura horizontal da plataforma, que facilita a escalabilidade e a distribuição dos servidores. Como o JWT é um mecanismo \emph{stateless}, não é necessário armazenar o estado da sessão no servidor. Isso o torna ideal para aplicações distribuídas e escaláveis, pois o estado da sessão é armazenado no próprio token, que é enviado ao cliente.
 
 O token é criado com base no ID do usuário e uma chave secreta, que é mantida nos servidores. Esse token é assinado com a chave secreta e enviado ao cliente, onde é armazenado no navegador por meio de cookies. A cada requisição feita ao servidor, o token é utilizado para autenticar o usuário, garantindo sua autenticidade em todas as páginas da plataforma.
 
 O token de autenticação tem um tempo de expiração configurado no servidor. Após esse período, o token é invalidado, e o usuário é automaticamente desconectado da plataforma.
 
+
 \subsubsection{Banco de Dados Chave-Valor}
 % Revisado OK
 
-A plataforma Codeboard UERJ utiliza o Redis, um banco de dados chave-valor em memória, para armazenar dados temporários relacionados à interação em tempo real, como a lista de usuários online, o código ativo nos quadros de programação e a lista de visualizadores dos quadros. O Redis foi escolhido devido à sua eficiência no processamento de grandes volumes de dados em memória, oferecendo alto desempenho, baixa latência e suporte robusto à escalabilidade horizontal.
+A utilização do Redis na plataforma Codeboard UERJ foi necessária devido à sua natureza como uma ferramenta para colaboração em tempo real e comunicação descentralizada. A plataforma exige uma solução que permita a troca rápida e eficiente de informações, como a lista de usuários online, o código ativo nos quadros de programação e os visualizadores conectados, garantindo sincronização em tempo real entre os participantes.
+
+O Redis foi escolhido principalmente por seu sistema de publicação/assinatura (pub/sub), que facilita a comunicação em tempo real, distribuindo atualizações de forma ágil e eficiente para múltiplos clientes. Além disso, suas características de alta eficiência, baixo tempo de resposta e suporte à escalabilidade horizontal tornam-no ideal para atender às demandas de velocidade e desempenho da Codeboard UERJ. A combinação dessas capacidades assegura que os dados temporários sejam gerenciados de maneira otimizada, reduzindo o consumo de recursos e aprimorando a experiência dos usuários.
+
+O diagrama \ref{fig:redis-pubsub} a comunicação distribuída proporcionada pelo Redis utilizando o sistema de publicação/assinatura (Pub/Sub). Nele, dois servidores distintos (Servidor 1 e Servidor 2) interagem com o Redis, publicando mensagens em um canal específico. O Redis, por sua vez, distribui as mensagens recebidas para todos os servidores inscritos nesse canal, garantindo que as atualizações sejam propagadas em tempo real. Esse mecanismo é essencial para aplicações que necessitam de sincronização eficiente entre múltiplos pontos de processamento, como a plataforma Codeboard UERJ.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=\textwidth]{diagrams/redis-pubsub.png}
+    \caption{Comunicação distribuída com Redis utilizando Pub/Sub.}
+    \label{fig:redis-pubsub}
+\end{figure}
+
+
 
 A adoção do Redis é comum em sistemas que demandam alta disponibilidade e tempos de resposta rápidos, características fundamentais para a experiência de colaboração simultânea proporcionada pela Codeboard UERJ. O Redis não apenas facilita a manipulação de dados em tempo real, mas também garante que os dados temporários sejam gerenciados de maneira eficiente, minimizando o uso excessivo de recursos.
 
-A Tabela \ref{tab:key-value-database} descreve a estrutura do banco de dados chave-valor utilizado na plataforma, evidenciando como os dados são organizados em namespaces. Cada namespace reflete um contexto específico da aplicação, como as salas de colaboração ou os quadros de programação, e cada um possui um tempo de expiração associado, normalmente configurado para 1 dia. Essa expiração automática é essencial para a gestão de dados temporários e voláteis.
+A Tabela \ref{tab:key-value-database} descreve a estrutura do banco de dados chave-valor utilizado na plataforma, evidenciando como os dados são organizados em \emph{namespaces}. Cada \emph{namespace} reflete um contexto específico da aplicação, como as salas de colaboração ou os quadros de programação, e cada um possui um tempo de expiração associado, normalmente configurado para 1 dia. Essa expiração automática é essencial para a gestão de dados temporários e voláteis.
 
 \begin{table}[H]
     \centering
@@ -411,22 +426,23 @@ A Tabela \ref{tab:key-value-database} descreve a estrutura do banco de dados cha
     \label{tab:key-value-database}
 \end{table}
 
-O uso de namespaces no Redis permite que diferentes componentes da plataforma sejam representados de forma hierárquica e clara. Por exemplo:
+O uso de \emph{namespaces} no Redis permite que diferentes componentes da plataforma sejam representados de forma hierárquica e clara. Por exemplo:
 \begin{itemize}
-    \item O namespace \texttt{room:\{roomId\}:users} armazena os IDs dos usuários conectados a uma determinada sala, permitindo o rastreamento eficiente dos participantes ativos.
-    \item O namespace \texttt{board:\{roomId\}:\{boardId\}:code} contém o código do quadro de programação correspondente, garantindo que qualquer modificação seja rapidamente sincronizada entre os usuários.
-    \item O namespace \texttt{board:\{roomId\}:\{boardId\}:viewers} rastreia os visualizadores atuais de um quadro específico, permitindo o monitoramento em tempo real da audiência de cada quadro.
+    \item O \emph{namespace} \texttt{room:\{roomId\}:users} armazena os IDs dos usuários conectados a uma determinada sala, permitindo o rastreamento eficiente dos participantes ativos.
+    \item O \emph{namespace} \texttt{board:\{roomId\}:\{boardId\}:code} contém o código do quadro de programação correspondente, garantindo que qualquer modificação seja rapidamente sincronizada entre os usuários.
+    \item O \emph{namespace} \texttt{board:\{roomId\}:\{boardId\}:viewers} rastreia os visualizadores atuais de um quadro específico, permitindo o monitoramento em tempo real da audiência de cada quadro.
 \end{itemize}
 
 Todos esses dados são configurados para expirar após um dia de inatividade, removendo automaticamente informações temporárias que não são mais necessárias. A expiração controlada dos dados é crucial para manter o banco de dados eficiente e evitar acúmulo desnecessário de informações. Isso não só melhora o desempenho geral da plataforma, como também preserva a integridade do sistema ao evitar que informações desatualizadas sejam mantidas além do necessário.
 
 Ao utilizar o Redis dessa maneira, a plataforma Codeboard UERJ assegura um ambiente escalável, rápido e confiável, adequado para as demandas de colaboração em tempo real.
 
+
 \subsubsection{Comunicação em Tempo Real via WebSockets}
 
 A plataforma Codeboard UERJ utiliza WebSockets para implementar comunicação em tempo real, permitindo a colaboração simultânea entre usuários na edição de código. Os WebSockets são uma tecnologia de comunicação bidirecional baseada em TCP, que possibilita a troca de mensagens entre clientes e servidores de maneira assíncrona e em tempo real. Essa abordagem elimina a necessidade de requisições HTTP constantes, facilitando o intercâmbio instantâneo de dados.
 
-Para gerenciar as conexões WebSocket, a plataforma implementa middlewares de autenticação, garantindo que apenas usuários autenticados possam se conectar e interagir. O processo de autenticação é realizado durante o estabelecimento da conexão, por meio de handshakes que verificam a identidade do usuário através de tokens JWT. Dessa forma, apenas usuários devidamente autenticados e autorizados participam das interações em tempo real.
+Para gerenciar as conexões WebSocket, a plataforma implementa \emph{middlewares} de autenticação, garantindo que apenas usuários autenticados possam se conectar e interagir. O processo de autenticação é realizado durante o estabelecimento da conexão, por meio de \emph{handshakes} que verificam a identidade do usuário através de tokens JWT. Dessa forma, apenas usuários devidamente autenticados e autorizados participam das interações em tempo real.
 
 A comunicação em tempo real é estruturada em eventos e canais. Enquanto os eventos representam as mensagens trocadas entre os usuários, os canais funcionam como meios de comunicação, agrupando os usuários conforme o contexto da interação. Por exemplo, cada sala de programação possui seu próprio canal, onde os eventos são visíveis apenas para os usuários presentes, garantindo a privacidade e segurança das interações.
 
@@ -511,7 +527,7 @@ A Tabela \ref{tab:websocket-server-control-events} apresenta os eventos de contr
 \end{table}
 
 
-Para visualizar o fluxo dessas interações, o diagrama de sequência da Figura \ref{fig:websocket-flow} exemplifica a comunicação em tempo real comunicação entre o \textbf{usuário}, o \textbf{servidor} e outros usuários que participam de uma \textbf{sala} ou de um \textbf{quadro de programação} na plataforma, destacando pontos críticos de interação e troca de informações.
+Para visualizar o fluxo dessas interações, o diagrama de sequência da Figura \ref{fig:websocket-flow} exemplifica a comunicação em tempo real da comunicação entre o \textbf{usuário}, o \textbf{servidor} e outros usuários que participam de uma \textbf{sala} ou de um \textbf{quadro de programação} na plataforma, destacando pontos críticos de interação e troca de informações.
 
 \begin{figure}[H] 
     \centering
@@ -537,22 +553,22 @@ Para visualizar o fluxo dessas interações, o diagrama de sequência da Figura 
 
     \item \textbf{Entrada no Quadro de Programação}:
     \begin{itemize}
-        \item Ao acessar um quadro de programação, o \textbf{usuário} envia o evento \texttt{board:join}. O \textbf{servidor} notifica os demais \textbf{usuários do quadro} com o evento \texttt{board:joined} e envia ao \textbf{usuário} uma lista dos visualizadores atuais por meio do evento \texttt{board:viewers}.
+        \item Ao acessar um quadro de programação, o \textbf{usuário} envia o evento \texttt{board:join}. O \textbf{servidor} notifica os demais \textbf{usuários do quadro} com o evento \texttt{board:joined} e simultaneamente envia ao \textbf{usuário} entrante uma lista dos visualizadores atuais por meio do evento \texttt{board:viewers}.
     \end{itemize}
 
     \item \textbf{Edição de Código}:
     \begin{itemize}
-        \item Quando o \textbf{usuário} começa a modificar o código no quadro, o evento \texttt{board:write} é enviado ao \textbf{servidor}. O \textbf{servidor} então informa os \textbf{usuários da sala} que o usuário está digitando (\texttt{board:typed}) e transmite o conteúdo atualizado do código para os \textbf{usuários do quadro} com o evento \texttt{board:written}.
+        \item Quando o \textbf{usuário} começa a modificar o código no quadro, o evento \texttt{board:write} é enviado ao \textbf{servidor}. O \textbf{servidor} então informa para os demais \textbf{usuários da sala} que aquele usuário está digitando (\texttt{board:typed}), simultaneamente ele também transmite o conteúdo atualizado do código para todos os \textbf{usuários do quadro} com o evento \texttt{board:written}.
     \end{itemize}
 
     \item \textbf{Destaque de Código}:
     \begin{itemize}
-        \item O \textbf{usuário} pode destacar partes do código enviando o evento \texttt{board:highlight} para o \textbf{servidor}. Este, por sua vez, notifica os \textbf{usuários do quadro} sobre a posição exata do destaque com o evento \texttt{board:highlighted}.
+        \item O \textbf{usuário} pode destacar partes do código enviando o evento \texttt{board:highlight} para o \textbf{servidor}. Este, por sua vez, notifica a todos os \textbf{usuários do quadro} sobre a posição exata do destaque com o evento \texttt{board:highlighted}.
     \end{itemize}
 
     \item \textbf{Desconexão}:
     \begin{itemize}
-        \item Quando o \textbf{usuário} decide sair da plataforma, o evento \texttt{disconnecting} é enviado ao \textbf{servidor}, que informa tanto os \textbf{usuários do quadro} (com o evento \texttt{board:left}) quanto os \textbf{usuários da sala} (com o evento \texttt{room:left}) sobre a saída do participante.
+        \item Quando o \textbf{usuário} decide sair da plataforma, o evento \texttt{disconnecting} é enviado ao \textbf{servidor}, que informa tanto para os \textbf{usuários do quadro} (com o evento \texttt{board:left}) quanto para os \textbf{usuários da sala} (com o evento \texttt{room:left}) sobre a saída do participante.
     \end{itemize}
 \end{enumerate}
 
@@ -562,13 +578,13 @@ Esse diagrama reflete a sequência de eventos que possibilitam a colaboração e
 \subsubsection{Comunicação Assíncrona via Filas}
 % REVISADO
 
-A plataforma Codeboard UERJ utiliza um sistema de filas para processar tarefas assíncronas, como o salvamento de código após a desconexão de um usuário. Esse sistema é composto por um servidor principal e workers, que são responsáveis por executar as tarefas em segundo plano.
+A plataforma Codeboard UERJ utiliza um sistema de filas para processar tarefas assíncronas, como o salvamento de código após a desconexão de um usuário. Esse sistema é composto por um servidor principal e \emph{workers}, que são responsáveis por executar as tarefas em segundo plano.
 
 O servidor principal é responsável por receber as requisições dos clientes, autenticar os usuários, gerenciar as conexões WebSocket e distribuir as tarefas para os workers. Os workers, por sua vez, são responsáveis por processar as tarefas assíncronas, como salvar o código de um quadro de programação após a desconexão de um usuário.
 
-A comunicação entre o servidor principal e os workers é feita através de filas, que são gerenciadas pelo sistema de mensageria AWS SQS. 
+A comunicação entre o servidor principal e os workers é feita através de filas, que são gerenciadas pelo sistema de envio e recebimento de mensagens da Amazon, o AWS SQS. 
 
-Quando uma tarefa assíncrona precisa ser executada, o servidor principal a enfileira na fila correspondente uma mensagem, indicando o tipo de tarefa e os parâmetros necessários para sua execução. Os workers, por sua vez, ficam monitorando as filas por meio de long polling, verificando se existem mensagens a serem processadas. Quando uma mensagem é encontrada, o worker a recebe, executa a operação correspondente e posteriormente a remove da fila.
+Quando uma tarefa assíncrona precisa ser executada, o servidor principal a enfileira na fila correspondente uma mensagem, indicando o tipo de tarefa e os parâmetros necessários para sua execução. Os workers, por sua vez, ficam monitorando as filas por meio de \emph{long polling}, verificando se existem mensagens a serem processadas. Quando uma mensagem é encontrada, o worker a recebe, executa a operação correspondente e posteriormente a remove da fila.
 
 Caso ocorra algum erro durante a execução da tarefa, o worker pode aguardar um tempo determinado e tentar executar a tarefa novamente. Caso ainda assim não seja possível concluir a tarefa, o worker irá remover a tarefa da fila e a enviará para uma DLQ (Dead Letter Queue), onde as tarefas que não puderam ser processadas são armazenadas para posterior análise e tratamento.
 
@@ -581,21 +597,21 @@ O fluxo de comunicação assíncrona via filas é ilustrado no diagrama de sequ�
     \label{fig:queue-flow}
 \end{figure}
 
-Essa abordagem de comunicação assíncrona via filas permite que a plataforma Codeboard UERJ execute tarefas de forma eficiente e escalável, garantindo a confiabilidade e a consistência das operações realizadas.
+Essa abordagem de comunicação assíncrona via filas é essencial para que a plataforma Codeboard UERJ processe tarefas de salvamento de código com eficiência, escalabilidade e resiliência. A eficiência assegura que as operações sejam concluídas sem atrasos, mesmo em um ambiente de alta interação e colaboração em tempo real. A escalabilidade permite que o sistema gerencie aumentos de carga, como em horários de pico, adaptando-se ao número de usuários e à complexidade das tarefas. Por fim, a resiliência garante a integridade das operações ao lidar com falhas, utilizando mecanismos como reprocessamento e Dead Letter Queues, preservando a confiabilidade da plataforma e a segurança dos dados dos usuários.
 
 
-\subsubsection{Frontend}
+\subsubsection{Interface do Usuário}
 
-O frontend da plataforma Codeboard UERJ foi desenvolvido com o objetivo de oferecer uma interface intuitiva, eficiente e escalável. Para alcançar esse objetivo, foi utilizada uma stack de tecnologias modernas, composta principalmente por ReactJS, Next.js, Tailwind CSS e shadcn/ui. A escolha dessas ferramentas visou a criação de um ambiente de desenvolvimento ágil e um resultado final otimizado para a experiência do usuário.
+O frontend da plataforma Codeboard UERJ foi desenvolvido com o objetivo de oferecer uma interface intuitiva, eficiente e escalável. Para alcançar esse objetivo, foi utilizada uma \emph{stack} de tecnologias modernas, composta principalmente por ReactJS, Next.js, Tailwind CSS e shadcn/ui. A escolha dessas ferramentas visou a criação de um ambiente de desenvolvimento ágil e um resultado final otimizado para a experiência do usuário.
 
-Next.js foi escolhido como o framework principal para a construção da interface, devido às suas capacidades de Static Site Generation (SSG). Essa característica permite que a plataforma carregue páginas de forma rápida e eficiente, ao mesmo tempo em que melhoravam o SEO e a experiência de navegação dos usuários. Além disso, o Next.js oferece suporte nativo a React, facilitando a criação de componentes reutilizáveis e a organização do código.
+Next.js foi escolhido como o \emph{framework} principal para a construção do frontend, devido às suas capacidades de Static Site Generation (SSG). Essa característica permite que a plataforma carregue páginas de forma rápida e eficiente, ao mesmo tempo em que melhoravam o SEO e a experiência de navegação dos usuários. Além disso, o Next.js oferece suporte nativo a React, facilitando a criação de componentes reutilizáveis e a organização do código.
 
 A estilização da plataforma foi realizada com Tailwind CSS, um framework de utilitários CSS que facilita a criação de interfaces responsivas e customizáveis. A escolha do Tailwind possibilitou uma organização clara dos estilos, sem a necessidade de escrever CSS adicional, aumentando a eficiência do processo de desenvolvimento. Além disso, o uso de classes utilitárias do Tailwind permitiu a rápida criação de componentes reativos e responsivos, otimizando o layout para diferentes tamanhos de tela.
 
 Para a construção de componentes reutilizáveis, a plataforma integrou o shadcn/ui, um conjunto de componentes customizados que foram utilizados em elementos interativos como botões, modais e formulários. Essa abordagem facilitou a manutenção do código e garantiu uma coesão visual em toda a interface.
 
 % TODO: Rever acessibilidade na plataforma com o uso de softwares de leitura de tela e outras ferramentas de acessibilidade.
-Outro aspecto fundamental foi a acessibilidade. O frontend foi desenvolvido com foco em garantir que todos os usuários, independentemente de suas limitações, pudessem interagir com a plataforma. Foram seguidas boas práticas de design acessível, incluindo o uso de atributos ARIA e a criação de componentes navegáveis via teclado.
+Outro aspecto fundamental foi a acessibilidade. A plataforma foi desenvolvida com foco em garantir que todos os usuários, independentemente de suas limitações, pudessem interagir com a plataforma. Foram seguidas boas práticas de design acessível, incluindo o uso de atributos ARIA e a criação de componentes navegáveis via teclado, que facilitam a interação com softwares de leitura de tela e outras ferramentas de acessibilidade.
 
-Essa abordagem de desenvolvimento frontend garantiu que a plataforma Codeboard UERJ oferecesse uma experiência de uso fluida, responsiva e acessível, além de facilitar a manutenção e escalabilidade do projeto no longo prazo.
+Essa abordagem de desenvolvimento garantiu que a plataforma Codeboard UERJ oferecesse uma experiência de uso fluida, responsiva e acessível, além de facilitar a manutenção e escalabilidade do projeto no longo prazo.
 
