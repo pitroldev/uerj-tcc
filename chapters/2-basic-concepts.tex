@@ -44,38 +44,43 @@ No desenvolvimento de aplicações web, a arquitetura é geralmente dividida em 
 A comunicação entre o front-end e o back-end ocorre por meio de protocolos como HTTP. O front-end envia requisições ao back-end, que processa os dados e retorna respostas, geralmente via APIs. Em aplicações em tempo real, tecnologias como WebSockets também são utilizadas para comunicação bidirecional persistente entre cliente e servidor.
 
 \subsubsection{APIs}
-% TODO: Revisar
+% 🆗 Revisado
 
 % O que é uma API?
 % Quais são os tipos de APIs? (REST, GraphQL, etc.)
 % O que é REST?
 
-Uma \emph{API (Application Programming Interface)} é um conjunto de definições e protocolos que permite que diferentes softwares se comuniquem entre si. No contexto das aplicações web, as APIs permitem que o front-end interaja com o back-end para realizar operações como obtenção de dados e execução de ações no servidor.
+Uma \emph{API (Application Programming Interface)}  é um conjunto de definições e protocolos que permite a comunicação entre diferentes softwares. No contexto de aplicações web, as APIs desempenham um papel crucial ao possibilitar a interação entre o front-end e o back-end, permitindo operações como a obtenção de dados e a execução de ações no servidor.
 
 Existem vários tipos de APIs, sendo atualmente dois dos mais populares:
 
 \begin{itemize}
-    \item \textbf{REST (Representational State Transfer)}: Um estilo arquitetural que utiliza protocolos HTTP para facilitar a comunicação entre cliente e servidor, oferecendo uma interface uniforme para manipulação de recursos.
-    \item \textbf{GraphQL}: Uma linguagem de consulta para APIs que permite solicitar exatamente os dados necessários, melhorando a eficiência das requisições.
+    \item \textbf{REST (Representational State Transfer)}:Um estilo arquitetural baseado no protocolo HTTP que oferece uma interface uniforme para manipulação de recursos. É amplamente adotado por sua simplicidade e aderência aos padrões da web, facilitando a integração entre sistemas.
+    \item \textbf{GraphQL}: Uma linguagem de consulta para APIs que permite solicitar exatamente os dados necessários, melhorando a eficiência e reduzindo a quantidade de informações transferidas nas requisições.
 \end{itemize}
 
-O \emph{REST} é amplamente adotado devido à sua simplicidade e aderência aos padrões web, facilitando a integração entre diferentes sistemas.
+Ambos os padrões são amplamente utilizados, com o \emph{REST} sendo preferido em muitos casos devido à sua simplicidade, enquanto o GraphQL se destaca em cenários que demandam maior flexibilidade na recuperação de dados.
+
 
 \subsubsection{Node.js}
-% TODO: Revisar
+% 🆗 Revisado
 
 % O que é Node.js?
 % Quais são as vantagens de utilizar Node.js para desenvolver aplicações web?
 
-\emph{Node.js} é um ambiente de execução JavaScript voltado para o desenvolvimento do lado do servidor (back-end). Ele permite que os desenvolvedores utilizem JavaScript fora do ambiente do navegador, possibilitando a criação de aplicações escaláveis e de alto desempenho.
+\emph{Node.js} é um ambiente de execução de JavaScript projetado para o desenvolvimento do lado do servidor (back-end). Ele permite que os desenvolvedores utilizem JavaScript fora do navegador, possibilitando a criação de aplicações escaláveis, de alto desempenho e adequadas para diferentes tipos de cenários, como APIs, sistemas em tempo real e microsserviços.
+
+Construído sobre o motor V8 do Google Chrome, o Node.js oferece execução extremamente rápida para código JavaScript. Ele adota um modelo de programação assíncrono e orientado a eventos, ideal para lidar com operações intensivas de entrada e saída, como comunicação com bancos de dados ou requisições HTTP.
 
 Vantagens de utilizar Node.js para desenvolver aplicações web:
 
 \begin{itemize}
-    \item \textbf{Modelo assíncrono e orientado a eventos}: Permite lidar eficientemente com operações de I/O, resultando em aplicações leves e escaláveis.
-    \item \textbf{Comunidade ativa e ecossistema rico}: A disponibilidade de inúmeros módulos e bibliotecas através do NPM (Node Package Manager) acelera o desenvolvimento.
-    \item \textbf{Unificação da linguagem}: Usar JavaScript no front-end e back-end simplifica o desenvolvimento e mantém a consistência do código.
+    \item \textbf{Modelo assíncrono e orientado a eventos}: O modelo non-blocking permite que o servidor lide com múltiplas conexões simultaneamente, tornando-o altamente eficiente e ideal para aplicações que demandam grande escalabilidade, como chats em tempo real e streaming de dados.
+    \item \textbf{Comunidade ativa e ecossistema rico}: A comunidade do Node.js é uma das mais movimentadas no desenvolvimento de software, e o NPM (Node Package Manager) disponibiliza milhões de módulos e bibliotecas prontos para uso, agilizando o desenvolvimento e aumentando a produtividade.
+    \item \textbf{Unificação da linguagem}: O uso do JavaScript tanto no front-end quanto no back-end elimina a necessidade de lidas com linguagens diferentes para cada camada da aplicação, promovendo maior consistência e redução de complexidade.
 \end{itemize}
+
+Além disso, o Node.js é frequentemente escolhido para projetos modernos devido à sua flexibilidade e capacidade de suportar arquiteturas orientadas a microsserviços, permitindo que equipes desenvolvam e mantenham aplicações robustas com maior eficiência.
 
 \subsubsection{Bibliotecas e Frameworks}
 % 🆗 Revisado
@@ -122,41 +127,62 @@ Entre os métodos HTTP mais utilizados, destacam-se:
 O HTTP é fundamental para o funcionamento da web, permitindo a interação entre clientes e servidores de forma padronizada e eficiente.
 
 \subsubsection{WebSockets}
-% TODO: Revisar
+% 🆗 Revisado
 
-\emph{WebSocket} é um protocolo que permite comunicação bidirecional e em tempo real entre cliente e servidor através de uma única conexão TCP. Diferentemente do HTTP, que é baseada em requisições, os WebSockets mantêm a conexão ativa, permitindo troca contínua de dados, ideal para aplicações que exigem atualização em tempo real.
+\emph{WebSocket} é um protocolo de comunicação que permite uma interação bidirecional e em tempo real entre cliente e servidor por meio de uma única conexão TCP. Ele foi projetado para superar as limitações do protocolo HTTP, que é baseado no modelo de requisição-resposta e não mantém uma conexão persistente.
 
+Ao contrário do HTTP, onde o cliente precisa iniciar cada requisição para receber novos dados, os WebSockets mantêm a conexão ativa após o handshake inicial. Isso possibilita que tanto o cliente quanto o servidor enviem mensagens de forma independente e assíncrona, sem a necessidade de estabelecer novas conexões para cada troca de dados. 
+
+Características principais do WebSocket:
+
+\begin{itemize}
+    \item \textbf{Comunicação em tempo real}: Permite atualizações instantâneas de dados entre cliente e servidor, ideal para aplicações que demandam respostas rápidas, como chats, jogos online e sistemas de monitoramento.
+    \item \textbf{Baixa latência}: Por evitar a sobrecarga de abertura e fechamento de conexões repetidas, o WebSocket reduz significativamente a latência, tornando-o mais eficiente que alternativas baseadas em HTTP.
+    \item \textbf{Conexão persistente}: Uma única conexão é mantida ativa durante toda a interação, reduzindo o consumo de recursos do servidor e melhorando a escalabilidade.
+    \item \textbf{Flexibilidade no transporte de dados}: Oferece suporte tanto para mensagens em texto quanto em formato binário, atendendo a uma ampla variedade de casos de uso.
+\end{itemize}
+
+Os WebSockets transformaram a forma como aplicações modernas lidam com comunicação em tempo real, oferecendo uma solução eficiente e flexível para cenários que demandam alta interatividade e respostas imediatas. Sua capacidade de manter conexões persistentes com baixa latência torna o protocolo indispensável em sistemas que exigem troca contínua de dados, consolidando-o como uma escolha estratégica para o desenvolvimento de aplicações robustas e escaláveis.
 
 \subsection{Banco de Dados}
 % TODO: Escrever Intro
 
-\subsubsection{SQL}
-% TODO: Revisar
 
-\emph{SQL (Structured Query Language)} é a linguagem padrão para gerenciamento de bancos de dados relacionais. Bancos de dados SQL armazenam dados em tabelas com esquemas definidos, permitindo consultas complexas e mantendo a consistência dos dados. Alguns dos bancos de dados SQL mais populares incluem:
+\subsubsection{SQL}
+% 🆗 Revisado
+
+\emph{SQL (Structured Query Language)} é a linguagem padrão para gerenciamento de bancos de dados relacionais. Bancos de dados SQL organizam os dados em tabelas estruturadas com esquemas predefinidos, permitindo consultas complexas, manipulação eficiente de dados e garantindo consistência por meio de transações.
+
+Os bancos de dados baseados em SQL são amplamente utilizados devido à sua capacidade de lidar com grandes volumes de informações e à aderência a padrões que favorecem a interoperabilidade entre diferentes sistemas.
+
+Exemplos de bancos de dados SQL:
 
 \begin{itemize}
-    \item \textbf{MySQL}: Um sistema de gerenciamento de banco de dados relacional de código aberto amplamente utilizado.
-    \item \textbf{PostgreSQL}: Um sistema de gerenciamento de banco de dados relacional avançado, conhecido por sua robustez e recursos avançados.
-    \item \textbf{SQLite}: Um banco de dados SQL embutido que não requer um servidor separado, adequado para aplicações de pequeno porte.
+    \item \textbf{MySQL}: Um sistema de gerenciamento de banco de dados relacional de código aberto amplamente utilizado, especialmente em aplicações web. Ele é conhecido por sua simplicidade, desempenho e grande comunidade de suporte.
+    \item \textbf{PostgreSQL}: Reconhecido por sua robustez e recursos avançados, como suporte a tipos de dados personalizados, índices complexos e transações ACID. É ideal para aplicações críticas que demandam alta confiabilidade.
+    \item \textbf{SQLite}: Um banco de dados leve e embutido, que não requer um servidor dedicado. Ele é bastante utilizado em dispositivos móveis e aplicativos locais devido à sua portabilidade e simplicidade.
 \end{itemize}
 
+Os bancos de dados SQL continuam sendo a espinha dorsal de muitos sistemas corporativos e de produção, graças à sua eficiência, consistência e maturidade no mercado.
+
 \subsubsection{NoSQL}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é NoSQL?
 % Quais são os tipos de bancos de dados NoSQL? (Documentos, Chave-Valor, Colunas, Grafos)
 
-\emph{NoSQL} refere-se a uma categoria de sistemas de gerenciamento de banco de dados que não se baseiam no modelo relacional tradicional. Eles são projetados para lidar com grandes volumes de dados distribuídos e não estruturados.
+\emph{NoSQL} é um termo que engloba uma categoria de sistemas de gerenciamento de banco de dados que não seguem o modelo relacional tradicional. Esses bancos de dados são projetados para lidar com grandes volumes de dados distribuídos, altamente escaláveis e frequentemente não estruturados. Eles oferecem maior flexibilidade para modelagem de dados e são amplamente utilizados em aplicações modernas, como redes sociais, IoT e análise de big data.
 
-Tipos de bancos de dados NoSQL:
+Principais tipos de bancos de dados NoSQL:
 
 \begin{itemize}
-    \item \textbf{Documentos}: Armazenam dados como documentos semelhantes a JSON (e.g., MongoDB).
-    \item \textbf{Chave-Valor}: Armazenam pares simples de chave e valor (e.g., Redis).
-    \item \textbf{Colunas}: Organizam dados em colunas para leitura e escrita eficientes (e.g., Cassandra).
-    \item \textbf{Grafos}: Focam em relações entre dados, utilizando nós e arestas (e.g., Neo4j).
+    \item \textbf{Documentos}: Armazenam dados em formato de documentos, frequentemente similares ao JSON, permitindo flexibilidade na estrutura dos dados. Exemplos: MongoDB, Couchbase.
+    \item \textbf{Chave-Valor}: Funcionam como um dicionário simples, onde cada chave está associada a um valor. São ideais para casos de uso como caches e armazenamento de sessões. Exemplos: Redis, DynamoDB.
+    \item \textbf{Colunas}: Organizam os dados em colunas em vez de linhas, otimizando operações de leitura e escrita em larga escala. São frequentemente utilizados em sistemas de análise. Exemplos: Cassandra, HBase.
+    \item \textbf{Grafos}: Focados nas relações entre os dados, utilizam nós para representar entidades e arestas para as conexões entre elas. São ideais para aplicações como redes sociais, mecanismos de recomendação e análise de conexões. Exemplos: Neo4j, ArangoDB.
 \end{itemize}
 
+Os bancos de dados NoSQL se destacam por sua capacidade de lidar com dados dinâmicos e escalar horizontalmente, oferecendo soluções sob medida para desafios específicos que muitas vezes não podem ser abordados de forma eficiente por bancos de dados relacionais tradicionais.
 
 \subsubsection{MongoDB}
 % 🆗 Revisado
@@ -172,14 +198,14 @@ Tipos de bancos de dados NoSQL:
 \subsubsection{ORMs e ODMs}
 % 🆗 Revisado
 
-\emph{ORM (Object-Relational Mapping)} e \emph{ODM (Object-Document Mapping)} são técnicas que permitem mapear objetos do código para estruturas de bancos de dados.
+\emph{ORM (Object-Relational Mapping)} e \emph{ODM (Object-Document Mapping)} são técnicas que permitem mapear objetos do código-fonte para estruturas de bancos de dados relacionais e NoSQL, respectivamente. Elas têm como objetivo simplificar a interação com os bancos de dados, permitindo que os desenvolvedores trabalhem diretamente com a linguagem de programação utilizada no projeto, em vez de escrever consultas SQL ou comandos específicos para cada tipo de banco.
 
 \begin{itemize}
-    \item \textbf{ORMs}: Facilitam a interação com bancos de dados relacionais, permitindo trabalhar com objetos em vez de escrever SQL (e.g., Sequelize para Node.js).
-    \item \textbf{ODMs}: Realizam a mesma função para bancos de dados NoSQL orientados a documentos (e.g., Mongoose para MongoDB).
+    \item \textbf{ORMs}: Facilitam a manipulação de dados em bancos de dados relacionais, abstraindo consultas SQL e permitindo o uso de objetos. Exemplo: Sequelize.
+    \item \textbf{ODMs}: Executam uma função semelhante para bancos de dados NoSQL orientados a documentos, integrando objetos de forma transparente. Exemplo: Mongoose.
 \end{itemize}
 
-Essas ferramentas simplificam o desenvolvimento e aumentam a produtividade.
+Essas ferramentas aumentam a produtividade ao abstrair a complexidade das operações de banco de dados, proporcionando uma camada intermediária que simplifica a manipulação de dados e facilita a integração entre a aplicação e o banco.
 
 \subsection{Computação em Nuvem}
 % 🆗 Revisado
@@ -188,50 +214,57 @@ Essas ferramentas simplificam o desenvolvimento e aumentam a produtividade.
 % Quais são os tipos de serviços de computação em nuvem? (IaaS, PaaS, SaaS)
 % Quais são os principais provedores de serviços de computação em nuvem? (AWS, Google Cloud, Azure, etc.)
 
-A computação em nuvem refere-se à entrega de serviços de computação por meio da internet, permitindo o acesso a recursos flexíveis e escaláveis sob demanda. Essa abordagem elimina a necessidade de investir em infraestrutura física, oferecendo aos usuários maior agilidade e eficiência operacional.
+A computação em nuvem refere-se à entrega de serviços de computação por meio da internet, permitindo o acesso a recursos de maneira flexível, escalável e sob demanda. Essa abordagem elimina a necessidade de investir em infraestrutura física, oferecendo maior agilidade e eficiência operacional para empresas e indivíduos.
 
 Tipos de serviços de computação em nuvem:
 
 \begin{itemize}
-    \item \textbf{IaaS (Infrastructure as a Service)}: Fornece infraestrutura básica, como servidores, armazenamento e redes, permitindo que os usuários configurem e gerenciem seus próprios ambientes de TI. (e.g., Amazon EC2, Google Compute Engine)
-    \item \textbf{PaaS (Platform as a Service)}: Oferece plataformas de desenvolvimento completas, permitindo que os usuários criem, implantem e gerenciem aplicações sem se preocupar com a infraestrutura subjacente. (e.g., Vercel, Heroku)
-    \item \textbf{SaaS (Software as a Service)}: Disponibiliza software e aplicativos prontos para uso diretamente pela internet, sem a necessidade de instalação ou manutenção local. (e.g., Google Drive, Salesforce)
+    \item \textbf{IaaS (Infrastructure as a Service)}: Proporciona acesso a infraestrutura básica, como servidores, armazenamento e redes. Os usuários têm controle total sobre o ambiente, configurando e gerenciando conforme suas necessidades. Exemplos: Amazon EC2, Google Compute Engine.
+    \item \textbf{PaaS (Platform as a Service)}: Oferece plataformas completas para desenvolvimento e implantação de aplicações, abstraindo a complexidade da infraestrutura subjacente. Ideal para acelerar o desenvolvimento e focar na aplicação. Exemplos: Vercel, Heroku.
+    \item \textbf{SaaS (Software as a Service)}: Disponibiliza aplicativos prontos para uso por meio da internet, eliminando a necessidade de instalação ou manutenção local. É amplamente utilizado para produtividade, colaboração e gerenciamento de negócios. Exemplos: Google Drive, Salesforce.
 \end{itemize}
 
-Entre os principais provedores de serviços de computação em nuvem, destacam-se a \emph{Amazon Web Services (AWS)}, a \emph{Google Cloud Platform} e a \emph{Microsoft Azure}.
+Entre os principais provedores de serviços de computação em nuvem, destacam-se a \emph{Amazon Web Services (AWS)}, a \emph{Google Cloud Platform} e a \emph{Microsoft Azure}. Essas plataformas oferecem uma ampla gama de serviços e soluções que atendem às necessidades de empresas de diferentes tamanhos, desde \emph{startups} até grandes corporações.
 
 \subsubsection{Amazon Web Services (AWS)}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é AWS?
 % Quais são os principais serviços da AWS? (EC2, S3, RDS, etc.)
 
-\emph{AWS} é uma plataforma de serviços em nuvem oferecida pela Amazon, proporcionando infraestrutura, poder computacional, armazenamento, banco de dados e serviços de distribuição de conteúdo em escala global.
+A \emph{Amazon Web Services (AWS)} é uma plataforma líder em computação em nuvem, oferecida pela Amazon. Ela fornece uma ampla gama de serviços, incluindo infraestrutura, poder computacional, armazenamento, banco de dados e distribuição de conteúdo, operando em escala global. A AWS é amplamente utilizada por empresas de diferentes tamanhos devido à sua flexibilidade, escalabilidade e confiabilidade.
 
-Principais serviços da AWS:
+Dentre os serviços mais populares da AWS, destacam-se:
 
 \begin{itemize}
-    \item \textbf{EC2 (Elastic Compute Cloud)}: Serviço de computação que permite criar instâncias de servidores virtuais na nuvem.
-    \item \textbf{S3 (Simple Storage Service)}: Serviço de armazenamento de objetos altamente escalável e seguro.
-    \item \textbf{RDS (Relational Database Service)}: Serviço gerenciado para bancos de dados relacionais.
+    \item \textbf{EC2 (Elastic Compute Cloud)}: Serviço de computação que permite criar instâncias de servidores virtuais na nuvem, oferecendo flexibilidade para dimensionar o poder computacional conforme necessário.
+    \item \textbf{S3 (Simple Storage Service)}: Um serviço de armazenamento de objetos que combina alta escalabilidade, segurança e custo acessível, adequado para armazenamento de arquivos, backups e grandes volumes de dados.
+    \item \textbf{RDS (Relational Database Service)}: Serviço gerenciado que simplifica a configuração, operação e escalabilidade de bancos de dados relacionais, suportando motores populares como MySQL, PostgreSQL, e SQL Server.
 \end{itemize}
 
+A AWS se destaca como uma solução estratégica para organizações que buscam inovação, escalabilidade e alta disponibilidade em suas operações na nuvem. Com uma vasta gama de serviços gerenciados e um ecossistema robusto, a plataforma permite que empresas de todos os portes implementem soluções personalizadas de forma eficiente e segura.
+
 \subsubsection{Instâncias EC2}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é uma instância EC2?
 % O que são tipos de instâncias EC2? (T2, M5, C5, etc.)
 
-Uma instância EC2 é uma máquina virtual escalável que oferece capacidade computacional na nuvem. As instâncias variam em tamanho, poder computacional e recursos de memória, atendendo a diferentes requisitos.
+Uma instância EC2 (\emph{Elastic Compute Cloud}) é uma máquina virtual fornecida pela AWS que oferece capacidade computacional na nuvem. Essas instâncias permitem que usuários executem aplicações com flexibilidade e escalabilidade, sem a necessidade de gerenciar hardware físico. A AWS oferece uma ampla variedade de tipos de instâncias para atender às diferentes demandas de desempenho, custo e funcionalidade.
 
-Tipos de instâncias EC2:
+Os tipos de instâncias EC2 mais comuns incluem:
 
 \begin{itemize}
-    \item \textbf{T2/T3}: Instâncias de uso geral com capacidade de "burst", ideais para cargas de trabalho com uso variável de CPU.
-    \item \textbf{M5}: Instâncias de uso geral equilibradas em termos de computação, memória e recursos de rede.
-    \item \textbf{C5}: Instâncias otimizadas para computação, adequadas para aplicações que requerem alto desempenho de CPU.
+    \item \textbf{T2/T3}: Instâncias de uso geral com capacidade de \emph{burst}, projetadas para cargas de trabalho com variação no uso de CPU, como pequenos servidores web e ambientes de desenvolvimento.
+    \item \textbf{M5}: Instâncias de uso geral balanceadas, ideais para uma ampla gama de aplicações, como bancos de dados pequenos e servidores de médio porte.
+    \item \textbf{C5}: Instâncias otimizadas para computação, desenvolvidas para tarefas que exigem alto desempenho de CPU, como simulações científicas e processamento intensivo de dados.
 \end{itemize}
 
+Cada tipo de instância oferece opções configuráveis em termos de número de vCPUs, memória e armazenamento, permitindo que os usuários escolham a melhor solução para suas necessidades específicas de computação.
+
 \subsubsection{Escalabilidade}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é escalabilidade vertical?
 % Como funciona a escalabilidade vertical? Quais são seus desafios?
 % Quais são as vantagens da escalabilidade vertical?
@@ -240,147 +273,128 @@ Tipos de instâncias EC2:
 % Como funciona a escalabilidade horizontal? Quais são seus desafios?
 % Quais são as vantagens da escalabilidade horizontal?
 
-Escalabilidade é a capacidade de um sistema de lidar com um aumento de carga adicionando recursos.
+Escalabilidade é a capacidade de um sistema de adaptar-se ao aumento da carga de trabalho, mantendo seu desempenho através da adição de recursos. Existem dois principais tipos de escalabilidade: vertical e horizontal.
 
-Escalabilidade vertical envolve adicionar mais recursos (CPU, memória) a uma única máquina. É simples de implementar, mas limitada pela capacidade máxima do hardware.
+A escalabilidade vertical consiste em melhorar uma única máquina adicionando mais recursos, como CPU, memória ou armazenamento. Essa abordagem é ideal para situações em que o objetivo é melhorar o desempenho sem alterar a arquitetura existente. Em sua implementação, o hardware do sistema é atualizado para lidar com maiores demandas. No entanto, esse modelo enfrenta limitações, como os limites físicos e técnicos do hardware disponível e a possibilidade de interrupções (\emph{downtime}) durante as atualizações. Apesar disso, a escalabilidade vertical se destaca pela simplicidade de sua implementação, uma vez que não exige mudanças significativas na aplicação ou na infraestrutura, o que também facilita o gerenciamento.
 
-\begin{itemize}
-    \item \textbf{Funcionamento}: Atualiza-se o hardware da máquina existente.
-    \item \textbf{Desafios}: Limites físicos de expansão e possibilidade de downtime durante atualizações.
-    \item \textbf{Vantagens}: Simplicidade e menor complexidade de gerenciamento.
-\end{itemize}
+Por outro lado, a escalabilidade horizontal implica na adição de novas máquinas ao sistema, distribuindo a carga de trabalho entre elas. Esse modelo é mais adequado para aplicações que precisam processar grandes volumes de dados ou tráfego. Ele funciona ao replicar instâncias do sistema e utilizando balanceadores de carga para direcionar as solicitações de maneira eficiente. Apesar de suas vantagens, como maior capacidade de expansão, resiliência e tolerância a falhas (pois não depende de um único ponto), a escalabilidade horizontal apresenta desafios. Entre eles estão a necessidade de arquiteturas adequadas para distribuição de carga, sincronização de dados entre servidores e maior esforço de configuração e gerenciamento.
 
-Escalabilidade horizontal consiste em adicionar mais máquinas ao sistema, distribuindo a carga entre elas.
-
-\begin{itemize}
-    \item \textbf{Funcionamento}: Implementação de múltiplas instâncias que trabalham em paralelo.
-    \item \textbf{Desafios}: Necessidade de balanceamento de carga e sincronização entre servidores.
-    \item \textbf{Vantagens}: Maior resiliência e capacidade de expansão praticamente ilimitada.
-\end{itemize}
+A decisão entre escalabilidade vertical e horizontal depende das características específicas da aplicação, do orçamento disponível e dos requisitos de desempenho e disponibilidade do sistema. Em muitos casos, é comum a combinação de ambas as abordagens para alcançar um equilíbrio ideal entre custo, eficiência e flexibilidade.
 
 \subsubsection{Balanceamento de Carga}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é balanceamento de carga?
 % Quais são os tipos de balanceamento de carga? (Round Robin, Least Connections, etc.)
 % Quais são os serviços de balanceamento de carga na AWS? (ELB, ALB, NLB)
 
-Balanceamento de carga é a distribuição uniforme do tráfego de rede ou processamento entre vários servidores.
+O balanceamento de carga é o processo de distribuir uniformemente o tráfego de rede ou o processamento entre vários servidores. Essa técnica é essencial para garantir a alta disponibilidade, melhorar o desempenho e evitar sobrecarga em um único servidor, assegurando que as requisições sejam atendidas de forma eficiente.
 
 Tipos de balanceamento de carga:
 
 \begin{itemize}
-    \item \textbf{Round Robin}: As requisições são distribuídas sequencialmente entre os servidores.
-    \item \textbf{Least Connections}: As requisições são direcionadas ao servidor com o menor número de conexões ativas.
+    \item \textbf{Round Robin}: Distribui as requisições sequencialmente entre os servidores disponíveis, de forma cíclica.
+    \item \textbf{Least Connections}: Direciona as requisições ao servidor que possui o menor número de conexões ativas no momento, otimizando o uso de recursos.
+    \item \textbf{IP Hash}: Baseia a distribuição das requisições no endereço IP do cliente, garantindo que as solicitações do mesmo cliente sejam sempre direcionadas ao mesmo servidor.
+    \item \textbf{Least Response Time}: Encaminha as requisições ao servidor que respondeu mais rapidamente às solicitações anteriores, visando otimizar o tempo de resposta.
 \end{itemize}
 
-Serviços de balanceamento de carga na AWS:
+Na AWS, os serviços de balanceamento de carga disponíveis incluem:
 
 \begin{itemize}
-    \item \textbf{ELB (Elastic Load Balancer)}: Distribui automaticamente o tráfego de entrada entre múltiplas instâncias EC2.
-    \item \textbf{ALB (Application Load Balancer)}: Opera na camada de aplicação (HTTP/HTTPS) e proporciona balanceamento de carga avançado.
-    \item \textbf{NLB (Network Load Balancer)}: Opera na camada de transporte (TCP/UDP) e é capaz de lidar com tráfego de rede de alto desempenho.
+    \item \textbf{ELB (Elastic Load Balancer)}: Serviço geral de balanceamento de carga que distribui automaticamente o tráfego entre múltiplas instâncias EC2, ajudando a manter a resiliência e a escalabilidade.
+    \item \textbf{ALB (Application Load Balancer)}: Funciona na camada de aplicação (HTTP/HTTPS) e oferece funcionalidades avançadas, como roteamento baseado em URL, cabeçalhos e cookies.
+    \item \textbf{NLB (Network Load Balancer)}: Opera na camada de transporte (TCP/UDP) e é otimizado para lidar com grandes volumes de tráfego de rede com latência extremamente baixa.
 \end{itemize}
 
 \subsubsection{Mensageria}
-% TODO: Revisar
+% 🆗 Revisado
+.
 % O que é mensageria?
 % O que é um serviço de mensageria?
 % Quais são os tipos de mensageria? (Fila, Tópico, etc.)
 % O que é Pub/Sub?
 
-Mensageria é a troca de mensagens entre sistemas ou componentes de software, permitindo comunicação assíncrona e desacoplada.
+Mensageria refere-se à troca de mensagens entre sistemas ou componentes de software, promovendo comunicação assíncrona e desacoplada. Essa abordagem é essencial em arquiteturas distribuídas, permitindo que diferentes partes de um sistema interajam de forma eficiente sem depender diretamente umas das outras.
 
-Tipos de mensageria:
+Existem dois principais tipos de mensageria. O primeiro é o modelo de fila, no qual as mensagens são armazenadas em uma estrutura sequencial e processadas em ordem (geralmente \emph{FIFO}, ou seja, \emph{"First In, First Out"}). Nesse modelo, cada mensagem é consumida por um único consumidor, sendo particularmente útil para a execução de tarefas assíncronas. O segundo tipo é o modelo de publicação em tópicos, conhecido como \emph{Publish/Subscribe}, onde as mensagens são publicadas em um canal denominado tópico e podem ser entregues a múltiplos assinantes interessados, permitindo comunicação de um para muitos.
 
-\begin{itemize}
-    \item \textbf{Fila}: As mensagens são armazenadas e processadas em ordem, garantindo que cada mensagem seja consumida por um único consumidor.
-    \item \textbf{Tópico}: As mensagens são publicadas em tópicos e entregues a múltiplos assinantes interessados.
-\end{itemize}
+O modelo \emph{Pub/Sub (Publish/Subscribe)} é amplamente utilizado em sistemas de mensageria. Nesse modelo, os publicadores (\emph{publishers}) enviam mensagens para tópicos sem conhecimento direto dos consumidores (\emph{subscribers}). Os consumidores, por sua vez, recebem as mensagens dos tópicos aos quais estão inscritos. Essa abordagem facilita a transmissão de eventos e notificações em tempo real, proporcionando flexibilidade e escalabilidade para sistemas que exigem comunicação eficiente e distribuída.
 
-O \emph{Pub/Sub (Publish/Subscribe)} é um modelo onde os publishers enviam mensagens a tópicos, e os subscribers recebem as mensagens dos tópicos aos quais estão inscritos, permitindo comunicação um para muitos.
+Mensageria desempenha um papel fundamental na construção de sistemas resilientes e escaláveis, oferecendo suporte para comunicação assíncrona e desacoplada, além de ser a base para arquiteturas orientadas a eventos.
 
 \subsubsection{DNS}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é DNS?
 % O que é um domínio?
 % Qual serviço de DNS é utilizado na AWS? (Route 53)
 
-\emph{DNS (Domain Name System)} é o sistema que traduz nomes de domínio legíveis por humanos (como www.exemplo.com) em endereços IP numéricos.
+O \emph{DNS (Domain Name System)} é um sistema essencial para a internet, responsável por traduzir nomes de domínio legíveis por humanos (como www.uerj.br) em endereços IP numéricos utilizados por computadores para localizar e acessar recursos online. Sem o DNS, seria necessário memorizar complexos endereços IP para acessar sites e serviços.
 
-\begin{itemize}
-    \item \textbf{Domínio}: É o nome exclusivo que identifica um site na internet.
-\end{itemize}
+Um domínio é o nome exclusivo que identifica um site na internet, servindo como um endereço amigável para facilitar a navegação dos usuários. Ele é estruturado hierarquicamente, começando por um sufixo genérico de alto nível (como .com, .org ou .net) e seguido pelo nome específico registrado.
 
-Na AWS, o serviço de DNS é o \textbf{Route 53}, que oferece registro de domínios, resolução de nomes DNS e verificação da integridade de serviços.
+Na AWS, o serviço de DNS é o \textbf{Route 53}, que oferece funcionalidades avançadas, como registro de domínios, resolução de nomes DNS e verificação da integridade de serviços. O Route 53 também suporta balanceamento de carga e failover, tornando-o uma solução robusta para gerenciar tráfego em sistemas distribuídos e garantir alta disponibilidade.
 
 \subsubsection{IaC e Terraform}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é IaC?
 % O que é Terraform?
 % Como IaC beneficia o desenvolvimento de aplicações web?
 
-\emph{textbf}{IaC (Infrastructure as Code)} é a prática de gerenciar e provisionar a infraestrutura de TI através de arquivos de definição de código legíveis por máquina, em vez de configuração manual.
+\emph{IaC (Infrastructure as Code)} é a prática de gerenciar e estruturar infraestrutura cloud por meio de arquivos de configuração, eliminando a necessidade de configuração manual. Essa abordagem automatiza a criação, modificação e destruição de recursos, tornando os processos mais eficientes e menos propensos a erros humanos.
 
-\begin{itemize}
-    \item \textbf{Terraform}: Uma ferramenta de IaC que permite definir e provisionar infraestrutura em múltiplos provedores de nuvem usando arquivos de configuração.
-\end{itemize}
+O \emph{Terraform} é uma ferramenta de IaC que permite definir e gerenciar infraestrutura em múltiplos provedores de nuvem, como AWS, Azure e Google Cloud, usando arquivos de configuração escritos em linguagem declarativa. Com ele, é possível criar ambientes completos e replicáveis, desde servidores até redes e bancos de dados, de forma consistente e escalável.
 
-Benefícios da IaC no desenvolvimento de aplicações web:
-
-\begin{itemize}
-    \item \textbf{Automação}: Reduz erros humanos e aumenta a eficiência.
-    \item \textbf{Consistência}: Proporciona ambientes replicáveis e padronizados.
-    \item \textbf{Colaboração}: Facilita o versionamento e mudanças controladas na infraestrutura.
-    \item \textbf{Escalabilidade}: Permite provisionar recursos de forma dinâmica conforme a demanda.
-\end{itemize}
+Os benefícios do IaC no desenvolvimento de aplicações web incluem a automação de processos, reduzindo a probabilidade de erros e aumentando a eficiência operacional. Ele também proporciona consistência ao permitir que ambientes sejam replicados de maneira padronizada, seja para desenvolvimento, testes ou produção. Além disso, a prática facilita a colaboração entre equipes, já que os arquivos de configuração podem ser versionados e modificados de forma controlada. 
 
 \subsection{Segurança}
-% TODO: Revisar
+% 🆗 Revisado
 
-A segurança é um aspecto fundamental no desenvolvimento e operação de aplicações web. Ela engloba medidas e práticas destinadas a proteger sistemas, dados e usuários contra acessos não autorizados, ataques e outras ameaças.
+A segurança é um pilar essencial no desenvolvimento e operação de aplicações web, englobando práticas e tecnologias destinadas a proteger sistemas, dados e usuários contra acessos não autorizados, ataques e outras ameaças.
 
 
 \subsubsection{Criptografia}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é criptografia?
 % O que é criptografia em repouso?
 % O que é criptografia em trânsito?
 
-Criptografia é a técnica de proteger informações através da codificação, tornando-as ininteligíveis para usuários não autorizados. Para isso são utilizados algoritmos e chaves criptograficas capazes de cifrar e decifrar os dados. Existem dois tipos principais de criptografia comumente empregados em aplicações web:
+Criptografia é o processo de proteger informações ao transformá-las em um formato ilegível para indivíduos não autorizados, utilizando algoritmos e chaves criptográficas para cifrar e decifrar os dados. Em aplicações web, a criptografia pode ser categorizada em dois tipos principais:
 
 \begin{itemize}
-    \item \textbf{Criptografia em repouso}: Protege dados armazenados em mídias físicas, como discos e bancos de dados.
-    \item \textbf{Criptografia em trânsito}: Protege dados enquanto são transmitidos entre sistemas, evitando interceptações e ataques man-in-the-middle.
+    \item \textbf{Criptografia em repouso}: Garante a proteção de dados armazenados, como discos rígidos e bancos de dados, prevenindo o acesso não autorizado mesmo em caso de comprometimento físico dos dispositivos.
+    \item \textbf{Criptografia em trânsito}: Protege dados enquanto são transmitidos entre sistemas, garantindo a confidencialidade e integridade das informações contra interceptações ou ataques \emph{man-in-the-middle}, onde um invasor monitora e modifica a comunicação entre duas partes.
 \end{itemize}
 
 \subsubsection{Certificados SSL}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é um certificado SSL?
 % O que é HTTPS?
 
-Um \emph{certificado SSL (Secure Sockets Layer)} é um arquivo digital que autentica a identidade de um site e habilita uma conexão criptografada. O uso de SSL resulta no protocolo \emph{HTTPS (HyperText Transfer Protocol Secure)}, garantindo que os dados transmitidos entre o servidor e o cliente sejam seguros.
+Um certificado \emph{SSL (Secure Sockets Layer)} é um arquivo digital que autentica a identidade de um site e habilita conexões seguras por meio de criptografia. Sua utilização resulta no protocolo \emph{HTTPS (HyperText Transfer Protocol Secure)}, que assegura a transmissão segura de dados entre o servidor e os usuários, impedindo interceptações e garantindo confiança.
 
 \subsubsection{SSH}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é SSH?
 
-\emph{SSH (Secure Shell)} é um protocolo de rede que permite o acesso remoto seguro a máquinas, criptografando a sessão para proteger contra interceptações e ataques. É comumente utilizado para acesso a servidores, execução de comandos remotos e transferências seguras de arquivos.
+O \emph{SSH (Secure Shell)} é um protocolo de rede que permite o acesso remoto seguro a máquinas e servidores, criptografando as comunicações para proteger contra interceptações e ataques. Ele é amplamente utilizado para executar comandos remotamente, gerenciar servidores e realizar transferências de arquivos de maneira segura.
 
 \subsubsection{Firewalls}
-% TODO: Revisar
+% 🆗 Revisado
+
 % O que é um firewall?
 % O que é um grupo de segurança na AWS? Como funciona?
 
+Um \emph{firewall} é um sistema que regula o tráfego de rede com base em regras de segurança predefinidas, permitindo ou bloqueando comunicações conforme necessário.
 
-Um \emph{firewall} é um sistema de segurança que controla o tráfego de rede, permitindo ou bloqueando comunicações com base em regras de segurança predefinidas.
+Na AWS, os grupos de segurança atuam como firewalls virtuais para recursos, como instâncias EC2, controlando o tráfego de entrada e saída. Eles funcionam por meio de regras que especificam protocolos, portas e origens ou destinos permitidos, assegurando que as instâncias estejam protegidas contra acessos não autorizados e tráfego indesejado.
 
-Na AWS, os grupos de segurança funcionam como firewalls virtuais para recursos como instâncias EC2, controlando o tráfego de entrada e saída.
-
-\begin{itemize}
-    \item \textbf{Funcionamento}: As regras dos grupos de segurança especificam protocolos, portas e origens/destinos permitidos, protegendo as instâncias de tráfego indesejado.
-\end{itemize}
-
-Essas medidas de segurança são essenciais para proteger aplicações web contra ameaças e vulnerabilidades.
+Essas práticas e tecnologias são indispensáveis para proteger aplicações web contra ameaças e vulnerabilidades, promovendo confiança, integridade e disponibilidade dos sistemas.
 
 
 
