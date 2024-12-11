@@ -9,12 +9,12 @@ Antes de aprofundar nos aspectos técnicos específicos deste trabalho, é funda
 O desenvolvimento web é a área da engenharia de computação que se dedica à criação de aplicações e serviços acessíveis através da internet. Envolve a construção de sites, aplicações web e outras soluções online que interagem com usuários por meio de navegadores ou dispositivos conectados.
 
 \subsubsection{Aplicações Web}
-% 🆗 Revisado
+% 🆗 Revisado e Citado
 
 % O que são aplicações web?
 % Que tecnologias são utilizadas para desenvolver aplicações web? (HTML, CSS, JavaScript, etc.)
 
-Aplicações web são programas ou sistemas desenvolvidos para serem executados em navegadores de internet, permitindo que usuários acessem funcionalidades e informações através da web. Diferentemente dos softwares tradicionais instalados localmente, as aplicações web podem ser acessadas de qualquer lugar com conexão à internet, facilitando a distribuição e atualização.
+Aplicações web são programas ou sistemas desenvolvidos para serem executados em navegadores de internet, permitindo que usuários acessem funcionalidades e informações através da web. Diferentemente dos softwares tradicionais instalados localmente, as aplicações web podem ser acessadas de qualquer lugar com conexão à internet, facilitando a distribuição e atualização. \cite{web-app}
 
 Para desenvolver aplicações web, utilizam-se diversas tecnologias que colaboram entre si:
 
@@ -27,39 +27,41 @@ Para desenvolver aplicações web, utilizam-se diversas tecnologias que colabora
 Essas tecnologias constituem a base do desenvolvimento web front-end, proporcionando interfaces amigáveis e funcionais para os usuários.
 
 \subsubsection{Front-end e Back-end}
-% 🆗 Revisado
+% 🆗 Revisado e Citado
 
 % O que é front-end?
 % O que é back-end?
 % Qual a diferença entre front-end e back-end?
 % Como se comunicam? (via HTTP por meio de APIs, via WebSockets, etc.)
 
-No desenvolvimento de aplicações web, a arquitetura é geralmente dividida em duas camadas principais:
+No desenvolvimento de aplicações web, a arquitetura é geralmente dividida em duas camadas principais\cite{web-app}:
 
 \begin{itemize}
     \item \textbf{Front-end}: Refere-se à parte da aplicação que interage diretamente com o usuário. Inclui tudo o que o usuário vê e com o que interage no navegador, como layouts, botões e formulários. Tecnologias como HTML, CSS e JavaScript, além de frameworks como React.js, são comumente utilizadas.
     \item \textbf{Back-end}: É a camada de servidor da aplicação, responsável pelo processamento de dados, lógica de negócio e comunicação com bancos de dados. Tecnologias como Node.js, Go, Java e frameworks como Express.js são utilizadas para desenvolver o back-end.
 \end{itemize}
 
-A comunicação entre o front-end e o back-end ocorre por meio de protocolos como HTTP. O front-end envia requisições ao back-end, que processa os dados e retorna respostas, geralmente via APIs. Em aplicações em tempo real, tecnologias como WebSockets também são utilizadas para comunicação bidirecional persistente entre cliente e servidor.
+A comunicação entre o front-end e o back-end normalmente ocorre por meio de protocolos como o HTTP. O front-end envia requisições, geralmente via APIs\cite{web-app}, ao back-end, que processa os dados e retorna respostas. Em aplicações em tempo real, tecnologias como WebSockets também são utilizadas para comunicação bidirecional\cite{ws-standard} persistente entre cliente e servidor.
 
 \subsubsection{APIs}
-% 🆗 Revisado
+% 🆗 Revisado e Citado
 
 % O que é uma API?
 % Quais são os tipos de APIs? (REST, GraphQL, etc.)
 % O que é REST?
 
-Uma \emph{API (Application Programming Interface)}  é um conjunto de definições e protocolos que permite a comunicação entre diferentes softwares. No contexto de aplicações web, as APIs desempenham um papel crucial ao possibilitar a interação entre o front-end e o back-end, permitindo operações como a obtenção de dados e a execução de ações no servidor.
+Uma \emph{API (Application Programming Interface)} é um conjunto de definições e protocolos que permite a comunicação entre diferentes softwares. No contexto de aplicações web, as APIs desempenham um papel crucial ao possibilitar a interação entre o front-end e o back-end, permitindo operações como a obtenção de dados e a execução de ações no servidor. \cite{aws-api-types}
 
-Existem vários tipos de APIs, sendo atualmente dois dos mais populares:
+Existem diversos tipos de APIs, cada um com suas características e finalidades específicas. Alguns dos mais comuns incluem:
 
 \begin{itemize}
-    \item \textbf{REST (Representational State Transfer)}:Um estilo arquitetural baseado no protocolo HTTP que oferece uma interface uniforme para manipulação de recursos. É amplamente adotado por sua simplicidade e aderência aos padrões da web, facilitando a integração entre sistemas.
-    \item \textbf{GraphQL}: Uma linguagem de consulta para APIs que permite solicitar exatamente os dados necessários, melhorando a eficiência e reduzindo a quantidade de informações transferidas nas requisições.
+    \item \textbf{REST (Representational State Transfer)}: Um estilo arquitetural baseado no protocolo HTTP que oferece uma interface uniforme para manipulação de recursos. É amplamente adotado por sua simplicidade e aderência aos padrões da web, facilitando a integração entre sistemas.
+    \item \textbf{WebSocket}: Um protocolo de comunicação bidirecional em tempo real que permite a troca de mensagens entre cliente e servidor. É ideal para aplicações que demandam comunicação assíncrona e interativa.
+    \item \textbf{RPC (Remote Procedure Calls)}: Um framework de comunicação remota de alto desempenho desenvolvido pela Google, onde o cliente chama funções remotas como se fossem locais.
+    \item \textbf{SOAP (Simple Object Access Protocol)}: Um protocolo baseado em XML para troca de mensagens entre sistemas distribuídos, frequentemente utilizado em integrações corporativas.
 \end{itemize}
 
-Ambos os padrões são amplamente utilizados, com o \emph{REST} sendo preferido em muitos casos devido à sua simplicidade, enquanto o GraphQL se destaca em cenários que demandam maior flexibilidade na recuperação de dados.
+Cada tipo de API possui suas próprias características e é adequado para diferentes cenários de uso. A escolha do tipo de API depende das necessidades específicas do projeto, como complexidade, desempenho e flexibilidade.
 
 
 \subsubsection{Node.js}
