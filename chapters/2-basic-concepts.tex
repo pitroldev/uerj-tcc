@@ -128,7 +128,7 @@ Entre os métodos HTTP mais utilizados, destacam-se:
 
 Atualmente, o HTTP é indispensável para o funcionamento da internet moderna, permitindo uma interação padronizada e eficiente entre clientes e servidores, além de atuar como base para o desenvolvimento de aplicações web.
 
-\subsubsection{WebSockets}
+\subsubsection{WebSocket}
 % 🆗 Revisado
 
 \emph{WebSocket} é um protocolo de comunicação que permite uma interação bidirecional e em tempo real entre cliente e servidor por meio de uma única conexão TCP. Ele foi projetado para superar as limitações do protocolo HTTP, que é baseado no modelo de requisição-resposta e não mantém uma conexão persistente.\cite{ws-standard}
@@ -144,7 +144,7 @@ Características principais do WebSocket:
     \item \textbf{Flexibilidade no transporte de dados}: Oferece suporte tanto para mensagens em texto quanto em formato binário, atendendo a uma ampla variedade de casos de uso.
 \end{itemize}
 
-Os WebSockets transformaram a forma como aplicações modernas lidam com comunicação em tempo real, oferecendo uma solução eficiente e flexível para cenários que demandam alta interatividade e respostas imediatas. Sua capacidade de manter conexões persistentes com baixa latência torna o protocolo indispensável em sistemas que exigem troca contínua de dados, consolidando-o como uma escolha estratégica para o desenvolvimento de aplicações robustas e escaláveis.
+Os WebSockets transformaram a forma como aplicações modernas lidam com comunicação em tempo real, oferecendo uma solução eficiente e flexível para cenários que demandam alta interatividade e respostas imediatas. Sua capacidade de manter conexões persistentes com baixa latência torna o protocolo indispensável em sistemas que exigem troca contínua de dados, consolidando-o como uma escolha estratégica para o desenvolvimento de aplicações web modernas que utilizam comunicação em tempo real\cite{murley2021websocket}.
 
 \subsection{Banco de Dados}
 % TODO: Escrever Intro
@@ -216,7 +216,7 @@ Essas ferramentas aumentam a produtividade ao abstrair a complexidade das opera�
 % Quais são os tipos de serviços de computação em nuvem? (IaaS, PaaS, SaaS)
 % Quais são os principais provedores de serviços de computação em nuvem? (AWS, Google Cloud, Azure, etc.)
 
-A computação em nuvem refere-se à entrega de serviços de computação por meio da internet, permitindo o acesso a recursos de maneira flexível, escalável e sob demanda. Essa abordagem elimina a necessidade de investir em infraestrutura física, oferecendo maior agilidade e eficiência operacional para empresas e indivíduos.
+A computação em nuvem refere-se à entrega de serviços de computação por meio da internet, permitindo o acesso a recursos de maneira flexível, escalável e sob demanda\cite{what-is-cloud}. Essa abordagem elimina a necessidade de investir em infraestrutura física, oferecendo maior agilidade e eficiência operacional para empresas e indivíduos.
 
 Tipos de serviços de computação em nuvem:
 
@@ -234,7 +234,7 @@ Entre os principais provedores de serviços de computação em nuvem, destacam-s
 % O que é AWS?
 % Quais são os principais serviços da AWS? (EC2, S3, RDS, etc.)
 
-A \emph{Amazon Web Services (AWS)} é uma plataforma líder em computação em nuvem, oferecida pela Amazon. Ela fornece uma ampla gama de serviços, incluindo infraestrutura, poder computacional, armazenamento, banco de dados e distribuição de conteúdo, operando em escala global. A AWS é amplamente utilizada por empresas de diferentes tamanhos devido à sua flexibilidade, escalabilidade e confiabilidade.
+A \emph{Amazon Web Services (AWS)} é uma plataforma líder em computação em nuvem\cite{cloud-ranking}, oferecida pela Amazon. Ela fornece uma ampla gama de serviços, incluindo infraestrutura, poder computacional, armazenamento, banco de dados e distribuição de conteúdo, operando em escala global. A AWS é amplamente utilizada por empresas de diferentes tamanhos devido à sua flexibilidade, escalabilidade e confiabilidade.
 
 Dentre os serviços mais populares da AWS, destacam-se:
 
@@ -275,11 +275,11 @@ Cada tipo de instância oferece opções configuráveis em termos de número de 
 % Como funciona a escalabilidade horizontal? Quais são seus desafios?
 % Quais são as vantagens da escalabilidade horizontal?
 
-Escalabilidade é a capacidade de um sistema de adaptar-se ao aumento da carga de trabalho, mantendo seu desempenho através da adição de recursos. Existem dois principais tipos de escalabilidade: vertical e horizontal.
+Escalabilidade é a capacidade de um sistema de adaptar-se ao aumento da carga de trabalho, mantendo seu desempenho através da adição de recursos. Existem dois principais tipos de escalabilidade: vertical e horizontal\cite{what-is-scalability}.
 
-A escalabilidade vertical consiste em melhorar uma única máquina adicionando mais recursos, como CPU, memória ou armazenamento. Essa abordagem é ideal para situações em que o objetivo é melhorar o desempenho sem alterar a arquitetura existente. Em sua implementação, o hardware do sistema é atualizado para lidar com maiores demandas. No entanto, esse modelo enfrenta limitações, como os limites físicos e técnicos do hardware disponível e a possibilidade de interrupções (\emph{downtime}) durante as atualizações. Apesar disso, a escalabilidade vertical se destaca pela simplicidade de sua implementação, uma vez que não exige mudanças significativas na aplicação ou na infraestrutura, o que também facilita o gerenciamento.
+A escalabilidade vertical consiste em melhorar uma única máquina adicionando mais recursos, como CPU, memória ou armazenamento\cite{what-is-scalability}. Essa abordagem é ideal para situações em que o objetivo é melhorar o desempenho sem alterar a arquitetura existente. Em sua implementação, o hardware do sistema é atualizado para lidar com maiores demandas. No entanto, esse modelo enfrenta limitações, como os limites físicos e técnicos do hardware disponível e a possibilidade de interrupções (\emph{downtime}) durante as atualizações. Apesar disso, a escalabilidade vertical se destaca pela simplicidade de sua implementação, uma vez que não exige mudanças significativas na aplicação ou na infraestrutura, o que também facilita o gerenciamento.
 
-Por outro lado, a escalabilidade horizontal implica na adição de novas máquinas ao sistema, distribuindo a carga de trabalho entre elas. Esse modelo é mais adequado para aplicações que precisam processar grandes volumes de dados ou tráfego. Ele funciona ao replicar instâncias do sistema e utilizando balanceadores de carga para direcionar as solicitações de maneira eficiente. Apesar de suas vantagens, como maior capacidade de expansão, resiliência e tolerância a falhas (pois não depende de um único ponto), a escalabilidade horizontal apresenta desafios. Entre eles estão a necessidade de arquiteturas adequadas para distribuição de carga, sincronização de dados entre servidores e maior esforço de configuração e gerenciamento.
+Por outro lado, a escalabilidade horizontal implica na adição de novas máquinas ao sistema, distribuindo a carga de trabalho entre elas\cite{what-is-scalability}. Esse modelo é mais adequado para aplicações que precisam processar grandes volumes de dados ou tráfego. Ele funciona ao replicar instâncias do sistema e utilizando balanceadores de carga para direcionar as solicitações de maneira eficiente. Apesar de suas vantagens, como maior capacidade de expansão, resiliência e tolerância a falhas (pois não depende de um único ponto), a escalabilidade horizontal apresenta desafios. Entre eles estão a necessidade de arquiteturas adequadas para distribuição de carga, sincronização de dados entre servidores e maior esforço de configuração e gerenciamento.
 
 A decisão entre escalabilidade vertical e horizontal depende das características específicas da aplicação, do orçamento disponível e dos requisitos de desempenho e disponibilidade do sistema. Em muitos casos, é comum a combinação de ambas as abordagens para alcançar um equilíbrio ideal entre custo, eficiência e flexibilidade.
 
@@ -290,9 +290,9 @@ A decisão entre escalabilidade vertical e horizontal depende das característic
 % Quais são os tipos de balanceamento de carga? (Round Robin, Least Connections, etc.)
 % Quais são os serviços de balanceamento de carga na AWS? (ELB, ALB, NLB)
 
-O balanceamento de carga é o processo de distribuir uniformemente o tráfego de rede ou o processamento entre vários servidores. Essa técnica é essencial para garantir a alta disponibilidade, melhorar o desempenho e evitar sobrecarga em um único servidor, assegurando que as requisições sejam atendidas de forma eficiente.
+O balanceamento de carga é o processo de distribuir uniformemente o tráfego de rede ou o processamento entre vários servidores\cite{what-is-load-balancing}. Essa técnica é essencial para garantir a alta disponibilidade, melhorar o desempenho e evitar sobrecarga em um único servidor, assegurando que as requisições sejam atendidas de forma eficiente.
 
-Tipos de balanceamento de carga:
+Os tipos mais comuns de algoritmos de balanceamento de carga são:
 
 \begin{itemize}
     \item \textbf{Round Robin}: Distribui as requisições sequencialmente entre os servidores disponíveis, de forma cíclica.
@@ -311,7 +311,7 @@ Na AWS, os serviços de balanceamento de carga disponíveis incluem:
 
 \subsubsection{Mensageria}
 % 🆗 Revisado
-.
+
 % O que é mensageria?
 % O que é um serviço de mensageria?
 % Quais são os tipos de mensageria? (Fila, Tópico, etc.)
@@ -319,7 +319,7 @@ Na AWS, os serviços de balanceamento de carga disponíveis incluem:
 
 Mensageria refere-se à troca de mensagens entre sistemas ou componentes de software, promovendo comunicação assíncrona e desacoplada. Essa abordagem é essencial em arquiteturas distribuídas, permitindo que diferentes partes de um sistema interajam de forma eficiente sem depender diretamente umas das outras.
 
-Existem dois principais tipos de mensageria. O primeiro é o modelo de fila, no qual as mensagens são armazenadas em uma estrutura sequencial e processadas em ordem (geralmente \emph{FIFO}, ou seja, \emph{"First In, First Out"}). Nesse modelo, cada mensagem é consumida por um único consumidor, sendo particularmente útil para a execução de tarefas assíncronas. O segundo tipo é o modelo de publicação em tópicos, conhecido como \emph{Publish/Subscribe}, onde as mensagens são publicadas em um canal denominado tópico e podem ser entregues a múltiplos assinantes interessados, permitindo comunicação de um para muitos.
+Existem dois principais tipos de mensageria\cite{what-is-message-broker}. O primeiro é o modelo de fila, no qual as mensagens são armazenadas em uma estrutura sequencial e processadas em ordem (geralmente \emph{FIFO}, ou seja, \emph{"First In, First Out"}). Nesse modelo, cada mensagem é consumida por um único consumidor, sendo particularmente útil para a execução de tarefas assíncronas. O segundo tipo é o modelo de publicação em tópicos, conhecido como \emph{Publish/Subscribe}, onde as mensagens são publicadas em um canal denominado tópico e podem ser entregues a múltiplos assinantes interessados, permitindo comunicação de um para muitos.
 
 O modelo \emph{Pub/Sub (Publish/Subscribe)} é amplamente utilizado em sistemas de mensageria. Nesse modelo, os publicadores (\emph{publishers}) enviam mensagens para tópicos sem conhecimento direto dos consumidores (\emph{subscribers}). Os consumidores, por sua vez, recebem as mensagens dos tópicos aos quais estão inscritos. Essa abordagem facilita a transmissão de eventos e notificações em tempo real, proporcionando flexibilidade e escalabilidade para sistemas que exigem comunicação eficiente e distribuída.
 
@@ -332,7 +332,7 @@ Mensageria desempenha um papel fundamental na construção de sistemas resilient
 % O que é um domínio?
 % Qual serviço de DNS é utilizado na AWS? (Route 53)
 
-O \emph{DNS (Domain Name System)} é um sistema essencial para a internet, responsável por traduzir nomes de domínio legíveis por humanos (como www.uerj.br) em endereços IP numéricos utilizados por computadores para localizar e acessar recursos online. Sem o DNS, seria necessário memorizar complexos endereços IP para acessar sites e serviços.
+O \emph{DNS (Domain Name System)} é um sistema essencial para a internet, responsável por traduzir nomes de domínio legíveis por humanos (como www.uerj.br) em endereços IP numéricos utilizados por computadores para localizar e acessar recursos online\cite{what-is-dns}. Sem o DNS, seria necessário memorizar complexos endereços IP para acessar sites e serviços.
 
 Um domínio é o nome exclusivo que identifica um site na internet, servindo como um endereço amigável para facilitar a navegação dos usuários. Ele é estruturado hierarquicamente, começando por um sufixo genérico de alto nível (como .com, .org ou .net) e seguido pelo nome específico registrado.
 
@@ -345,9 +345,9 @@ Na AWS, o serviço de DNS é o \textbf{Route 53}, que oferece funcionalidades av
 % O que é Terraform?
 % Como IaC beneficia o desenvolvimento de aplicações web?
 
-\emph{IaC (Infrastructure as Code)} é a prática de gerenciar e estruturar infraestrutura cloud por meio de arquivos de configuração, eliminando a necessidade de configuração manual. Essa abordagem automatiza a criação, modificação e destruição de recursos, tornando os processos mais eficientes e menos propensos a erros humanos.
+\emph{IaC (Infrastructure as Code)} é a prática de gerenciar e estruturar infraestrutura cloud por meio de arquivos de configuração, eliminando a necessidade de configuração manual. Essa abordagem automatiza a criação, modificação e destruição de recursos, tornando os processos mais eficientes e menos propensos a erros humanos\cite{what-is-iac}.
 
-O \emph{Terraform} é uma ferramenta de IaC que permite definir e gerenciar infraestrutura em múltiplos provedores de nuvem, como AWS, Azure e Google Cloud, usando arquivos de configuração escritos em linguagem declarativa. Com ele, é possível criar ambientes completos e replicáveis, desde servidores até redes e bancos de dados, de forma consistente e escalável.
+O \emph{Terraform} é uma ferramenta de IaC que permite definir e gerenciar infraestrutura em múltiplos provedores de nuvem, como AWS, Azure e Google Cloud, usando arquivos de configuração escritos em linguagem declarativa\cite{terraform-docs}. Com ele, é possível criar ambientes completos e replicáveis, desde servidores até redes e bancos de dados, de forma consistente e escalável.
 
 Os benefícios do IaC no desenvolvimento de aplicações web incluem a automação de processos, reduzindo a probabilidade de erros e aumentando a eficiência operacional. Ele também proporciona consistência ao permitir que ambientes sejam replicados de maneira padronizada, seja para desenvolvimento, testes ou produção. Além disso, a prática facilita a colaboração entre equipes, já que os arquivos de configuração podem ser versionados e modificados de forma controlada. 
 
