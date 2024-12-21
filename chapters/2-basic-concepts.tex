@@ -72,17 +72,17 @@ Cada tipo de API possui suas próprias características e é adequado para difer
 
 \emph{Node.js} é um ambiente de execução de JavaScript projetado para o desenvolvimento do lado do servidor (back-end). Ele permite que os desenvolvedores utilizem JavaScript fora do navegador, possibilitando a criação de aplicações escaláveis, de alto desempenho e adequadas para diferentes tipos de cenários, como APIs, sistemas em tempo real e microsserviços.
 
-Construído sobre o motor V8 do Google Chrome, o Node.js oferece execução extremamente rápida para código JavaScript. Ele adota um modelo de programação assíncrono e orientado a eventos, ideal para lidar com operações intensivas de entrada e saída, como comunicação com bancos de dados ou requisições HTTP.
+Construído sobre o motor V8 do Google Chrome, o Node.js oferece execução extremamente rápida para código JavaScript. Ele adota um modelo de programação assíncrono e orientado a eventos\cite{nodejs-about}, ideal para lidar com operações intensivas de entrada e saída, como comunicação com bancos de dados ou requisições HTTP.
 
 Vantagens de utilizar Node.js para desenvolver aplicações web:
 
 \begin{itemize}
-    \item \textbf{Modelo assíncrono e orientado a eventos}: O modelo non-blocking permite que o servidor lide com múltiplas conexões simultaneamente, tornando-o altamente eficiente e ideal para aplicações que demandam grande escalabilidade, como chats em tempo real e streaming de dados.
-    \item \textbf{Comunidade ativa e ecossistema rico}: A comunidade do Node.js é uma das mais movimentadas no desenvolvimento de software, e o NPM (Node Package Manager) disponibiliza milhões de módulos e bibliotecas prontos para uso, agilizando o desenvolvimento e aumentando a produtividade.
+    \item \textbf{Modelo assíncrono e orientado a eventos}: O modelo \emph{non-blocking} (não bloqueante) permite que o servidor lide com múltiplas conexões simultaneamente, tornando-o altamente eficiente e ideal para aplicações que demandam grande escalabilidade, como chats em tempo real e streaming de dados.
+    \item \textbf{Comunidade ativa e ecossistema rico}: A comunidade do Node.js é uma das mais movimentadas no desenvolvimento de software\cite{size-programming-languages}, e o NPM (Node Package Manager) disponibiliza milhões de módulos e bibliotecas prontos para uso, agilizando o desenvolvimento e aumentando a produtividade.
     \item \textbf{Unificação da linguagem}: O uso do JavaScript tanto no front-end quanto no back-end elimina a necessidade de lidas com linguagens diferentes para cada camada da aplicação, promovendo maior consistência e redução de complexidade.
 \end{itemize}
 
-Além disso, o Node.js é frequentemente escolhido para projetos modernos devido à sua flexibilidade e capacidade de suportar arquiteturas orientadas a microsserviços, permitindo que equipes desenvolvam e mantenham aplicações robustas com maior eficiência.
+Além disso, o Node.js é frequentemente escolhido para projetos modernos devido à sua flexibilidade e capacidade de suportar arquiteturas orientadas a microsserviços, permitindo que equipes desenvolvam e mantenham aplicações complexas com maior eficiência.
 
 \subsubsection{Bibliotecas e Frameworks}
 % 🆗 Revisado
@@ -92,13 +92,13 @@ Além disso, o Node.js é frequentemente escolhido para projetos modernos devido
 % O que é Next.js?
 % O que é Express.js?
 
-Frameworks e bibliotecas são ferramentas essenciais no desenvolvimento de software, amplamente empregadas para acelerar a criação de aplicações.
+Frameworks e bibliotecas são ferramentas essenciais no desenvolvimento de software, são amplamente utilizadas para acelerar a criação de aplicações.
 
-Bibliotecas consistem em coleções de funções ou componentes reutilizáveis que os desenvolvedores incorporam em seus projetos para resolver problemas específicos. Ao contrário dos frameworks, as bibliotecas não impõem uma estrutura fixa ao projeto, proporcionando maior flexibilidade e controle ao desenvolvedor sobre como e quando utilizá-las. Um exemplo notável é o React.js, uma biblioteca focada na criação de interfaces de usuário. Ela permite o uso de componentes reutilizáveis e oferece mecanismos eficientes para o gerenciamento de estados.
+Bibliotecas consistem em um conjunto de funções ou componentes reutilizáveis que os desenvolvedores incorporam em seus projetos para resolver problemas específicos. Ao contrário dos frameworks, as bibliotecas não impõem uma estrutura fixa ao projeto, proporcionando maior flexibilidade e controle ao desenvolvedor sobre como e quando utilizá-las\cite{libs-vs-frameworks}. Um exemplo notável é o React.js, uma biblioteca focada na criação de interfaces de usuário. Ela permite o uso de componentes reutilizáveis e oferece mecanismos eficientes para o gerenciamento de estados.
 
 Frameworks, por sua vez, fornecem uma estrutura completa para o desenvolvimento de aplicações. Eles estabelecem uma arquitetura definida e um fluxo de trabalho consistente, além de integrarem um conjunto robusto de ferramentas para tarefas como roteamento, renderização e manipulação de requisições. Entre os frameworks mais populares, destacam-se:
 \begin{itemize}
-    \item \textbf{Next.js}: Um framework baseado em React que introduz funcionalidades avançadas, como renderização no lado do servidor (SSR) e geração de sites estáticos (SSG), otimizando o desempenho e melhorando a SEO.
+    \item \textbf{Next.js}: Um framework que se baseia na biblioteca \emph{React}\cite{what-is-nextjs} e introduz funcionalidades avançadas, como renderização no lado do servidor (SSR) e geração de sites estáticos (SSG), otimizando o desempenho e melhorando a SEO \emph{(Search Engine Optimization)}.
     \item \textbf{Express.js}: Um framework minimalista para Node.js, projetado para simplificar o desenvolvimento de aplicações web e APIs. Ele facilita o gerenciamento de rotas, requisições e middlewares.
 \end{itemize}
 
@@ -113,7 +113,7 @@ Protocolos de comunicação são conjuntos de regras e convenções que determin
 \subsubsection{HTTP}
 % 🆗 Revisado
 
-O \emph{HTTP (Hypertext Transfer Protocol)} é o protocolo base da web, utilizado para a comunicação entre clientes (como navegadores) e servidores. Ele define as regras para formatação e transmissão de mensagens, bem como as ações que devem ser executadas em resposta a diferentes comandos.
+O \emph{HTTP (Hypertext Transfer Protocol)} é o protocolo base da web, utilizado para a comunicação entre clientes (como navegadores) e servidores a nível de aplicação\cite{http-protocol}. Ele define as regras para formatação e transmissão de mensagens, bem como as ações que devem ser executadas em resposta a diferentes comandos.
 
 O HTTP segue o modelo de requisição-resposta, no qual o cliente envia uma requisição ao servidor, que, por sua vez, processa a solicitação e retorna uma resposta. Tanto as requisições quanto as respostas são compostas por cabeçalhos, que contêm informações importantes, e, opcionalmente, por um corpo que transporta dados adicionais.
 
@@ -126,12 +126,12 @@ Entre os métodos HTTP mais utilizados, destacam-se:
     \item \textbf{DELETE}: Remove um recurso especificado.
 \end{itemize}
 
-O HTTP é fundamental para o funcionamento da web, permitindo a interação entre clientes e servidores de forma padronizada e eficiente.
+Atualmente, o HTTP é indispensável para o funcionamento da internet moderna, permitindo uma interação padronizada e eficiente entre clientes e servidores, além de atuar como base para o desenvolvimento de aplicações web.
 
 \subsubsection{WebSockets}
 % 🆗 Revisado
 
-\emph{WebSocket} é um protocolo de comunicação que permite uma interação bidirecional e em tempo real entre cliente e servidor por meio de uma única conexão TCP. Ele foi projetado para superar as limitações do protocolo HTTP, que é baseado no modelo de requisição-resposta e não mantém uma conexão persistente.
+\emph{WebSocket} é um protocolo de comunicação que permite uma interação bidirecional e em tempo real entre cliente e servidor por meio de uma única conexão TCP. Ele foi projetado para superar as limitações do protocolo HTTP, que é baseado no modelo de requisição-resposta e não mantém uma conexão persistente.\cite{ws-standard}
 
 Ao contrário do HTTP, onde o cliente precisa iniciar cada requisição para receber novos dados, os WebSockets mantêm a conexão ativa após o handshake inicial. Isso possibilita que tanto o cliente quanto o servidor enviem mensagens de forma independente e assíncrona, sem a necessidade de estabelecer novas conexões para cada troca de dados. 
 
@@ -153,7 +153,7 @@ Os WebSockets transformaram a forma como aplicações modernas lidam com comunic
 \subsubsection{SQL}
 % 🆗 Revisado
 
-\emph{SQL (Structured Query Language)} é a linguagem padrão para gerenciamento de bancos de dados relacionais. Bancos de dados SQL organizam os dados em tabelas estruturadas com esquemas predefinidos, permitindo consultas complexas, manipulação eficiente de dados e garantindo consistência por meio de transações.
+\emph{SQL (Structured Query Language)} é a linguagem padrão para gerenciamento de bancos de dados relacionais\cite{sql-wiki}. Bancos de dados SQL organizam os dados em tabelas estruturadas com esquemas predefinidos, permitindo consultas complexas, manipulação eficiente de dados e garantindo consistência por meio de transações.
 
 Os bancos de dados baseados em SQL são amplamente utilizados devido à sua capacidade de lidar com grandes volumes de informações e à aderência a padrões que favorecem a interoperabilidade entre diferentes sistemas.
 
@@ -173,7 +173,7 @@ Os bancos de dados SQL continuam sendo a espinha dorsal de muitos sistemas corpo
 % O que é NoSQL?
 % Quais são os tipos de bancos de dados NoSQL? (Documentos, Chave-Valor, Colunas, Grafos)
 
-\emph{NoSQL} é um termo que engloba uma categoria de sistemas de gerenciamento de banco de dados que não seguem o modelo relacional tradicional. Esses bancos de dados são projetados para lidar com grandes volumes de dados distribuídos, altamente escaláveis e frequentemente não estruturados. Eles oferecem maior flexibilidade para modelagem de dados e são amplamente utilizados em aplicações modernas, como redes sociais, IoT e análise de big data.
+\emph{NoSQL} é um termo que engloba uma categoria de sistemas de gerenciamento de banco de dados que não seguem o modelo relacional tradicional\cite{nosql-vs-sql}. Esses bancos de dados são projetados para lidar com grandes volumes de dados distribuídos, altamente escaláveis e frequentemente não estruturados. Eles oferecem maior flexibilidade para modelagem de dados e são amplamente utilizados em aplicações modernas, como redes sociais, IoT e análise de big data.
 
 Principais tipos de bancos de dados NoSQL:
 
@@ -200,7 +200,7 @@ Os bancos de dados NoSQL se destacam por sua capacidade de lidar com dados dinâ
 \subsubsection{ORMs e ODMs}
 % 🆗 Revisado
 
-\emph{ORM (Object-Relational Mapping)} e \emph{ODM (Object-Document Mapping)} são técnicas que permitem mapear objetos do código-fonte para estruturas de bancos de dados relacionais e NoSQL, respectivamente. Elas têm como objetivo simplificar a interação com os bancos de dados, permitindo que os desenvolvedores trabalhem diretamente com a linguagem de programação utilizada no projeto, em vez de escrever consultas SQL ou comandos específicos para cada tipo de banco.
+\emph{ORM (Object-Relational Mapping)} e \emph{ODM (Object-Document Mapping)} são técnicas que permitem mapear objetos do código-fonte para estruturas de bancos de dados relacionais e NoSQL, respectivamente. Elas têm como objetivo simplificar a interação com os bancos de dados, permitindo que os desenvolvedores trabalhem diretamente com a linguagem de programação utilizada no projeto, em vez de escrever consultas SQL ou comandos específicos para cada tipo de banco.\cite{orm-vs-odm}
 
 \begin{itemize}
     \item \textbf{ORMs}: Facilitam a manipulação de dados em bancos de dados relacionais, abstraindo consultas SQL e permitindo o uso de objetos. Exemplo: Sequelize.
