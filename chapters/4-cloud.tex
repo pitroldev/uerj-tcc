@@ -62,11 +62,9 @@ Essas escolhas de serviço atendem diretamente às necessidades de desempenho, s
 \subsubsection{Implementação de Infraestrutura como Código com Terraform}
 % Revisado
 
-Para assegurar um processo de implantação de infraestrutura que seja eficiente, escalável e replicável, a plataforma Codeboard utiliza o \emph{Terraform} como ferramenta de \emph{Infrastructure as Code} (IaC). Terraform permite definir a infraestrutura como código, o que possibilita o versionamento, automação e repetibilidade do processo de provisão da infraestrutura em nuvem.
+Para assegurar um processo de implantação de infraestrutura que seja eficiente, escalável e replicável, a plataforma Codeboard utiliza o \emph{Terraform} como ferramenta de \emph{Infrastructure as Code} (IaC).
 
-Uma das principais vantagens do uso do Terraform é a capacidade de descrever toda a arquitetura em arquivos de configuração que podem ser facilmente armazenados, revisados e auditados. Ele utiliza sua própria linguagem, HCL (HashiCorp Configuration Language), que permite definir recursos da AWS, como instâncias EC2, balanceadores de carga, grupos de segurança e outros componentes necessários. O Terraform então interage diretamente com a API da AWS para provisionar e gerenciar esses recursos.
-
-Além disso, o uso do Terraform garante que a infraestrutura seja declarativa e idempotente, o que significa que recursos existentes não são recriados desnecessariamente a cada execução. Isso resulta em um gerenciamento mais eficiente dos recursos e em um controle de mudanças mais preciso. Foram estabelecidos módulos Terraform para tratar de diferentes aspectos da infraestrutura, como rede, segurança e recursos de computação, permitindo que seja possível trabalhar isoladamente em partes distintas da arquitetura sem necessidade de intervenção manual entre essas partes.
+A utilização do Terraform como IaC garante que a infraestrutura seja declarativa e executada de forma idempotente, o que significa que recursos existentes não são recriados desnecessariamente a cada execução. Isso resulta em um gerenciamento mais eficiente dos recursos e em um controle de mudanças mais preciso. Foram estabelecidos módulos para tratar de diferentes aspectos da infraestrutura, como rede, segurança e recursos de computação, permitindo que seja possível trabalhar isoladamente em partes distintas da arquitetura sem necessidade de intervenção manual entre essas partes.
 
 
 \subsection{Infraestrutura de Computação}

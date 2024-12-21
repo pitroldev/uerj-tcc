@@ -347,9 +347,14 @@ Na AWS, o serviço de DNS é o \textbf{Route 53}, que oferece funcionalidades av
 
 \emph{IaC (Infrastructure as Code)} é a prática de gerenciar e estruturar infraestrutura cloud por meio de arquivos de configuração, eliminando a necessidade de configuração manual. Essa abordagem automatiza a criação, modificação e destruição de recursos, tornando os processos mais eficientes e menos propensos a erros humanos\cite{what-is-iac}.
 
+Os benefícios do IaC no desenvolvimento de aplicações web incluem a automação de processos, reduzindo a probabilidade de erros e aumentando a eficiência operacional. Ele também proporciona consistência ao permitir que ambientes sejam replicados de maneira padronizada, seja para desenvolvimento, testes ou produção. Além disso, a prática facilita a colaboração entre equipes, já que os arquivos de configuração podem ser versionados e modificados de forma controlada. 
+
 O \emph{Terraform} é uma ferramenta de IaC que permite definir e gerenciar infraestrutura em múltiplos provedores de nuvem, como AWS, Azure e Google Cloud, usando arquivos de configuração escritos em linguagem declarativa\cite{terraform-docs}. Com ele, é possível criar ambientes completos e replicáveis, desde servidores até redes e bancos de dados, de forma consistente e escalável.
 
-Os benefícios do IaC no desenvolvimento de aplicações web incluem a automação de processos, reduzindo a probabilidade de erros e aumentando a eficiência operacional. Ele também proporciona consistência ao permitir que ambientes sejam replicados de maneira padronizada, seja para desenvolvimento, testes ou produção. Além disso, a prática facilita a colaboração entre equipes, já que os arquivos de configuração podem ser versionados e modificados de forma controlada. 
+Uma das principais vantagens do uso do Terraform é a capacidade de descrever toda a arquitetura em arquivos de configuração que podem ser facilmente armazenados, revisados e auditados. Ele utiliza sua própria linguagem, HCL (HashiCorp Configuration Language), que permite definir recursos da AWS, como instâncias EC2, balanceadores de carga, grupos de segurança e outros componentes necessários. O Terraform então interage diretamente com a API da AWS para provisionar e gerenciar esses recursos.
+
+
+
 
 \subsection{Segurança}
 % 🆗 Revisado
