@@ -84,7 +84,7 @@ Para hospedar a aplicação da plataforma Codeboard, foram escolhidas instância
     \item \textbf{Armazenamento em disco SSD}: Embora a Codeboard não faça uso intensivo de disco, o armazenamento SSD nas instâncias t3.micro oferece maior velocidade e confiabilidade, beneficiando a estabilidade do sistema.
 \end{itemize}
 
-As instâncias EC2 foram configuradas com o sistema operacional \emph{Ubuntu 24.04 LTS}, o servidor web \emph{NGINX}, o gerenciador de processos \emph{PM2} e entre outras ferramentas. A escolha do Ubuntu 24.04 LTS deve-se à sua estabilidade e suporte de longo prazo para atualizações de segurança. O NGINX atua como um servidor web reverso, redirecionando o tráfego HTTPS para os processos Node.js que executam a Codeboard. Já o PM2 gerencia esses processos, mantendo-os ativos e reiniciando automaticamente em caso de falhas.
+As instâncias EC2 foram configuradas com o sistema operacional \emph{Ubuntu 24.04 LTS}, o servidor web \emph{NGINX}, o gerenciador de processos \emph{PM2} e outras ferramentas para auxiliar no processo de configuração da instância: \emph{Git}, \emph{Node.js}, \emph{NPM} e \emph{CertBot}. A escolha do Ubuntu 24.04 LTS deve-se à sua estabilidade e suporte de longo prazo para atualizações de segurança. O NGINX atua como um servidor web reverso, redirecionando o tráfego HTTPS para os processos Node.js que executam a Codeboard. Já o PM2 gerencia esses processos, mantendo-os ativos e reiniciando automaticamente em caso de falhas.
 
 \subsection{Balanceamento de Carga, Escalabilidade e Recuperação de Falhas}
 % Revisado
