@@ -100,7 +100,7 @@ Além disso, mecanismos de recuperação automática de falhas foram configurado
 
 A aplicação Codeboard opera em um \emph{cluster} de processos, o que torna o balanceamento de carga essencial para distribuir o tráfego de entrada de maneira eficiente. Para isso, o PM2 foi configurado no modo cluster, permitindo a criação de múltiplos processos Node.js que compartilham o mesmo \emph{socket} de rede. Dessa forma, o NGINX redireciona o tráfego entre os processos por meio do módulo \emph{proxy\_pass}, que envia as requisições HTTP para o processo Node.js que executa a Codeboard.
 
-O algoritimo de balanceamento de carga utilizado é o \emph{Round Robin}, que distribui o tráfego de entrada de forma alternada entre os processos do cluster, assegurando que cada processo receba uma quantidade igual de solicitações. A Figura \ref{fig:round-robin-load-balancing} ilustra o funcionamento do algoritmo Round Robin, enqunato a Figura \ref{fig:pm2-cluster-mode} mostra o modo cluster do PM2 em ação.
+O algoritimo de balanceamento de carga utilizado é o \emph{Round Robin}, que distribui o tráfego de entrada de forma alternada entre os processos do cluster, assegurando que cada processo receba uma quantidade igual de solicitações. A Figura \ref{fig:round-robin-load-balancing} ilustra o funcionamento do algoritmo Round Robin, enquanto a Figura \ref{fig:pm2-cluster-mode} mostra o modo cluster do PM2 em ação.
 
 \begin{figure}[H]
     \centering
@@ -224,8 +224,6 @@ Além disso, as instâncias EC2 não são acessadas diretamente; o tráfego de e
 \subsubsection{Criptografia de Dados em Trânsito}
 % Revisado
 
-A criptografia de dados em trânsito é uma técnica que protege as informações enquanto são transferidas entre diferentes pontos de uma rede, como entre o navegador de um usuário e um servidor. Ao criptografar esses dados, evita-se que terceiros consigam interceptá-los e acessá-los sem autorização, garantindo que apenas o remetente e o destinatário possam interpretá-los. Essa medida é fundamental para proteger a privacidade dos usuários e a integridade das informações, especialmente em plataformas que processam dados sensíveis, evitando problemas como roubo de informações e ataques de espionagem.
-
 Para assegurar a segurança dos dados em trânsito, um certificado SSL foi configurado no ELB para criptografar o tráfego entre o cliente e o servidor. Esse certificado, emitido pelo AWS Certificate Manager (ACM), é gratuito e gerenciado, sendo adequado para serviços da AWS. A configuração inclui um domínio personalizado da plataforma Codeboard, disponível em https://codeboard.pitrol.dev/, o que garante a autenticidade e a integridade das conexões HTTPS. Com isso, a criptografia dos dados em trânsito protege contra interceptações e garante a privacidade e a segurança dos usuários.
 
 % TODO?: \subsubsection{Rotatividade de Chaves e Segredos}
@@ -253,9 +251,9 @@ A escolha pela escalabilidade vertical, em vez da horizontal, foi fundamentada p
 
 O MongoDB Atlas permite configurar a escalabilidade vertical de forma automática, ajustando a capacidade da instância com base na utilização de recursos. Os gatilhos predefinidos monitoram métricas de desempenho, como:
 \begin{itemize}
-    \item \textbf{CPU}: Se a utilização ultrapassar um limite definido (e.g., 80\%) por um período contínuo, a capacidade da instância é aumentada automaticamente.
-    \item \textbf{Memória}: Um uso persistente acima de uma faixa segura dispara o aumento de recursos.
-    \item \textbf{Armazenamento}: Quando o espaço disponível atinge um limite crítico (e.g., 85\%), a capacidade de armazenamento é ampliada.
+    \item \textbf{CPU}: Se a utilização ultrapassar um limite definido de 75\% na última hora, a capacidade da instância é aumentada automaticamente.
+    \item \textbf{Memória}: Um uso persistente acima de uma faixa segura de 90\% por pelo menos 10 minutos dispara o aumento de recursos.
+    \item \textbf{Armazenamento}: Quando o espaço disponível atinge um limite crítico de 90\%, a capacidade de armazenamento é ampliada. 
 \end{itemize}
 
 
