@@ -310,6 +310,28 @@ Na AWS, os serviços de balanceamento de carga disponíveis incluem:
     \item \textbf{NLB (Network Load Balancer)}: Opera na camada de transporte (TCP/UDP) e é otimizado para lidar com grandes volumes de tráfego de rede com latência extremamente baixa.
 \end{itemize}
 
+
+\subsubsection{Sharding}
+
+% O que é sharding?
+% Como funciona o sharding? Quais são os desafios do sharding?
+% Quais são as vantagens do sharding? Quando é recomendado o uso de sharding?
+
+\emph{Sharding} (fragmentação) é uma técnica de particionamento de dados amplamente utilizada em sistemas distribuídos de banco de dados para melhorar a escalabilidade e o desempenho. O termo refere-se ao processo de dividir uma base de dados em partes menores, chamadas de \emph{shards}, que podem ser armazenadas e gerenciadas separadamente em diferentes servidores ou nós\cite{sharding-mongodb}. Cada shard contém um subconjunto dos dados, e juntos, todos os shards formam a base de dados completa.
+
+A implementação do sharding envolve a escolha de uma chave de particionamento para distribuir dados entre os shards de forma equilibrada, evitando hotspots e garantindo escalabilidade horizontal. Apesar de desafios como a complexidade da implementação, a redistribuição de dados em cenários de crescimento e a coordenação entre shards em consultas complexas, o sharding oferece vantagens significativas, como a possibilidade de adicionar novos nós para lidar com aumentos de carga, melhoria no desempenho ao reduzir a carga sobre cada nó e maior resiliência, pois falhas em um shard não comprometem a disponibilidade do sistema como um todo.
+
+O uso do sharding é recomendado em situações onde o volume de dados ou a carga de requisições excedem a capacidade de um banco de dados monolítico. Exemplos incluem aplicações com grandes bases de usuários, como redes sociais e plataformas de e-commerce, onde o acesso concorrente e o armazenamento de dados são cruciais. A escolha de implementar o sharding deve considerar o custo-benefício, levando em conta a complexidade adicional introduzida e a necessidade de manutenção constante.
+
+\subsubsection{Replicação}
+
+A replicação é uma técnica utilizada para aumentar a disponibilidade, confiabilidade e desempenho de sistemas de banco de dados. Ela consiste em criar cópias redundantes de um banco de dados e mantê-las sincronizadas em múltiplos servidores ou nós\cite{replication-mongodb}. Essas cópias, chamadas de réplicas, podem ser utilizadas para distribuir a carga de trabalho, melhorar o tempo de resposta das consultas e garantir a continuidade do serviço em caso de falhas.
+
+As diferentes estratégias de replicação, como a síncrona, que garante consistência imediata entre réplicas, e a assíncrona, que oferece maior desempenho com risco de inconsistências temporárias, devem ser escolhidas considerando o equilíbrio entre consistência, desempenho e disponibilidade. Apesar de desafios como conflitos em múltiplas réplicas e o impacto no desempenho do sistema principal, a replicação oferece vantagens importantes, como alta disponibilidade ao permitir que réplicas assumam em caso de falhas, escalabilidade ao distribuir consultas entre réplicas e resiliência ao garantir acessibilidade aos dados mesmo em situações adversas.
+
+O uso da replicação é amplamente recomendado em sistemas que demandam alta disponibilidade, como aplicações financeiras, plataformas de saúde e outros sistemas críticos que não podem sofrer interrupções. A implementação da replicação deve ser cuidadosamente planejada para atender aos requisitos específicos do sistema, garantindo um equilíbrio eficiente entre custo e benefício.
+
+
 \subsubsection{Mensageria}
 % 🆗 Revisado
 
@@ -339,7 +361,7 @@ Um domínio é o nome exclusivo que identifica um site na internet, servindo com
 
 Na AWS, o serviço de DNS é o \textbf{Route 53}, que oferece funcionalidades avançadas, como registro de domínios, resolução de nomes DNS e verificação da integridade de serviços. O Route 53 também suporta balanceamento de carga e failover, tornando-o uma solução robusta para gerenciar tráfego em sistemas distribuídos e garantir alta disponibilidade.
 
-\subsubsection{IaC e Terraform}
+\subsubsection{Infraestrutura como Código (IaC)}
 % 🆗 Revisado
 
 % O que é IaC?
@@ -353,8 +375,6 @@ Os benefícios do IaC no desenvolvimento de aplicações web incluem a automaç�
 O \emph{Terraform} é uma ferramenta de IaC que permite definir e gerenciar infraestrutura em múltiplos provedores de nuvem, como AWS, Azure e Google Cloud, usando arquivos de configuração escritos em linguagem declarativa\cite{terraform-docs}. Com ele, é possível criar ambientes completos e replicáveis, desde servidores até redes e bancos de dados, de forma consistente e escalável.
 
 Uma das principais vantagens do uso do Terraform é a capacidade de descrever toda a arquitetura em arquivos de configuração que podem ser facilmente armazenados, revisados e auditados. Ele utiliza sua própria linguagem, HCL (HashiCorp Configuration Language), que permite definir recursos da AWS, como instâncias EC2, balanceadores de carga, grupos de segurança e outros componentes necessários. O Terraform então interage diretamente com a API da AWS para provisionar e gerenciar esses recursos.
-
-
 
 
 \subsection{Segurança}
