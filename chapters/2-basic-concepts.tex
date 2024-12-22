@@ -1,14 +1,14 @@
-\section{Conceitos Básicos}
+\chapter{Conceitos Básicos}
 % 🆗 Revisado
 
 Antes de aprofundar nos aspectos técnicos específicos deste trabalho, é fundamental entender os conceitos que sustentam o desenvolvimento de aplicações web e a computação em nuvem. Este capítulo apresenta de forma sucinta esses conceitos básicos, fornecendo uma base para a compreensão das tecnologias e práticas utilizadas na construção e operação de aplicações web modernas.
 
-\subsection{Desenvolvimento Web}
+\section{Desenvolvimento Web}
 % 🆗 Revisado
 
 O desenvolvimento web é a área da engenharia de computação que se dedica à criação de aplicações e serviços acessíveis através da internet. Envolve a construção de sites, aplicações web e outras soluções online que interagem com usuários por meio de navegadores ou dispositivos conectados.
 
-\subsubsection{Aplicações Web}
+\subsection{Aplicações Web}
 % 🆗 Revisado e Citado
 
 % O que são aplicações web?
@@ -26,7 +26,7 @@ Para desenvolver aplicações web, utilizam-se diversas tecnologias que colabora
 
 Essas tecnologias constituem a base do desenvolvimento web front-end, proporcionando interfaces amigáveis e funcionais para os usuários.
 
-\subsubsection{Front-end e Back-end}
+\subsection{Front-end e Back-end}
 % 🆗 Revisado e Citado
 
 % O que é front-end?
@@ -43,7 +43,7 @@ No desenvolvimento de aplicações web, a arquitetura é geralmente dividida em 
 
 A comunicação entre o front-end e o back-end normalmente ocorre por meio de protocolos como o HTTP. O front-end envia requisições, geralmente via APIs\cite{web-app}, ao back-end, que processa os dados e retorna respostas. Em aplicações em tempo real, tecnologias como WebSockets também são utilizadas para comunicação bidirecional\cite{ws-standard} persistente entre cliente e servidor.
 
-\subsubsection{APIs}
+\subsection{APIs}
 % 🆗 Revisado e Citado
 
 % O que é uma API?
@@ -64,7 +64,7 @@ Existem diversos tipos de APIs, cada um com suas características e finalidades 
 Cada tipo de API possui suas próprias características e é adequado para diferentes cenários de uso. A escolha do tipo de API depende das necessidades específicas do projeto, como complexidade, desempenho e flexibilidade.
 
 
-\subsubsection{Node.js}
+\subsection{Node.js}
 % 🆗 Revisado
 
 % O que é Node.js?
@@ -84,7 +84,7 @@ Vantagens de utilizar Node.js para desenvolver aplicações web:
 
 Além disso, o Node.js é frequentemente escolhido para projetos modernos devido à sua flexibilidade e capacidade de suportar arquiteturas orientadas a microsserviços, permitindo que equipes desenvolvam e mantenham aplicações complexas com maior eficiência.
 
-\subsubsection{Bibliotecas e Frameworks}
+\subsection{Bibliotecas e Frameworks}
 % 🆗 Revisado
 
 % O que são frameworks? E bibliotecas? Qual a diferença entre eles?
@@ -105,12 +105,12 @@ Frameworks, por sua vez, fornecem uma estrutura completa para o desenvolvimento 
 Tanto bibliotecas quanto frameworks desempenham um papel crucial no desenvolvimento de software. Essas ferramentas não apenas aceleram o processo de criação, mas também incentivam a adoção de boas práticas, contribuindo para a eficiência e qualidade dos projetos.
 
 
-\subsection{Protocolos de Comunicação}
+\section{Protocolos de Comunicação}
 % 🆗 Revisado
 
 Protocolos de comunicação são conjuntos de regras e convenções que determinam como os dados são transmitidos e recebidos entre sistemas. Esses protocolos desempenham um papel fundamental na garantia da interoperabilidade e integração entre os diversos componentes de um sistema distribuído, permitindo que diferentes tecnologias e dispositivos trabalhem juntos de maneira eficiente e coordenada.
 
-\subsubsection{HTTP}
+\subsection{HTTP}
 % 🆗 Revisado
 
 O \emph{HTTP (Hypertext Transfer Protocol)} é o protocolo base da web, utilizado para a comunicação entre clientes (como navegadores) e servidores a nível de aplicação\cite{http-protocol}. Ele define as regras para formatação e transmissão de mensagens, bem como as ações que devem ser executadas em resposta a diferentes comandos.
@@ -128,7 +128,7 @@ Entre os métodos HTTP mais utilizados, destacam-se:
 
 Atualmente, o HTTP é indispensável para o funcionamento da internet moderna, permitindo uma interação padronizada e eficiente entre clientes e servidores, além de atuar como base para o desenvolvimento de aplicações web.
 
-\subsubsection{WebSocket}
+\subsection{WebSocket}
 % 🆗 Revisado
 
 \emph{WebSocket} é um protocolo de comunicação que permite uma interação bidirecional e em tempo real entre cliente e servidor por meio de uma única conexão TCP. Ele foi projetado para superar as limitações do protocolo HTTP, que é baseado no modelo de requisição-resposta e não mantém uma conexão persistente.\cite{ws-standard}
@@ -146,12 +146,12 @@ Características principais do WebSocket:
 
 Os WebSockets transformaram a forma como aplicações modernas lidam com comunicação em tempo real, oferecendo uma solução eficiente e flexível para cenários que demandam alta interatividade e respostas imediatas. Sua capacidade de manter conexões persistentes com baixa latência torna o protocolo indispensável em sistemas que exigem troca contínua de dados, consolidando-o como uma escolha estratégica para o desenvolvimento de aplicações web modernas que utilizam comunicação em tempo real\cite{murley2021websocket}.
 
-\subsection{Banco de Dados}
+\section{Banco de Dados}
 
 Banco de dados é um sistema de armazenamento de dados que permite a organização, gerenciamento e recuperação eficiente de informações. Eles são fundamentais para aplicações que precisam armazenar e acessar dados de forma estruturada e segura. Existem diversos tipos de bancos de dados, cada um com suas características e finalidades específicas que atendem a diferentes necessidades de armazenamento e manipulação de dados.
 
 
-\subsubsection{SQL}
+\subsection{SQL}
 % 🆗 Revisado
 
 \emph{SQL (Structured Query Language)} é a linguagem padrão para gerenciamento de bancos de dados relacionais\cite{sql-wiki}. Bancos de dados SQL organizam os dados em tabelas estruturadas com esquemas predefinidos, permitindo consultas complexas, manipulação eficiente de dados e garantindo consistência por meio de transações.
@@ -168,7 +168,7 @@ Exemplos de bancos de dados SQL:
 
 Os bancos de dados SQL continuam sendo a espinha dorsal de muitos sistemas corporativos e de produção, graças à sua eficiência, consistência e maturidade no mercado.
 
-\subsubsection{NoSQL}
+\subsection{NoSQL}
 % 🆗 Revisado
 
 % O que é NoSQL?
@@ -187,18 +187,18 @@ Principais tipos de bancos de dados NoSQL:
 
 Os bancos de dados NoSQL se destacam por sua capacidade de lidar com dados dinâmicos e escalar horizontalmente, oferecendo soluções sob medida para desafios específicos que muitas vezes não podem ser abordados de forma eficiente por bancos de dados relacionais tradicionais.
 
-\subsubsection{MongoDB}
+\subsection{MongoDB}
 % 🆗 Revisado
 
 \emph{MongoDB} é um banco de dados NoSQL orientado a documentos que armazena os dados no formato BSON (uma extensão binária do JSON). Ele proporciona grande flexibilidade na modelagem de dados, sendo especialmente adequado para aplicações que demandam alta escalabilidade, desempenho e a capacidade de lidar com estruturas de dados dinâmicas ou não estruturadas.
 
-\subsubsection{Redis}
+\subsection{Redis}
 % 🆗 Revisado
 
 \emph{Redis} é um banco de dados em memória do tipo chave-valor, amplamente utilizado como banco de dados, cache e broker de mensagens. Ele oferece suporte a estruturas de dados avançadas, como strings, hashes, listas e conjuntos ordenados, garantindo alta performance e baixa latência, características que o tornam ideal para aplicações que exigem respostas rápidas e processamento eficiente.
 
 
-\subsubsection{ORM e ODM}
+\subsection{ORM e ODM}
 % 🆗 Revisado
 
 \emph{ORM (Object-Relational Mapping)} e \emph{ODM (Object-Document Mapping)} são técnicas que permitem mapear objetos do código-fonte para estruturas de bancos de dados relacionais e NoSQL, respectivamente. Elas têm como objetivo simplificar a interação com os bancos de dados, permitindo que os desenvolvedores trabalhem diretamente com a linguagem de programação utilizada no projeto, em vez de escrever consultas SQL ou comandos específicos para cada tipo de banco.\cite{orm-vs-odm}
@@ -210,7 +210,7 @@ Os bancos de dados NoSQL se destacam por sua capacidade de lidar com dados dinâ
 
 Essas ferramentas aumentam a produtividade ao abstrair a complexidade das operações de banco de dados, proporcionando uma camada intermediária que simplifica a manipulação de dados e facilita a integração entre a aplicação e o banco.
 
-\subsection{Computação em Nuvem}
+\section{Computação em Nuvem}
 % 🆗 Revisado
 
 % O que é computação em nuvem?
@@ -229,7 +229,7 @@ Tipos de serviços de computação em nuvem:
 
 Entre os principais provedores de serviços de computação em nuvem, destacam-se a \emph{Amazon Web Services (AWS)}, a \emph{Google Cloud Platform} e a \emph{Microsoft Azure}. Essas plataformas oferecem uma ampla gama de serviços e soluções que atendem às necessidades de empresas de diferentes tamanhos, desde \emph{startups} até grandes corporações.
 
-\subsubsection{Amazon Web Services (AWS)}
+\subsection{Amazon Web Services (AWS)}
 % 🆗 Revisado
 
 % O que é AWS?
@@ -247,7 +247,7 @@ Dentre os serviços mais populares da AWS, destacam-se:
 
 A AWS se destaca como uma solução estratégica para organizações que buscam inovação, escalabilidade e alta disponibilidade em suas operações na nuvem. Com uma vasta gama de serviços gerenciados e um ecossistema robusto, a plataforma permite que empresas de todos os portes implementem soluções personalizadas de forma eficiente e segura.
 
-\subsubsection{Instâncias EC2}
+\subsection{Instâncias EC2}
 % 🆗 Revisado
 
 % O que é uma instância EC2?
@@ -265,7 +265,7 @@ Os tipos de instâncias EC2 mais comuns incluem:
 
 Cada tipo de instância oferece opções configuráveis em termos de número de vCPUs, memória e armazenamento, permitindo que os usuários escolham a melhor solução para suas necessidades específicas de computação.
 
-\subsubsection{Escalabilidade}
+\subsection{Escalabilidade}
 % 🆗 Revisado
 
 % O que é escalabilidade vertical?
@@ -284,7 +284,7 @@ Por outro lado, a escalabilidade horizontal implica na adição de novas máquin
 
 A decisão entre escalabilidade vertical e horizontal depende das características específicas da aplicação, do orçamento disponível e dos requisitos de desempenho e disponibilidade do sistema. Em muitos casos, é comum a combinação de ambas as abordagens para alcançar um equilíbrio ideal entre custo, eficiência e flexibilidade.
 
-\subsubsection{Balanceamento de Carga}
+\subsection{Balanceamento de Carga}
 % 🆗 Revisado
 
 % O que é balanceamento de carga?
@@ -311,7 +311,7 @@ Na AWS, os serviços de balanceamento de carga disponíveis incluem:
 \end{itemize}
 
 
-\subsubsection{Sharding}
+\subsection{Sharding}
 
 % O que é sharding?
 % Como funciona o sharding? Quais são os desafios do sharding?
@@ -323,7 +323,7 @@ A implementação do sharding envolve a escolha de uma chave de particionamento 
 
 O uso do sharding é recomendado em situações onde o volume de dados ou a carga de requisições excedem a capacidade de um banco de dados monolítico. Exemplos incluem aplicações com grandes bases de usuários, como redes sociais e plataformas de e-commerce, onde o acesso concorrente e o armazenamento de dados são cruciais. A escolha de implementar o sharding deve considerar o custo-benefício, levando em conta a complexidade adicional introduzida e a necessidade de manutenção constante.
 
-\subsubsection{Replicação}
+\subsection{Replicação}
 
 A replicação é uma técnica utilizada para aumentar a disponibilidade, confiabilidade e desempenho de sistemas de banco de dados. Ela consiste em criar cópias redundantes de um banco de dados e mantê-las sincronizadas em múltiplos servidores ou nós\cite{replication-mongodb}. Essas cópias, chamadas de réplicas, podem ser utilizadas para distribuir a carga de trabalho, melhorar o tempo de resposta das consultas e garantir a continuidade do serviço em caso de falhas.
 
@@ -332,7 +332,7 @@ As diferentes estratégias de replicação, como a síncrona, que garante consis
 O uso da replicação é amplamente recomendado em sistemas que demandam alta disponibilidade, como aplicações financeiras, plataformas de saúde e outros sistemas críticos que não podem sofrer interrupções. A implementação da replicação deve ser cuidadosamente planejada para atender aos requisitos específicos do sistema, garantindo um equilíbrio eficiente entre custo e benefício.
 
 
-\subsubsection{Mensageria}
+\subsection{Mensageria}
 % 🆗 Revisado
 
 % O que é mensageria?
@@ -348,7 +348,7 @@ O modelo \emph{Pub/Sub (Publish/Subscribe)} é amplamente utilizado em sistemas 
 
 Mensageria desempenha um papel fundamental na construção de sistemas resilientes e escaláveis, oferecendo suporte para comunicação assíncrona e desacoplada, além de ser a base para arquiteturas orientadas a eventos.
 
-\subsubsection{DNS}
+\subsection{DNS}
 % 🆗 Revisado
 
 % O que é DNS?
@@ -361,7 +361,7 @@ Um domínio é o nome exclusivo que identifica um site na internet, servindo com
 
 Na AWS, o serviço de DNS é o \textbf{Route 53}, que oferece funcionalidades avançadas, como registro de domínios, resolução de nomes DNS e verificação da integridade de serviços. O Route 53 também suporta balanceamento de carga e failover, tornando-o uma solução robusta para gerenciar tráfego em sistemas distribuídos e garantir alta disponibilidade.
 
-\subsubsection{Infraestrutura como Código (IaC)}
+\subsection{Infraestrutura como Código (IaC)}
 % 🆗 Revisado
 
 % O que é IaC?
@@ -377,13 +377,13 @@ O \emph{Terraform} é uma ferramenta de IaC que permite definir e gerenciar infr
 Uma das principais vantagens do uso do Terraform é a capacidade de descrever toda a arquitetura em arquivos de configuração que podem ser facilmente armazenados, revisados e auditados. Ele utiliza sua própria linguagem, HCL (HashiCorp Configuration Language), que permite definir recursos da AWS, como instâncias EC2, balanceadores de carga, grupos de segurança e outros componentes necessários. O Terraform então interage diretamente com a API da AWS para provisionar e gerenciar esses recursos.
 
 
-\subsection{Segurança}
+\section{Segurança}
 % 🆗 Revisado
 
 A segurança é um pilar essencial no desenvolvimento e operação de aplicações web, englobando práticas e tecnologias destinadas a proteger sistemas, dados e usuários contra acessos não autorizados, ataques e outras ameaças.
 
 
-\subsubsection{Criptografia}
+\subsection{Criptografia}
 % 🆗 Revisado
 
 % O que é criptografia?
@@ -397,7 +397,7 @@ Criptografia é o processo de proteger informações ao transformá-las em um fo
     \item \textbf{Criptografia em trânsito}: Protege dados enquanto são transmitidos entre sistemas, garantindo a confidencialidade e integridade das informações contra interceptações ou ataques \emph{man-in-the-middle}, onde um invasor monitora ou modifica a comunicação entre duas partes.
 \end{itemize}
 
-\subsubsection{Certificados SSL}
+\subsection{Certificados SSL}
 % 🆗 Revisado
 
 % O que é um certificado SSL?
@@ -405,14 +405,14 @@ Criptografia é o processo de proteger informações ao transformá-las em um fo
 
 Um certificado \emph{SSL (Secure Sockets Layer)} é um arquivo digital que autentica a identidade de um site e habilita conexões seguras por meio de criptografia. Sua utilização resulta no protocolo \emph{HTTPS (HyperText Transfer Protocol Secure)}, que assegura a transmissão segura de dados entre o servidor e os usuários, impedindo interceptações e garantindo confiança.
 
-\subsubsection{SSH}
+\subsection{SSH}
 % 🆗 Revisado
 
 % O que é SSH?
 
 O \emph{SSH (Secure Shell)} é um protocolo de rede que permite o acesso remoto seguro a máquinas e servidores, criptografando as comunicações para proteger contra interceptações e ataques. Ele é amplamente utilizado para executar comandos remotamente, gerenciar servidores e realizar transferências de arquivos de maneira segura.
 
-\subsubsection{Firewall}
+\subsection{Firewall}
 % 🆗 Revisado
 
 % O que é um firewall?
