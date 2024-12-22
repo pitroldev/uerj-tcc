@@ -194,7 +194,7 @@ Durante a inicialização de uma nova instância, o Auto Scaling aplica um \emph
 
 A infraestrutura da plataforma Codeboard foi projetada para operar em várias regiões geográficas da AWS, permitindo distribuição do tráfego de usuários entre essas regiões para assegurar alta disponibilidade e baixa latência. Essa configuração de várias regiões não só oferece resiliência em caso de falhas regionais (devido a desastres naturais, falhas de hardware, ou manutenção programada), mas também aproxima a aplicação dos usuários, o que reduz a latência e aprimora a experiência de uso.
 
-Para essa distribuição de tráfego entre regiões, foi configurado o Amazon Route 53, o serviço de DNS da AWS que também oferece balanceamento de carga e failover. Um registro de DNS foi criado para a aplicação da plataforma Codeboard no Route 53, o qual direciona o tráfego para o ELB de cada região geográfica. Devido à natureza de comunicação em tempo real da plataforma, o Route 53 foi configurado com balanceamento de carga baseado em latência, de forma que redireciona o tráfego para a região geográfica mais próxima do usuário, garantindo uma experiência rápida e eficiente. A Figura \ref{fig:route-53-geographic-load-balancing} demonstra o funcionamento do balanceamento de carga baseado em latência do Route 53.
+Para essa distribuição de tráfego entre regiões, foi configurado o Amazon Route 53, o serviço de DNS da AWS que também oferece balanceamento de carga e failover. Um registro de DNS foi criado para a aplicação da plataforma Codeboard no Route 53, o qual direciona o tráfego para o ELB de cada região geográfica. Devido à natureza de comunicação em tempo real da plataforma, o Route 53 foi configurado com balanceamento de carga baseado em latência, de forma que redireciona o tráfego para a região geográfica mais próxima do usuário, garantindo uma experiência rápida e eficiente. 
 
 \begin{figure}[H]
     \centering
@@ -202,6 +202,8 @@ Para essa distribuição de tráfego entre regiões, foi configurado o Amazon Ro
     \caption{Balanceamento de Carga Baseado em Latência com Route 53}
     \label{fig:route-53-geographic-load-balancing}
 \end{figure}
+
+A Figura \ref{fig:route-53-geographic-load-balancing} demonstra o funcionamento do balanceamento de carga baseado em latência do Route 53. Quando um usuário faz uma solicitação DNS, o Route 53 primeiro identifica a localização geográfica do usuário com base em seu endereço IP. Em seguida, redireciona o tráfego para a região mais próxima, que consequentemente possui a menor latência, melhorando a experiência do usuário. Esse balanceamento de carga geográfico garante que a plataforma opere de forma eficiente, independentemente da localização dos usuários.
 
 \subsection{Segurança da Infraestrutura}
 % Revisado
