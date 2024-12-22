@@ -11,7 +11,7 @@ A infraestrutura em nuvem da plataforma Codeboard adota o modelo \emph{Multi-Reg
 
 O modelo Multi-Region Active-Active é particularmente eficaz para mitigar riscos como interrupções de serviço devido a falhas regionais, manutenções programadas e até mesmo ataques como DDoS. A escolha por esse modelo reflete o compromisso em entregar um serviço robusto e confiável, capaz de sustentar uma base de usuários diversificada e global.
 
-A arquitetura em nuvem da Codeboard é composta por várias camadas, cada uma projetada com um conjunto específico de serviços e funcionalidades que colaboram para alcançar nossos objetivos de disponibilidade e desempenho. A Figura \ref{fig:cloud-architecture} ilustra como esses componentes se interconectam, formando uma infraestrutura coesa e altamente eficiente.
+A arquitetura em nuvem da Codeboard é composta por várias camadas, cada uma projetada com um conjunto específico de serviços e funcionalidades que colaboram para alcançar nossos objetivos de disponibilidade e desempenho. A Figura \ref{fig:cloud-architecture} ilustra como esses componentes se interconectam, formando uma infraestrutura coesa e altamente eficiente. 
 
 \begin{figure}[H]
     \centering
@@ -20,7 +20,7 @@ A arquitetura em nuvem da Codeboard é composta por várias camadas, cada uma pr
     \label{fig:cloud-architecture}
 \end{figure}
 
-Essas práticas e tecnologias não apenas promovem a alta disponibilidade e desempenho da aplicação, mas também preparam o ambiente para escalar rapidamente em resposta às demandas crescentes, tudo sem intervenção manual, alinhando-se com as melhores práticas de DevOps e com as demandas de uma aplicação moderna.
+Essas práticas e tecnologias não apenas promovem a alta disponibilidade e desempenho da aplicação, mas também preparam o ambiente para escalar rapidamente em resposta às demandas crescentes, tudo sem intervenção manual, alinhando-se com as melhores práticas de DevOps e com as demandas de uma aplicação moderna. Nas próximas seções, serão apresentados em detalhes as práticas e tecnologias empregadas em cada camada da arquitetura: infraestrutura de computação, balanceamento de carga, escalabilidade, recuperação de falhas, segurança e banco de dados.
 
 
 \subsubsection{Planejamento de Infraestrutura}
@@ -91,9 +91,11 @@ As instâncias EC2 foram configuradas com o sistema operacional \emph{Ubuntu 24.
 
 A arquitetura da plataforma Codeboard foi projetada com uma estratégia de balanceamento de carga, escalabilidade e recuperação de falhas que abrange múltiplos níveis de operação, assegurando alta disponibilidade, baixa latência e resiliência. Esta seção apresenta a abordagem utilizada para distribuir de forma eficiente o tráfego e garantir que a aplicação responda de maneira otimizada, mesmo em cenários de alta demanda ou falhas inesperadas.
 
-Em primeiro lugar, o balanceamento de carga entre processos permite uma distribuição equitativa das requisições entre processos individuais da aplicação, garantindo o uso eficiente dos recursos da instância. Para lidar com o tráfego em servidores múltiplos, foi configurado um segundo nível de balanceamento de carga que distribui as requisições entre instâncias EC2 da AWS, de modo que a aplicação possa escalar horizontalmente conforme a demanda. Por fim, para maximizar a disponibilidade global e reduzir a latência para usuários em diferentes localidades, foi implementado um balanceamento de carga geográfico entre regiões da AWS, utilizando o Route 53 para redirecionar o tráfego para a região mais próxima do usuário.
+Em primeiro lugar, o balanceamento de carga entre processos permite uma distribuição uniforme das requisições entre processos individuais da aplicação, garantindo o uso eficiente dos recursos da instância. Para lidar com o tráfego em servidores múltiplos, foi configurado uma segunda camada de balanceamento de carga que distribui as requisições entre instâncias EC2 da AWS, de modo que a aplicação possa escalar horizontalmente conforme a demanda. Por fim, para maximizar a disponibilidade global e reduzir a latência para usuários em diferentes localidades, foi implementado um balanceamento de carga geográfico entre regiões da AWS, utilizando o Route 53 para redirecionar o tráfego para a região mais próxima do usuário. 
 
 Além disso, mecanismos de recuperação automática de falhas foram configurados em cada nível. Esses mecanismos monitoram continuamente a saúde dos processos e das instâncias, substituindo automaticamente recursos que falhem e garantindo a continuidade da aplicação. Essa estrutura multissetorial de balanceamento e recuperação permite que a plataforma Codeboard mantenha uma operação robusta e confiável, capaz de lidar com flutuações de carga e com interrupções inesperadas.
+
+Nas seções a seguir, serão detalhadas cada uma das três camadas de balanceamento de carga, escalabilidade e recuperação de falhas, demonstrando como esses mecanismos trabalham juntos para garantir a alta disponibilidade e desempenho da aplicação.
 
 \subsubsection{Balanceamento de Carga entre Processos}
 % Revisado
@@ -123,7 +125,7 @@ O balanceamento de carga entre processos otimiza o uso dos recursos de CPU e mem
 
 O balanceamento de carga entre processos também contribui para a alta disponibilidade e confiabilidade da aplicação. Em caso de falha de um dos processos, o tráfego é automaticamente redirecionado para outros, evitando interrupções para os usuários.
 
-Para reforçar a tolerância a falhas e garantir a alta disponibilidade, foram configurados no PM2 mecanismos de monitoramento e recuperação automática. Esse monitoramento verifica continuamente os processos Node.js e, ao detectar uma falha, reinicia o processo comprometido. A Figura\ref{fig:pm2-fault-tolerance} ilustra o funcionamento do monitoramento e recuperação de falhas pelo PM2, garantindo que a aplicação permaneça em funcionamento mesmo diante de falhas pontuais.
+Para reforçar a tolerância a falhas e garantir a alta disponibilidade, foram configurados no PM2 mecanismos de monitoramento e recuperação automática. Esse monitoramento verifica continuamente os processos Node.js e, ao detectar uma falha, reinicia o processo comprometido. A Figura \ref{fig:pm2-fault-tolerance} ilustra o funcionamento do monitoramento e recuperação de falhas pelo PM2, garantindo que a aplicação permaneça em funcionamento mesmo diante de falhas pontuais.
 
 
 \begin{figure}[H]
