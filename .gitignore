@@ -11,6 +11,8 @@
 *.toc
 *.lof
 *.lot
+*.ilg
+*.ind
 
 # LaTeX document output
 *.pdf
