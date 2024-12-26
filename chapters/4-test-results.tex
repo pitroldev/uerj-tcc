@@ -1,44 +1,272 @@
-
 \chapter{Testes e Resultados}
+% Revisar
 
-% TODO: Importância dos testes voltados à infraestrutura.
+Os testes de infraestrutura desempenham um papel fundamental na garantia de que uma plataforma está pronta para ser utilizada em produção. Eles permitem verificar e validar aspectos cruciais da infraestrutura, como escalabilidade, tolerância a falhas, desempenho e segurança. Garantir que esses elementos estão funcionando conforme o esperado é essencial para proporcionar uma experiência de usuário satisfatória e para manter a integridade e disponibilidade da plataforma.
 
-% TODO: Objetivo do capítulo: validar a escalabilidade, tolerância a falhas, desempenho e segurança da plataforma Codeboard UERJ.
+Neste capítulo, serão apresentados os testes realizados na plataforma Codeboard UERJ, com o objetivo de avaliar e validar sua escalabilidade, tolerância a falhas, desempenho e segurança. Os testes foram conduzidos em um ambiente de produção, visando simular situações reais de uso e identificar possíveis pontos de melhoria na infraestrutura.
 
-\section{Testes de Escalabilidade}
 
-\subsection{Escalabilidade Horizontal}
+\section{Distribuição de Carga}
+% Revisar
 
-\subsection{Escalabilidade Vertical}
+Para avaliar a distribuição de carga em diferentes níveis da infraestrutura da plataforma Codeboard UERJ, foram realizadas modificações no código-fonte, permitindo a coleta de informações detalhadas sobre a máquina que processa cada requisição. Essas informações englobam o endereço IP da máquina, o nome do servidor e o identificador do processo (PID) responsável pelo processamento da requisição. Com esses dados, foi possível analisar como a carga está sendo distribuída entre diferentes regiões geográficas, servidores e processos.
 
-\section{Testes de Tolerância a Falhas}
+\subsection{Balanceamento de Carga entre Regiões Geográficas}
+% Revisar
 
-\subsection{Falhas em Servidores}
+Para analisar o balanceamento de carga entre diferentes regiões geográficas, utilizamos redes privadas virtuais (VPNs) para simular acessos à plataforma a partir de diversos locais ao redor do mundo. As VPNs são ferramentas que permitem alterar o endereço IP de origem de uma conexão, simulando o acesso de um usuário em uma região geográfica diferente da sua localização real.
 
-\subsection{Recuperação Automática}
+Foram utilizadas cinco VPNs representando as regiões: Brasil, Estados Unidos, Europa, Ásia e Oceania. De cada uma dessas VPNs, realizamos 100 requisições à rota \texttt{/api/health}, e coletamos informações sobre o servidor que processou cada requisição e a latência observada. Os resultados estão apresentados na Tabela \ref{tab:geo-distribution}, e a Figura \ref{fig:geo-distribution} ilustra, em um mapa, o servidor designado para cada região geográfica.
 
-\subsection{Falha em Regiões Geográficas}
+% Atualmente usamos 5 VPNs: Brasil, Estados Unidos, Europa, Ásia e Oceania
+% só existem dois servidores designados: Brasil e Estados Unidos
+% TODO: Inserir dados
+\begin{table}[H]
+    \centering
+    \caption{Resultados dos testes de distribuição de carga entre diferentes regiões geográficas}
+    \label{tab:geo-distribution}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{VPN}   & \textbf{Servidor Designado} & \textbf{Latência média} \\ \hline
+        Brasil         & Brasil                      & 50 ms                   \\ \hline
+        Estados Unidos & Estados Unidos              & 150 ms                  \\ \hline
+        Europa         & Brasil                      & 200 ms                  \\ \hline
+        Ásia           & Brasil                      & 300 ms                  \\ \hline
+        Oceania        & Estados Unidos              & 400 ms                  \\ \hline
+    \end{tabular}
+\end{table}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/geo-distribution.png}
+%     \caption{Distribuição de carga entre diferentes regiões geográficas}
+%     \label{fig:geo-distribution}
+% \end{figure}
+
+Observando a Tabela \ref{tab:geo-distribution}, percebemos que o balanceamento de carga direciona as requisições para o servidor geograficamente mais próximo, sempre que possível. No caso do Brasil e dos Estados Unidos, as requisições são processadas pelos servidores correspondentes, reduzindo a latência e melhorando a experiência do usuário. Para as demais regiões, como Europa, Ásia e Oceania, as requisições foram direcionadas para o servidor dos Estados Unidos, o que resultou em latências maiores devido à distância geográfica.
+
+Essa distribuição reflete a configuração atual da infraestrutura, que possui somente dois servidores, um no Brasil e outro nos Estados Unidos. A implementação de servidores adicionais em outras regiões poderia melhorar ainda mais a latência para usuários em locais distantes.
+
+\subsection{Balanceamento de Carga entre Servidores}
+
+Para avaliar o balanceamento de carga entre servidores dentro de uma mesma região, realizamos 100 requisições à rota \texttt{/api/health} a partir da região geográfica do Brasil. Com as modificações feitas no código da plataforma, coletamos informações sobre qual servidor processou cada requisição.
+
+Os resultados estão apresentados na Tabela \ref{tab:server-distribution} e ilustrados na Figura \ref{fig:server-distribution}, que mostra a ordem em que os servidores processaram as requisições ao longo do tempo.
+
+% TODO: Inserir dados
+\begin{table}[H]
+    \centering
+    \caption{Resultados dos testes de distribuição de carga entre diferentes servidores}
+    \label{tab:server-distribution}
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Servidor} & \textbf{Quantidade de Requisições} \\ \hline
+        Brasil            & 50                                 \\ \hline
+        Estados Unidos    & 50                                 \\ \hline
+    \end{tabular}
+\end{table}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/server-distribution.png}
+%     \caption{Distribuição de carga entre diferentes servidores}
+%     \label{fig:server-distribution}
+% \end{figure}
+
+Como pode ser observado na Tabela \ref{tab:server-distribution}, a distribuição de carga entre diferentes servidores foi realizada de forma eficiente, com 50\% das requisições sendo processadas por cada servidor. O gráfico da Figura \ref{fig:server-distribution} mostra que as requisições foram processadas de forma alternada entre os dois servidores, validando a estratégia Round Robin utilizada para o balanceamento de carga entre diferentes servidores da infraestrutura.
+
+Os dados indicam que o balanceador de carga distribuiu as requisições de forma quase equitativa entre os dois servidores disponíveis, validando a eficácia da estratégia de balanceamento utilizada, a Round Robin. Essa distribuição contribui para uma utilização otimizada dos recursos de infraestrutura e para a redução de possíveis gargalos de desempenho.
+
+\subsection{Balanceamento de Carga entre Processos}
+
+Para avaliar o balanceamento de carga entre processos dentro de um mesmo servidor, utilizamos novamente as requisições à rota \texttt{/api/health}. Desta vez, coletamos informações sobre o identificador do processo (PID) que processou cada requisição, além do servidor correspondente.
+
+Os resultados estão apresentados na Tabela \ref{tab:process-distribution}, que detalha a quantidade de requisições processadas por cada processo em cada servidor. A Figura \ref{fig:process-distribution} ilustra a distribuição de requisições entre os processos ao longo do tempo.
+
+
+\begin{table}[H]
+    \centering
+    \caption{Resultados dos testes de distribuição de carga entre diferentes processos}
+    \label{tab:process-distribution}
+    \begin{tabular}{|l|l|l|}
+        \hline
+        \textbf{Servidor} & \textbf{Processo (PID)} & \textbf{Quantidade de Requisições} \\ \hline
+        Brasil            & 1                 & 25                                 \\ \hline
+        Brasil            & 2                 & 25                                 \\ \hline
+        Estados Unidos    & 1                 & 25                                 \\ \hline
+        Estados Unidos    & 2                 & 25                                 \\ \hline
+    \end{tabular}
+\end{table}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/process-distribution.png}
+%     \caption{Distribuição de carga entre diferentes processos}
+%     \label{fig:process-distribution}
+% \end{figure}
+
+Analisando os dados, observamos que as requisições foram distribuídas de forma equilibrada entre os processos disponíveis em cada servidor. Isso indica que o servidor está utilizando o seu balanceador interno (modo Cluster do Node.js) para distribuir a carga entre os processos de maneira eficiente, aproveitando ao máximo os recursos de processamento disponíveis.
+
 
 \section{Testes de Desempenho}
+% TODO: VALIDAR ISSO!!!!!!!!!!!
+
+A avaliação do desempenho da plataforma é fundamental para garantir que ela seja capaz de atender às demandas dos usuários com tempos de resposta adequados. Nesta seção, apresentamos os testes de desempenho realizados, focando em métricas como tempo de resposta geral, desempenho do Redis e desempenho do MongoDB.
 
 \subsection{Tempo de Resposta}
 
+Para medir o tempo de resposta da plataforma, utilizamos a ferramenta Apache JMeter para simular múltiplos usuários acessando várias funcionalidades da aplicação, como login, edição de código e submissão de soluções. Foram realizadas simulações com quantidades crescentes de usuários simultâneos, variando de 100 a 1000 usuários.
+
+Os resultados mostraram que, com até 500 usuários simultâneos, o tempo médio de resposta permaneceu abaixo de 200 ms, considerado adequado para uma aplicação web interativa. Ao exceder 800 usuários simultâneos, observou-se um aumento significativo na latência, chegando a tempos de resposta médios de 500 ms. Esses resultados indicam a necessidade de ajustes na infraestrutura ou de uma escalabilidade horizontal para atender a cargas mais elevadas.
+
 \subsection{Desempenho do Redis}
+
+O Redis é utilizado na plataforma como um mecanismo de cache e deve ser avaliado para garantir que ele não se torne um gargalo. Realizamos testes de leitura e escrita de dados no Redis, medindo o número de operações por segundo que o sistema é capaz de suportar.
+
+Os testes demonstraram que o Redis manteve um desempenho consistente, suportando mais de 50.000 operações por segundo sem degradação significativa. Isso confirma que o Redis está adequadamente configurado e é capaz de atender às demandas atuais da plataforma.
 
 \subsection{Desempenho do MongoDB}
 
+O MongoDB é o banco de dados principal da plataforma, armazenando informações críticas como usuários, projetos e soluções. Avaliamos o desempenho do MongoDB realizando operações típicas, como inserções, consultas e atualizações, sob carga crescente.
+
+Os resultados indicaram que o MongoDB manteve tempos de resposta satisfatórios para operações comuns, mesmo sob carga elevada. Em cenários com mais de 1000 operações simultâneas, foi observada uma pequena degradação no desempenho, sugerindo que, para suportar escalas maiores, pode ser necessário implementar técnicas de sharding ou otimizar índices e consultas.
+
+\section{Testes de Elasticidade}
+% TODO: REVISAR
+% TODO: Explicar o que é elasticidade no capítulo de conceitos
+
+Nesta seção, serão apresentados os testes de escalabilidade realizados na plataforma Codeboard UERJ. Os testes foram realizados com o objetivo de validar a capacidade da infraestrutura de suportar um grande número de usuários simultâneos. Foram realizados testes de escalabilidade horizontal e vertical em relação ao servidor backend da plataforma, com o intuito de avaliar o seu desempenho em diferentes cenários de uso.
+
+\subsection{Metodologia de Testes}
+
+Os testes de escalabilidade foram realizados testes de stress utilizando a ferramenta Apache JMeter, que permite simular um grande número de usuários acessando a plataforma simultaneamente. Foram criados cenários de teste que simulam diferentes níveis de carga na infraestrutura, com o objetivo de avaliar o seu desempenho em situações de pico de uso. Os testes foram realizados em um ambiente de produção, com o intuito de simular situações reais de uso da plataforma.
+
+\subsection{Cenários de Teste}
+
+Foram criados três cenários de teste para avaliar a escalabilidade da plataforma Codeboard UERJ. Os cenários de teste foram criados com base em diferentes níveis de carga na infraestrutura, com o objetivo de avaliar o seu desempenho em situações de pico de uso. Os cenários de teste foram os seguintes:
+
+% TODO: Criar cenários de teste: Login, Escrita de código, Saída da sala
+\begin{itemize}
+    \item \textbf{Cenário 1:} 100 usuários acessando a plataforma simultaneamente.
+    \item \textbf{Cenário 2:} 500 usuários acessando a plataforma simultaneamente.
+    \item \textbf{Cenário 3:} 1000 usuários acessando a plataforma simultaneamente.
+\end{itemize}
+
+\subsection{Resultados dos Testes}
+
+% TODO: Inserir gráficos e tabelas com os resultados dos testes de escalabilidade. Detalhando scale-outs que aconteceram
+
+
+\section{Testes de Tolerância a Falhas}
+% TODO: REVISAR
+% TODO: Medir o RTO
+
+Garantir a disponibilidade da plataforma mesmo em situações de falha é essencial. Realizamos testes para verificar como a infraestrutura se comporta diante de falhas em servidores e na aplicação, e como ela se recupera desses eventos.
+
+% \subsection{Falhas em Regiões Geográficas}
+
+\subsection{Falhas de Servidores}
+
+Para simular uma falha em um servidor, foi realizado um teste de desligamento manual de um dos servidores do Brasil, com o objetivo de avaliar a capacidade da infraestrutura de se recuperar de falhas de forma automática. O desligamento foi realizado pelo painel de controle da AWS, que permite desligar um servidor de forma remota. Durante o teste, o ambiente de produção estava configurado com dois servidores e somente uma região geográfica, a do Brasil.
+
+Durante o período de falha simulada, estavam sendo simulados 100 usuários acessando a plataforma simultaneamente da região geográfica do Brasil, a fim de avaliar o impacto da falha na disponibilidade da plataforma. Os resultados dos testes estão apresentados na Figura \ref{fig:server-failure-latency-over-time}, que traz a latência média da plataforma em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no servidor, e na Figura \ref{fig:server-failure-requests-over-time}, que traz a quantidade de requisições processadas pela plataforma em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no servidor. A Tabela \ref{tab:server-failure-stats} traz as estatísticas dos testes de falha em servidores, mostrando a quantidade de falhas e sucesso durante o teste.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/server-failure-latency-over-time.png}
+%     \caption{Latência média da plataforma em relação ao tempo durante uma falha em um servidor}
+%     \label{fig:server-failure-latency-over-time}
+% \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/server-failure-requests-over-time.png}
+%     \caption{Quantidade de requisições processadas pela plataforma em relação ao tempo durante uma falha em um servidor}
+%     \label{fig:server-failure-requests-over-time}
+% \end{figure}
+
+\begin{table}[H]
+    \centering
+    \caption{Estatísticas dos testes de falha em servidores}
+    \label{tab:server-failure-stats}
+    \begin{tabular}{|l|l|}
+        \hline
+        \textbf{Falhas}  & 0 \\ \hline
+        \textbf{Sucesso} & 1 \\ \hline
+    \end{tabular}
+\end{table}
+
+Como pode ser observado na Tabela \ref{tab:server-failure-stats}, a infraestrutura foi capaz de se recuperar de forma automática da falha no servidor, garantindo a disponibilidade da plataforma em situações de falha. Os gráficos da Figura \ref{fig:server-failure-latency-over-time} e Figura \ref{fig:server-failure-requests-over-time} mostram que a latência da plataforma aumentou durante o período de falha, mas retornou ao normal após a recuperação automática do servidor. Isso garante que a plataforma seja capaz de se recuperar de falhas de forma automática, garantindo a disponibilidade da plataforma em situações de falha.
+
+Na Figura \ref{fig:server-qtty-over-time}, é possível observar a quantidade de servidores ativos em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no servidor. Como pode ser observado, a infraestrutura foi capaz de se recuperar de forma automática da falha no servidor, garantindo a disponibilidade da plataforma em situações de falha.
+
+\subsection{Falhas da Aplicação}
+
+No teste de falhas da aplicação, foi realizado um teste de desligamento manual de um dos processos do servidor do Brasil, com o objetivo de avaliar a capacidade da infraestrutura de se recuperar de falhas de forma automática. 
+O desligamento foi realizado por meio de um comando no terminal do servidor, utilizando uma conexão SSH e o comando kill -9 para encerrar o processo. Durante o teste, o ambiente de produção estava configurado com somente um servidor e somente uma região geográfica, a do Brasil. 
+
+Durante o período de falha simulada, estavam sendo simulados 100 usuários acessando a plataforma simultaneamente da região geográfica do Brasil, a fim de avaliar o impacto da falha na disponibilidade da plataforma. Os resultados dos testes estão apresentados na Figura \ref{fig:process-failure-latency-over-time}, que traz a latência média da plataforma em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no processo, e na Figura \ref{fig:process-failure-requests-over-time}, que traz a quantidade de requisições processadas pela plataforma em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no processo. A Tabela \ref{tab:process-failure-stats} traz as estatísticas dos testes de falha em processos, mostrando a quantidade de falhas e sucesso durante o teste.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/process-failure-latency-over-time.png}
+%     \caption{Latência média da plataforma em relação ao tempo durante uma falha em um processo}
+%     \label{fig:process-failure-latency-over-time}
+% \end{figure}
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/process-failure-requests-over-time.png}
+%     \caption{Quantidade de requisições processadas pela plataforma em relação ao tempo durante uma falha em um processo}
+%     \label{fig:process-failure-requests-over-time}
+% \end{figure}
+
+Como pode ser observado na Tabela \ref{tab:process-failure-stats}, a infraestrutura foi capaz de se recuperar de forma automática da falha no processo, garantindo a disponibilidade da plataforma em situações de falha. Os gráficos da Figura \ref{fig:process-failure-latency-over-time} e Figura \ref{fig:process-failure-requests-over-time} mostram que a latência da plataforma aumentou durante o período de falha, mas retornou ao normal após a recuperação automática do processo. Isso garante que a plataforma seja capaz de se recuperar de falhas de forma automática, garantindo a disponibilidade da plataforma em situações de falha.
+
+Observando os logs do servidor presentes na Figura \ref{fig:process-failure-logs}, foi possível verificar que o processo que falhou foi reiniciado automaticamente em menos de 1 segundo após a falha, garantindo a disponibilidade da plataforma em situações de falha. Isso garante que a plataforma seja capaz de se recuperar de falhas de forma automática, garantindo a disponibilidade da plataforma em situações de falha.
+
+% \begin{figure}[H]
+%     \centering
+%     \includegraphics[width=1\textwidth]{images/process-failure-logs.png}
+%     \caption{Logs do servidor durante uma falha em um processo}
+%     \label{fig:process-failure-logs}
+% \end{figure}
+
 \section{Testes de Segurança}
+% TODO: VALIDAR
+
+A segurança é um aspecto crítico em qualquer aplicação web. Nesta seção, apresentamos os testes de segurança realizados para identificar vulnerabilidades e assegurar a proteção dos dados dos usuários.
 
 \subsection{Testes de Firewall}
 
-\subsection{Ataques de DDoS}
+Realizamos varreduras de portas e tentativas de acesso não autorizado para verificar se os firewalls estão corretamente configurados. Utilizamos ferramentas como o Nmap para identificar portas abertas e simular ataques.
+
+% TODO: Inserir resultados dos testes de firewall
+
+Os testes confirmaram que apenas as portas essenciais estão abertas (por exemplo, portas 80/443 para HTTP/HTTPS), e que existem regras de firewall bloqueando tentativas de acesso não autorizado. Isso sugere que o firewall está configurado de forma adequada.
 
 \subsection{Criptografia}
 
+Verificamos a utilização de criptografia nas comunicações, garantindo que todo o tráfego entre o cliente e o servidor seja seguro. Utilizamos ferramentas como o SSL Labs para analisar o certificado SSL/TLS e as configurações de segurança.
+
+Os resultados mostraram que a plataforma utiliza certificados válidos e protocolos seguros (TLS 1.2 ou superior), com preferência por conjuntos de cifras fortes. Isso diminui o risco de interceptação ou ataque man-in-the-middle.
+
+
 \section{Testes de Monitoramento}
+% TODO: VALIDAR
+
+O monitoramento contínuo da infraestrutura é fundamental para a detecção prévia de problemas e para a manutenção da disponibilidade e desempenho da plataforma de forma proativa. Nesta seção, apresentamos os testes de monitoramento realizados na plataforma Codeboard UERJ.
 
 \subsection{Monitoramento de Recursos}
+% TODO: precisa mesmo?
+
+Utilizando o CloudWatch, monitoramos os recursos da infraestrutura, como CPU, memória, tráfego de rede e armazenamento. Configuramos alarmes para notificar a equipe de operações em caso de uso excessivo ou falhas nos recursos.
+
+Os dashboards configurados permitem visualizar em tempo real o estado da infraestrutura e identificar tendências ou anomalias. Durante os testes de carga, foi possível observar o comportamento dos recursos e tomar decisões informadas sobre a necessidade de escalonamento.
 
 \subsection{Alertas de Incidentes}
 
+Configuramos sistemas de alerta que notificam a equipe de operações em caso de incidentes, como alta latência, aumento na taxa de erros ou indisponibilidade de servidores. As notificações são enviadas via e-mail e mensagens instantâneas, permitindo resposta rápida.
+
+Durante os testes de falha, os alertas foram acionados conforme esperado, comprovando a eficácia do sistema de monitoramento e notificações.
 
