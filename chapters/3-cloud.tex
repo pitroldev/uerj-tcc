@@ -13,7 +13,7 @@ O modelo Multi-Region Active-Active é particularmente eficaz para mitigar risco
 
 A arquitetura em nuvem da Codeboard é composta por várias camadas, cada uma projetada com um conjunto específico de serviços e funcionalidades que colaboram para alcançar nossos objetivos de disponibilidade e desempenho. A Figura \ref{fig:cloud-architecture} ilustra como esses componentes se interconectam, formando uma infraestrutura coesa e altamente eficiente. 
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Visão Geral da Arquitetura em Nuvem}
     \label{fig:cloud-architecture}
@@ -104,14 +104,14 @@ A aplicação Codeboard opera em um \emph{cluster} de processos, o que torna o b
 
 O algoritimo de balanceamento de carga utilizado é o \emph{Round Robin}, que distribui o tráfego de entrada de forma alternada entre os processos do cluster, assegurando que cada processo receba uma quantidade igual de solicitações. A Figura \ref{fig:round-robin-load-balancing} ilustra o funcionamento do algoritmo Round Robin, enquanto a Figura \ref{fig:pm2-cluster-mode} mostra o modo cluster do PM2 em ação.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Balanceamento de Carga com Round Robin}
     \label{fig:round-robin-load-balancing}
     \includegraphics[width=1\textwidth]{diagrams/round-robin-load-balancing.png}
 \end{figure} 
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Modo Cluster do PM2}
     \label{fig:pm2-cluster-mode}
@@ -128,7 +128,7 @@ O balanceamento de carga entre processos também contribui para a alta disponibi
 Para reforçar a tolerância a falhas e garantir a alta disponibilidade, foram configurados no PM2 mecanismos de monitoramento e recuperação automática. Esse monitoramento verifica continuamente os processos Node.js e, ao detectar uma falha, reinicia o processo comprometido. A Figura \ref{fig:pm2-fault-tolerance} ilustra o funcionamento do monitoramento e recuperação de falhas pelo PM2, garantindo que a aplicação permaneça em funcionamento mesmo diante de falhas pontuais.
 
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Tolerância à Falhas com PM2}
     \label{fig:pm2-fault-tolerance}
@@ -152,7 +152,7 @@ Para garantir que apenas instâncias saudáveis recebam tráfego, foram configur
 
 Configurou-se o Health Check com um intervalo de 30 segundos e um tempo limite de 5 segundos, o que significa que o ELB realiza uma verificação a cada 30 segundos e aguarda uma resposta dentro de 5 segundos. Após duas falhas consecutivas, a instância é marcada como indisponível e o tráfego é redirecionado para outras instâncias saudáveis. A Figura \ref{fig:elb-health-check} ilustra o funcionamento do Health Check do ELB.
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Health Check do ELB}
     \label{fig:elb-health-check}
@@ -167,7 +167,7 @@ Para garantir a alta disponibilidade da plataforma Codeboard, a infraestrutura f
 
 O Auto Scaling utiliza um Auto Scaling Group (ASG) para monitorar a utilização de CPU nas instâncias EC2 e ajustar a quantidade de instâncias conforme uma política de escalabilidade. Definiram-se gatilhos específicos: quando a utilização de CPU ultrapassa um limite predefinido, uma nova instância é adicionada ao grupo, distribuindo melhor a carga. Inversamente, se a utilização de CPU cair abaixo de um limite, o ASG reduz o número de instâncias, otimizando custos. Foi configurado um número mínimo e máximo de instâncias, garantindo um custo controlado e uma capacidade mínima sempre disponível. A Figura \ref{fig:auto-scaling-horizontal-scalability} ilustra essa escalabilidade horizontal com o Auto Scaling.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Escalabilidade Horizontal com Auto Scaling Group}
     \label{fig:auto-scaling-horizontal-scalability}
@@ -181,7 +181,7 @@ Os limites de gatilhos de escalabilidade foram definidos com base em testes e mo
 
 O Auto Scaling do AWS também possui um mecanismo de recuperação automática de falhas, que monitora continuamente a saúde das instâncias EC2. Quando uma instância é marcada como indisponível pelo ELB (por falhar em um Health Check), o Auto Scaling substitui automaticamente a instância defeituosa por uma nova, garantindo que a aplicação da plataforma Codeboard permaneça sempre disponível e resiliente a falhas. Essa combinação de Auto Scaling, ELB e PM2 resulta em uma arquitetura altamente disponível, escalável e confiável. A Figura \ref{fig:auto-scaling-fault-tolerance} ilustra o funcionamento da recuperação automática de falhas com o Auto Scaling.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Recuperação Automática de Falhas com Auto Scaling}
     \label{fig:auto-scaling-fault-tolerance}
@@ -198,7 +198,7 @@ A infraestrutura da plataforma Codeboard foi projetada para operar em várias re
 
 Para essa distribuição de tráfego entre regiões, foi configurado o Amazon Route 53, o serviço de DNS da AWS que também oferece balanceamento de carga e failover. Um registro de DNS foi criado para a aplicação da plataforma Codeboard no Route 53, o qual direciona o tráfego para o ELB de cada região geográfica. Devido à natureza de comunicação em tempo real da plataforma, o Route 53 foi configurado com balanceamento de carga baseado em latência, de forma que redireciona o tráfego para a região geográfica mais próxima do usuário, garantindo uma experiência rápida e eficiente. 
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Balanceamento de Carga Baseado em Latência com Route 53}
     \label{fig:route-53-geographic-load-balancing}
@@ -263,7 +263,7 @@ O MongoDB Atlas permite configurar a escalabilidade vertical de forma automátic
 
 Da mesma forma, a escalabilidade vertical também reduz a capacidade da instância quando os recursos são subutilizados, ajudando a otimizar custos operacionais sem sacrificar o desempenho. A Figura \ref{fig:mongodb-atlas-vertical-scalability} ilustra o funcionamento da escalabilidade vertical automática configurada no MongoDB Atlas.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Escalabilidade Vertical Automática no MongoDB Atlas}
     \label{fig:mongodb-atlas-vertical-scalability}

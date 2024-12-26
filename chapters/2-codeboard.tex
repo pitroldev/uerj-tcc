@@ -26,21 +26,21 @@ O sistema de autenticação de usuários é o ponto de partida para o uso da pla
 
 Durante o login, a plataforma valida as credenciais inseridas, verificando se o e-mail e a senha correspondem a uma conta existente. Se os dados forem corretos, o usuário é autenticado e direcionado à página inicial. Caso contrário, uma mensagem de erro é exibida, informando que as credenciais são inválidas. Caso o usuário ainda não tenha uma conta, ele pode acessar a página de cadastro por meio de um link, preencher o formulário e, após o registro, ser redirecionado automaticamente para a tela inicial. Esse processo de autenticação está ilustrado no diagrama de fluxo da Figura \ref{fig:user-auth-flow}, com as telas de login e cadastro exibidas nas Figuras \ref{fig:login-page} e \ref{fig:signup-page}, respectivamente.
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Diagrama do fluxo de autenticação de usuários.}
     \label{fig:user-auth-flow}
     \includegraphics[width=1\textwidth]{diagrams/user-auth-flow.png}
 \end{figure}
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Página de login da plataforma Codeboard UERJ.}
     \label{fig:login-page}
     \includegraphics[width=0.8\textwidth]{assets/codeboard/login-page.png}
 \end{figure}
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Página de cadastro da plataforma Codeboard UERJ.}
     \label{fig:signup-page}
@@ -54,7 +54,7 @@ Durante o processo de autenticação, a plataforma utiliza tokens para manter a 
 
 A funcionalidade de gerenciamento de salas, ilustrada na Figura \ref{fig:rooms-page}, constitui a página inicial da plataforma. Nessa página, as salas são apresentadas em uma lista, onde cada sala é representada por um cartão que exibe o nome, a descrição e o número de participantes. O usuário pode acessar uma sala ao clicar no respectivo cartão, sendo então redirecionado para a tela da sala.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Página de listagem de salas da plataforma Codeboard UERJ.}
     \label{fig:rooms-page}
@@ -64,7 +64,7 @@ A funcionalidade de gerenciamento de salas, ilustrada na Figura \ref{fig:rooms-p
 
 Além disso, o usuário pode criar uma nova sala diretamente na tela inicial, utilizando o botão de criação de sala. Ao clicar no botão, o usuário é redirecionado para a página de criação de sala, mostrada na Figura \ref{fig:create-room-page}. Nessa página, é possível inserir o nome e a descrição da sala para concluir a criação.
 
-\begin{figure}[H]{0.75\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Página de criação de sala da plataforma Codeboard UERJ.}
     \label{fig:create-room-page}
@@ -73,7 +73,7 @@ Além disso, o usuário pode criar uma nova sala diretamente na tela inicial, ut
 
 Após a criação, o usuário é redirecionado para a tela da sala. Para adicionar novos membros, basta clicar no botão de adição de participantes, identificado por um ícone de usuário, conforme mostrado na Figura \ref{fig:add-member-modal}. Uma nova tela será exibida com um campo para inserção do e-mail do aluno que se deseja adicionar à sala. Após a inclusão, o aluno torna-se membro da sala e pode acessá-la.
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Tela de adição de alunos à sala da plataforma Codeboard UERJ.}
     \label{fig:add-member-modal}
@@ -84,7 +84,7 @@ Após a criação, o usuário é redirecionado para a tela da sala. Para adicion
 O fluxo descrito do gerenciamento de salas está representado no diagrama da Figura \ref{fig:user-room-flow}.
 
 
-\begin{figure}[H]{0.85\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Diagrama do fluxo de gerenciamento de salas.}
     \label{fig:user-room-flow}
@@ -98,7 +98,7 @@ A principal funcionalidade da plataforma é o quadro de programação em tempo r
 
 Para acessar o quadro de programação, o usuário deve entrar na sala desejada por meio da página de gerenciamento de salas. A plataforma exibe uma tela dividida em dois módulos: o módulo lateral, que contém a seleção de usuários, e o módulo central, onde ocorre a edição de código.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Página da sala de programação da plataforma Codeboard UERJ.}
     \label{fig:room-details-page}
@@ -111,7 +111,7 @@ Caso o usuário selecione a si mesmo, ele poderá editar o próprio código, mud
 
 Acima do módulo lateral, o nome e a descrição da sala são exibidos. Se o usuário for o proprietário da sala, ele também verá os botões de adição de participantes e de configuração da sala. O botão de adição permite convidar novos membros, enquanto o botão de configuração possibilita a edição do nome e da descrição da sala. As figuras \ref{fig:add-member-modal} e \ref{fig:edit-room-modal} mostram os modais de adição de participantes e de configuração de sala, respectivamente.
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Modal de configuração de sala da plataforma Codeboard UERJ.}
     \label{fig:edit-room-modal}
@@ -122,7 +122,7 @@ Na parte inferior do módulo lateral, encontra-se o botão de saída, que redire
 
 O módulo central abriga o editor de código, que oferece funcionalidades típicas de uma IDE, como coloração de sintaxe, auto-completar e formatação de código. Quando o usuário está visualizando o código de outro participante, ele pode fazer marcações visíveis em tempo real para todos os membros da sala, facilitando a comunicação e a colaboração. A Figura \ref{fig:code-editor-user-highlight} mostra um exemplo de marcação de código na plataforma.
 
-\begin{figure}[H]{0.85\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Marcação de código na plataforma Codeboard UERJ.}
     \label{fig:code-editor-user-highlight}
@@ -135,7 +135,7 @@ Ao lado da seleção de linguagem, a plataforma exibe uma lista horizontal de qu
 
 A Figura \ref{fig:code-editor-toolbar} mostra a barra de ferramentas do editor de código, onde estão localizados os botões para seleção da linguagem de programação e para visualização dos usuários que estão acompanhando o quadro em tempo real.
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Barra de ferramentas do editor de código da plataforma.}
     \label{fig:code-editor-toolbar}
@@ -199,7 +199,7 @@ O backend da plataforma é responsável pela implementação das regras de negó
 
 A comunicação entre o cliente e o servidor ocorre através de duas interfaces principais: REST API e WebSockets. A REST API fornece um conjunto de rotas que permitem ao cliente acessar funcionalidades da plataforma, como autenticação de usuários, gerenciamento de salas e edição de código. Os WebSockets, por sua vez, são utilizados para viabilizar a comunicação em tempo real entre os usuários, possibilitando a edição colaborativa de código. A Figura \ref{fig:backend-architecture} ilustra a arquitetura do backend da plataforma Codeboard UERJ.
 
-\begin{figure}[H]{0.8\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Arquitetura do backend da plataforma Codeboard UERJ.}
     \label{fig:backend-architecture}
@@ -214,7 +214,7 @@ A plataforma utiliza o MongoDB, um banco de dados NoSQL orientado a documentos, 
 
 O banco de dados é estruturado em três coleções principais: a coleção de usuários (Users), a de salas (Rooms) e a de quadros de programação (Board). Essa organização está diretamente ligada às funcionalidades da plataforma, proporcionando armazenamento e recuperação eficazes dos dados dos usuários, das salas e dos quadros de programação. A Figura \ref{fig:database-schema} ilustra como essas coleções estão organizadas e como se relacionam no banco de dados.
 
-\begin{figure}[H]{0.75\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Esquema do banco de dados da plataforma.}
     \label{fig:database-schema}
@@ -231,7 +231,7 @@ A coleção de usuários armazena dados como nome, e-mail e senha dos usuários 
     \item \textbf{createdAt}: Data de criação do usuário.
 \end{itemize}
 
-\begin{table}[H]{1\textwidth}
+\begin{table}[H]
     \centering
     \caption{Campos da coleção "User" do banco de dados da plataforma Codeboard UERJ.}
     \label{tab:user-collection-fields}
@@ -267,7 +267,7 @@ A coleção de salas contém informações sobre as salas criadas, como nome, de
     \item \textbf{createdAt}: Data de criação da sala.
 \end{itemize}
 
-\begin{table}[H]{1\textwidth}
+\begin{table}[H]
     \centering
     \caption{Campos da coleção "Room" do banco de dados da plataforma Codeboard UERJ.}
     \label{tab:room-collection-fields}
@@ -304,7 +304,7 @@ A coleção de quadros de programação armazena os códigos escritos pelos usu�
     \item \textbf{createdAt}: Data de criação.
 \end{itemize}
 
-\begin{table}[H]{1\textwidth}
+\begin{table}[H]
     \centering
     \caption{Campos da coleção "Board" do banco de dados da plataforma Codeboard UERJ.}
     \label{tab:board-collection-fields}
@@ -344,7 +344,7 @@ Na REST API, existem três tipos principais de rotas: de autenticação, de usu�
 
 A Tabela \ref{tab:rest-api-routes} apresenta as rotas da REST API da plataforma Codeboard UERJ, detalhando o método HTTP, a rota, sua descrição e se a autenticação é necessária para acessar cada uma delas.
 
-\begin{table}[H]{1\textwidth}
+\begin{table}[H]
     \centering
     \caption{Rotas da REST API da plataforma Codeboard UERJ.}
     \label{tab:rest-api-routes}
@@ -393,7 +393,7 @@ O Redis foi escolhido principalmente por seu sistema de publicação/assinatura 
 
 O diagrama \ref{fig:redis-pubsub} a comunicação distribuída proporcionada pelo Redis utilizando o sistema de publicação/assinatura (Pub/Sub). Nele, dois servidores distintos (Servidor 1 e Servidor 2) interagem com o Redis, publicando mensagens em um canal específico. O Redis, por sua vez, distribui as mensagens recebidas para todos os servidores inscritos nesse canal, garantindo que as atualizações sejam propagadas em tempo real. Esse mecanismo é essencial para aplicações que necessitam de sincronização eficiente entre múltiplos pontos de processamento, como a plataforma Codeboard UERJ.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Comunicação distribuída com Redis utilizando Pub/Sub.}
     \label{fig:redis-pubsub}
@@ -405,7 +405,7 @@ A adoção do Redis é comum em sistemas que demandam alta disponibilidade e tem
 
 A Tabela \ref{tab:key-value-database} descreve a estrutura do banco de dados chave-valor utilizado na plataforma, evidenciando como os dados são organizados em \emph{namespaces}. Cada \emph{namespace} reflete um contexto específico da aplicação, como as salas de colaboração ou os quadros de programação, e cada um possui um tempo de expiração associado, normalmente configurado para 1 dia. Essa expiração automática é essencial para a gestão de dados temporários e voláteis.
 
-\begin{table}[H]{1\textwidth}
+\begin{table}[H]
     \centering
     \caption{Estrutura do banco de dados chave-valor da plataforma.}
     \label{tab:key-value-database}
@@ -448,7 +448,7 @@ Além disso, os canais podem conter subcanais, permitindo a criação de hierarq
 
 A Tabela \ref{tab:websocket-client-to-server-events}  lista os principais eventos que os clientes da plataforma Codeboard UERJ enviam ao servidor por meio de WebSockets, junto com suas respectivas descrições. Esses eventos possibilitam a interação dos usuários com as salas de programação, os quadros de edição de código e outros participantes, viabilizando a colaboração em tempo real.
 
-\begin{table}[H]{1\textwidth}
+\begin{table}[H]
     \centering
     \caption{Eventos WebSocket enviados do cliente para o servidor na plataforma.}
     \label{tab:websocket-client-to-server-events}
@@ -475,7 +475,7 @@ A Tabela \ref{tab:websocket-client-to-server-events}  lista os principais evento
 
 A Tabela \ref{tab:websocket-server-to-client-events} apresenta os eventos enviados pelo servidor da plataforma Codeboard UERJ aos clientes, juntamente com suas descrições. Esses eventos permitem que os usuários acompanhem, em tempo real, as atividades e interações dos outros participantes, assegurando a sincronia durante a colaboração.
 
-\begin{table}[H]{1\textwidth}
+\begin{table}[H]
     \centering
     \caption{Eventos WebSocket enviados do servidor para o cliente na plataforma.}
     \label{tab:websocket-server-to-client-events}
@@ -505,7 +505,7 @@ A Tabela \ref{tab:websocket-server-to-client-events} apresenta os eventos enviad
 
 A Tabela \ref{tab:websocket-server-control-events} apresenta os eventos de controle de conexão na plataforma Codeboard UERJ, acompanhados de suas descrições. Esses eventos são responsáveis por gerenciar o estabelecimento e a finalização das conexões WebSocket entre os clientes e o servidor.
 
-\begin{table}[H]{1\textwidth}
+\begin{table}[H]
     \centering
     \caption{Eventos WebSocket enviados do cliente para o servidor na plataforma.}
     \label{tab:websocket-server-control-events}
@@ -524,7 +524,7 @@ A Tabela \ref{tab:websocket-server-control-events} apresenta os eventos de contr
 
 Para visualizar o fluxo dessas interações, o diagrama de sequência da Figura \ref{fig:websocket-flow} exemplifica a comunicação em tempo real da comunicação entre o \textbf{usuário}, o \textbf{servidor} e outros usuários que participam de uma \textbf{sala} ou de um \textbf{quadro de programação} na plataforma, destacando pontos críticos de interação e troca de informações.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Diagrama de sequência da comunicação em tempo real na plataforma.}
     \label{fig:websocket-flow}
@@ -585,7 +585,7 @@ Caso ocorra algum erro durante a execução da tarefa, o worker pode aguardar um
 
 O fluxo de comunicação assíncrona via filas é ilustrado no diagrama de sequência da Figura \ref{fig:queue-flow}, que exemplifica a interação entre o \textbf{servidor principal}, os \textbf{workers} e as \textbf{filas}.
 
-\begin{figure}[H]{1\textwidth}
+\begin{figure}[H]
     \centering
     \caption{Diagrama de sequência da comunicação assíncrona via filas na plataforma.}
     \label{fig:queue-flow}

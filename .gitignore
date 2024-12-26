@@ -18,8 +18,8 @@
 *.pdf
 
 # Compiled LaTeX files
-*.cls
-*.sty
+# *.cls
+# *.sty
 *.fmt
 
 # LaTeX generated files
