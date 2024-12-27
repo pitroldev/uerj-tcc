@@ -104,6 +104,21 @@ Frameworks, por sua vez, fornecem uma estrutura completa para o desenvolvimento 
 
 Tanto bibliotecas quanto frameworks desempenham um papel crucial no desenvolvimento de software. Essas ferramentas não apenas aceleram o processo de criação, mas também incentivam a adoção de boas práticas, contribuindo para a eficiência e qualidade dos projetos.
 
+\subsection{Mensageria}
+% 🆗 Revisado
+
+% O que é mensageria?
+% O que é um serviço de mensageria?
+% Quais são os tipos de mensageria? (Fila, Tópico, etc.)
+% O que é Pub/Sub?
+
+Mensageria refere-se à troca de mensagens entre sistemas ou componentes de software, promovendo comunicação assíncrona e desacoplada. Essa abordagem é essencial em arquiteturas distribuídas, permitindo que diferentes partes de um sistema interajam de forma eficiente sem depender diretamente umas das outras.
+
+Existem dois principais tipos de mensageria \cite{what-is-message-broker}. O primeiro é o modelo de fila, no qual as mensagens são armazenadas em uma estrutura sequencial e processadas em ordem (geralmente \emph{FIFO}, ou seja, \emph{"First In, First Out"}). Nesse modelo, cada mensagem é consumida por um único consumidor, sendo particularmente útil para a execução de tarefas assíncronas. O segundo tipo é o modelo de publicação em tópicos, conhecido como \emph{Publish/Subscribe}, onde as mensagens são publicadas em um canal denominado tópico e podem ser entregues a múltiplos assinantes interessados, permitindo comunicação de um para muitos.
+
+O modelo \emph{Pub/Sub (Publish/Subscribe)} é amplamente utilizado em sistemas de mensageria. Nesse modelo, os publicadores (\emph{publishers}) enviam mensagens para tópicos sem conhecimento direto dos consumidores (\emph{subscribers}). Os consumidores, por sua vez, recebem as mensagens dos tópicos aos quais estão inscritos. Essa abordagem facilita a transmissão de eventos e notificações em tempo real, proporcionando flexibilidade e escalabilidade para sistemas que exigem comunicação eficiente e distribuída.
+
+Mensageria desempenha um papel fundamental na construção de sistemas resilientes e escaláveis, oferecendo suporte para comunicação assíncrona e desacoplada, além de ser a base para arquiteturas orientadas a eventos.
 
 \section{Protocolos de Comunicação}
 % 🆗 Revisado
@@ -186,7 +201,7 @@ Principais tipos de bancos de dados NoSQL:
     \item \textbf{Grafos}: Focados nas relações entre os dados, utilizam nós para representar entidades e arestas para as conexões entre elas. São ideais para aplicações como redes sociais, mecanismos de recomendação e análise de conexões. Exemplos: Neo4j, ArangoDB.
 \end{itemize}
 
-Os bancos de dados NoSQL se destacam por sua capacidade de lidar com dados dinâmicos e escalar horizontalmente, oferecendo soluções sob medida para desafios específicos que muitas vezes não podem ser abordados de forma eficiente por bancos de dados relacionais tradicionais.
+Os bancos de dados NoSQL se destacam por sua capacidade de lidar com dados dinâmicos e escalar horizontalmente, oferecendo soluções sob medida para desafios específicos que muitas vezes não podem ser abordados de forma eficiente por bancos de dados relacionais tradicionais. Neste projeto, foram escolhidos o MongoDB e o Redis como bancos de dados NoSQL para atender às necessidades de armazenamento e operações em tempo real da plataforma Codeboard UERJ.
 
 \subsection{MongoDB}
 % 🆗 Revisado
@@ -212,6 +227,27 @@ Os bancos de dados NoSQL se destacam por sua capacidade de lidar com dados dinâ
 Essas ferramentas aumentam a produtividade ao abstrair a complexidade das operações de banco de dados, proporcionando uma camada intermediária que simplifica a manipulação de dados e facilita a integração entre a aplicação e o banco.
 
 
+\subsection{Sharding}
+
+% O que é sharding?
+% Como funciona o sharding? Quais são os desafios do sharding?
+% Quais são as vantagens do sharding? Quando é recomendado o uso de sharding?
+
+\emph{Sharding} (fragmentação) é uma técnica de particionamento de dados amplamente utilizada em sistemas distribuídos de banco de dados para melhorar a escalabilidade e o desempenho. O termo refere-se ao processo de dividir uma base de dados em partes menores, chamadas de \emph{shards}, que podem ser armazenadas e gerenciadas separadamente em diferentes servidores ou nós \cite{sharding-mongodb}. Cada shard contém um subconjunto dos dados, e juntos, todos os shards formam a base de dados completa.
+
+A implementação do sharding envolve a escolha de uma chave de particionamento para distribuir dados entre os shards de forma equilibrada, evitando hotspots e garantindo escalabilidade horizontal. Apesar de desafios como a complexidade da implementação, a redistribuição de dados em cenários de crescimento e a coordenação entre shards em consultas complexas, o sharding oferece vantagens significativas, como a possibilidade de adicionar novos nós para lidar com aumentos de carga, melhoria no desempenho ao reduzir a carga sobre cada nó e maior resiliência, pois falhas em um shard não comprometem a disponibilidade do sistema como um todo.
+
+O uso do sharding é recomendado em situações onde o volume de dados ou a carga de requisições excedem a capacidade de um banco de dados monolítico. Exemplos incluem aplicações com grandes bases de usuários, como redes sociais e plataformas de e-commerce, onde o acesso concorrente e o armazenamento de dados são cruciais. A escolha de implementar o sharding deve considerar o custo-benefício, levando em conta a complexidade adicional introduzida e a necessidade de manutenção constante.
+
+\subsection{Replicação}
+
+A replicação é uma técnica utilizada para aumentar a disponibilidade, confiabilidade e desempenho de sistemas de banco de dados. Ela consiste em criar cópias redundantes de um banco de dados e mantê-las sincronizadas em múltiplos servidores ou nós \cite{replication-mongodb}. Essas cópias, chamadas de réplicas, podem ser utilizadas para distribuir a carga de trabalho, melhorar o tempo de resposta das consultas e garantir a continuidade do serviço em caso de falhas.
+
+As diferentes estratégias de replicação, como a síncrona, que garante consistência imediata entre réplicas, e a assíncrona, que oferece maior desempenho com risco de inconsistências temporárias, devem ser escolhidas considerando o equilíbrio entre consistência, desempenho e disponibilidade. Apesar de desafios como conflitos em múltiplas réplicas e o impacto no desempenho do sistema principal, a replicação oferece vantagens importantes, como alta disponibilidade ao permitir que réplicas assumam em caso de falhas, escalabilidade ao distribuir consultas entre réplicas e resiliência ao garantir acessibilidade aos dados mesmo em situações adversas.
+
+O uso da replicação é amplamente recomendado em sistemas que demandam alta disponibilidade, como aplicações financeiras, plataformas de saúde e outros sistemas críticos que não podem sofrer interrupções. A implementação da replicação deve ser cuidadosamente planejada para atender aos requisitos específicos do sistema, garantindo um equilíbrio eficiente entre custo e benefício.
+
+
 \section{Computação em Nuvem}
 % 🆗 Revisado
 
@@ -230,6 +266,7 @@ Tipos de serviços de computação em nuvem:
 \end{itemize}
 
 Entre os principais provedores de serviços de computação em nuvem, destacam-se a \emph{Amazon Web Services (AWS)}, a \emph{Google Cloud Platform} e a \emph{Microsoft Azure}. Essas plataformas oferecem uma ampla gama de serviços e soluções que atendem às necessidades de empresas de diferentes tamanhos, desde \emph{startups} até grandes corporações.
+
 
 \subsection{Amazon Web Services (AWS)}
 % 🆗 Revisado
@@ -311,44 +348,6 @@ Na AWS, os serviços de balanceamento de carga disponíveis incluem:
     \item \textbf{ALB (Application Load Balancer)}: Funciona na camada de aplicação (HTTP/HTTPS) e oferece funcionalidades avançadas, como roteamento baseado em URL, cabeçalhos e cookies.
     \item \textbf{NLB (Network Load Balancer)}: Opera na camada de transporte (TCP/UDP) e é otimizado para lidar com grandes volumes de tráfego de rede com latência extremamente baixa.
 \end{itemize}
-
-
-\subsection{Sharding}
-
-% O que é sharding?
-% Como funciona o sharding? Quais são os desafios do sharding?
-% Quais são as vantagens do sharding? Quando é recomendado o uso de sharding?
-
-\emph{Sharding} (fragmentação) é uma técnica de particionamento de dados amplamente utilizada em sistemas distribuídos de banco de dados para melhorar a escalabilidade e o desempenho. O termo refere-se ao processo de dividir uma base de dados em partes menores, chamadas de \emph{shards}, que podem ser armazenadas e gerenciadas separadamente em diferentes servidores ou nós \cite{sharding-mongodb}. Cada shard contém um subconjunto dos dados, e juntos, todos os shards formam a base de dados completa.
-
-A implementação do sharding envolve a escolha de uma chave de particionamento para distribuir dados entre os shards de forma equilibrada, evitando hotspots e garantindo escalabilidade horizontal. Apesar de desafios como a complexidade da implementação, a redistribuição de dados em cenários de crescimento e a coordenação entre shards em consultas complexas, o sharding oferece vantagens significativas, como a possibilidade de adicionar novos nós para lidar com aumentos de carga, melhoria no desempenho ao reduzir a carga sobre cada nó e maior resiliência, pois falhas em um shard não comprometem a disponibilidade do sistema como um todo.
-
-O uso do sharding é recomendado em situações onde o volume de dados ou a carga de requisições excedem a capacidade de um banco de dados monolítico. Exemplos incluem aplicações com grandes bases de usuários, como redes sociais e plataformas de e-commerce, onde o acesso concorrente e o armazenamento de dados são cruciais. A escolha de implementar o sharding deve considerar o custo-benefício, levando em conta a complexidade adicional introduzida e a necessidade de manutenção constante.
-
-\subsection{Replicação}
-
-A replicação é uma técnica utilizada para aumentar a disponibilidade, confiabilidade e desempenho de sistemas de banco de dados. Ela consiste em criar cópias redundantes de um banco de dados e mantê-las sincronizadas em múltiplos servidores ou nós \cite{replication-mongodb}. Essas cópias, chamadas de réplicas, podem ser utilizadas para distribuir a carga de trabalho, melhorar o tempo de resposta das consultas e garantir a continuidade do serviço em caso de falhas.
-
-As diferentes estratégias de replicação, como a síncrona, que garante consistência imediata entre réplicas, e a assíncrona, que oferece maior desempenho com risco de inconsistências temporárias, devem ser escolhidas considerando o equilíbrio entre consistência, desempenho e disponibilidade. Apesar de desafios como conflitos em múltiplas réplicas e o impacto no desempenho do sistema principal, a replicação oferece vantagens importantes, como alta disponibilidade ao permitir que réplicas assumam em caso de falhas, escalabilidade ao distribuir consultas entre réplicas e resiliência ao garantir acessibilidade aos dados mesmo em situações adversas.
-
-O uso da replicação é amplamente recomendado em sistemas que demandam alta disponibilidade, como aplicações financeiras, plataformas de saúde e outros sistemas críticos que não podem sofrer interrupções. A implementação da replicação deve ser cuidadosamente planejada para atender aos requisitos específicos do sistema, garantindo um equilíbrio eficiente entre custo e benefício.
-
-
-\subsection{Mensageria}
-% 🆗 Revisado
-
-% O que é mensageria?
-% O que é um serviço de mensageria?
-% Quais são os tipos de mensageria? (Fila, Tópico, etc.)
-% O que é Pub/Sub?
-
-Mensageria refere-se à troca de mensagens entre sistemas ou componentes de software, promovendo comunicação assíncrona e desacoplada. Essa abordagem é essencial em arquiteturas distribuídas, permitindo que diferentes partes de um sistema interajam de forma eficiente sem depender diretamente umas das outras.
-
-Existem dois principais tipos de mensageria \cite{what-is-message-broker}. O primeiro é o modelo de fila, no qual as mensagens são armazenadas em uma estrutura sequencial e processadas em ordem (geralmente \emph{FIFO}, ou seja, \emph{"First In, First Out"}). Nesse modelo, cada mensagem é consumida por um único consumidor, sendo particularmente útil para a execução de tarefas assíncronas. O segundo tipo é o modelo de publicação em tópicos, conhecido como \emph{Publish/Subscribe}, onde as mensagens são publicadas em um canal denominado tópico e podem ser entregues a múltiplos assinantes interessados, permitindo comunicação de um para muitos.
-
-O modelo \emph{Pub/Sub (Publish/Subscribe)} é amplamente utilizado em sistemas de mensageria. Nesse modelo, os publicadores (\emph{publishers}) enviam mensagens para tópicos sem conhecimento direto dos consumidores (\emph{subscribers}). Os consumidores, por sua vez, recebem as mensagens dos tópicos aos quais estão inscritos. Essa abordagem facilita a transmissão de eventos e notificações em tempo real, proporcionando flexibilidade e escalabilidade para sistemas que exigem comunicação eficiente e distribuída.
-
-Mensageria desempenha um papel fundamental na construção de sistemas resilientes e escaláveis, oferecendo suporte para comunicação assíncrona e desacoplada, além de ser a base para arquiteturas orientadas a eventos.
 
 \subsection{DNS}
 % 🆗 Revisado
