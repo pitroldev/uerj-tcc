@@ -79,7 +79,7 @@ Para hospedar a aplicação da plataforma Codeboard, foram escolhidas instância
 \begin{itemize}
     \item \textbf{Custo}: As instâncias t3.micro fazem parte do \emph{free tier} da AWS, oferecendo 12 meses de uso gratuito, o que torna essa opção financeiramente viável para a fase inicial do projeto.
     \item \textbf{Desempenho Escalável}: Com capacidade de burst, essas instâncias podem fornecer recursos adicionais de CPU temporariamente, sem custos extras, atendendo a picos de demanda.
-    \item \textbf{2 vCPUs}: As instâncias t3.micro possuem 2 vCPUs, que é o mínimo recomendado para a aplicação da plataforma Codeboard, que opera em um \emph{cluster} de processos, onde cada processo é uma aplicação Node.js que é responsável pelo backend.
+    \item \textbf{2 vCPUs}: As instâncias t3.micro possuem 2 vCPUs, que é o mínimo recomendado para a aplicação da plataforma Codeboard, que opera em um \emph{cluster} de processos, onde cada processo é uma aplicação Node.js que é responsável pelo back-end.
     \item \textbf{1 GB de memória RAM}: A memória de 1 GB é adequada para a Codeboard, pois sua função de intermediação de mensagens em tempo real requer um baixo consumo de memória.
     \item \textbf{Armazenamento em disco SSD}: Embora a Codeboard não faça uso intensivo de disco, o armazenamento SSD nas instâncias t3.micro oferece maior velocidade e confiabilidade, beneficiando a estabilidade do sistema.
 \end{itemize}

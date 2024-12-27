@@ -145,7 +145,7 @@ A Figura \ref{fig:code-editor-toolbar} mostra a barra de ferramentas do editor d
 
 \subsection{Regras de Negócio}
 
-Existem algumas regras de negócio que devem ser seguidas para garantir o bom funcionamento da plataforma. Estas regras são implementadas no backend da plataforma e são responsáveis por validar os dados dos usuários e das salas, bem como garantir a segurança e a integridade dos dados.
+Existem algumas regras de negócio que devem ser seguidas para garantir o bom funcionamento da plataforma. Estas regras são implementadas no back-end da plataforma e são responsáveis por validar os dados dos usuários e das salas, bem como garantir a segurança e a integridade dos dados.
 
 \paragraph{Autenticação}
 
@@ -190,18 +190,18 @@ Existem algumas regras de negócio que devem ser seguidas para garantir o bom fu
 \section{Implementação}
 % Revisado
 
-Nesta seção, será apresentada a implementação da plataforma Codeboard UERJ. A plataforma é estruturada em três componentes principais: o backend, o banco de dados e o frontend. Cada um deles desempenha um papel específico na plataforma, sendo responsável pelas regras de negócio, o armazenamento de dados e a interface com o usuário, respectivamente.
+Nesta seção, será apresentada a implementação da plataforma Codeboard UERJ. A plataforma é estruturada em três componentes principais: o back-end, o banco de dados e o front-end. Cada um deles desempenha um papel específico na plataforma, sendo responsável pelas regras de negócio, o armazenamento de dados e a interface com o usuário, respectivamente.
 
-\subsection{Backend}
+\subsection{Back-end}
 % Revisado
 
-O backend da plataforma é responsável pela implementação das regras de negócio da aplicação. Ele é composto por um servidor NodeJS que utiliza dois métodos de comunicação: REST API e WebSockets. A REST API é usada para comunicação assíncrona entre o cliente e o servidor, enquanto os WebSockets são utilizados para permitir a comunicação em tempo real entre os usuários.
+O back-end da plataforma é responsável pela implementação das regras de negócio da aplicação. Ele é composto por um servidor NodeJS que utiliza dois métodos de comunicação: REST API e WebSockets. A REST API é usada para comunicação assíncrona entre o cliente e o servidor, enquanto os WebSockets são utilizados para permitir a comunicação em tempo real entre os usuários.
 
-A comunicação entre o cliente e o servidor ocorre através de duas interfaces principais: REST API e WebSockets. A REST API fornece um conjunto de rotas que permitem ao cliente acessar funcionalidades da plataforma, como autenticação de usuários, gerenciamento de salas e edição de código. Os WebSockets, por sua vez, são utilizados para viabilizar a comunicação em tempo real entre os usuários, possibilitando a edição colaborativa de código. A Figura \ref{fig:backend-architecture} ilustra a arquitetura do backend da plataforma Codeboard UERJ.
+A comunicação entre o cliente e o servidor ocorre através de duas interfaces principais: REST API e WebSockets. A REST API fornece um conjunto de rotas que permitem ao cliente acessar funcionalidades da plataforma, como autenticação de usuários, gerenciamento de salas e edição de código. Os WebSockets, por sua vez, são utilizados para viabilizar a comunicação em tempo real entre os usuários, possibilitando a edição colaborativa de código. A Figura \ref{fig:backend-architecture} ilustra a arquitetura do back-end da plataforma Codeboard UERJ.
 
 \begin{figure}[H]
     \centering
-    \caption{Arquitetura do backend da plataforma Codeboard UERJ.}
+    \caption{Arquitetura do back-end da plataforma Codeboard UERJ.}
     \label{fig:backend-architecture}
     \includegraphics[width=0.75\textwidth]{diagrams/backend-architecture.png}
 \end{figure}
@@ -332,7 +332,7 @@ A coleção de quadros de programação armazena os códigos escritos pelos usu�
 
 A coleção Board, possui os campos user e room, que contêm os identificadores do usuário proprietário do quadro e da sala à qual ele pertence, respectivamente. Esses relacionamentos garantem a organização dos dados e facilitam o gerenciamento de quadros de programação criados por diferentes usuários dentro de diferentes salas.
 
-Apesar de o MongoDB ser um banco de dados NoSQL, a plataforma Codeboard UERJ segue um esquema de dados predefinido para garantir a consistência e integridade das informações armazenadas, ou seja, foram estabelecidos estruturas de dados pré-determinadas para cada coleção, especificando os campos, tipos de dados, relações entre diferentes coleções e regra de validação que cada documento deve seguir. Isso é fundamental para evitar inconsistências, como a inserção de dados inválidos ou incompletos, além de facilitar a manutenção e a evolução do sistema. Esse esquema é modelado e gerenciado no backend da plataforma com o auxílio da biblioteca \emph{Mongoose}, que simplifica o processo de modelagem e interação com o banco de dados MongoDB.
+Apesar de o MongoDB ser um banco de dados NoSQL, a plataforma Codeboard UERJ segue um esquema de dados predefinido para garantir a consistência e integridade das informações armazenadas, ou seja, foram estabelecidos estruturas de dados pré-determinadas para cada coleção, especificando os campos, tipos de dados, relações entre diferentes coleções e regra de validação que cada documento deve seguir. Isso é fundamental para evitar inconsistências, como a inserção de dados inválidos ou incompletos, além de facilitar a manutenção e a evolução do sistema. Esse esquema é modelado e gerenciado no back-end da plataforma com o auxílio da biblioteca \emph{Mongoose}, que simplifica o processo de modelagem e interação com o banco de dados MongoDB.
 
 
 \subsection{Comunicação Síncrona via REST API}
@@ -597,9 +597,9 @@ Essa abordagem de comunicação assíncrona via filas é essencial para que a pl
 
 \subsection{Interface do Usuário}
 
-O frontend da plataforma Codeboard UERJ foi desenvolvido com o objetivo de oferecer uma interface intuitiva, eficiente e escalável. Para alcançar esse objetivo, foi utilizada uma \emph{stack} de tecnologias modernas, composta principalmente por ReactJS, Next.js, Tailwind CSS e shadcn/ui. A escolha dessas ferramentas visou a criação de um ambiente de desenvolvimento ágil e um resultado final otimizado para a experiência do usuário.
+O front-end da plataforma Codeboard UERJ foi desenvolvido com o objetivo de oferecer uma interface intuitiva, eficiente e escalável. Para alcançar esse objetivo, foi utilizada uma \emph{stack} de tecnologias modernas, composta principalmente por ReactJS, Next.js, Tailwind CSS e shadcn/ui. A escolha dessas ferramentas visou a criação de um ambiente de desenvolvimento ágil e um resultado final otimizado para a experiência do usuário.
 
-Next.js foi escolhido como o \emph{framework} principal para a construção do frontend, devido às suas capacidades de Static Site Generation (SSG). Essa característica permite que a plataforma carregue páginas de forma rápida e eficiente, ao mesmo tempo em que melhoravam o SEO e a experiência de navegação dos usuários. Além disso, o Next.js oferece suporte nativo a React, facilitando a criação de componentes reutilizáveis e a organização do código.
+Next.js foi escolhido como o \emph{framework} principal para a construção do front-end, devido às suas capacidades de Static Site Generation (SSG). Essa característica permite que a plataforma carregue páginas de forma rápida e eficiente, ao mesmo tempo em que melhoravam o SEO e a experiência de navegação dos usuários. Além disso, o Next.js oferece suporte nativo a React, facilitando a criação de componentes reutilizáveis e a organização do código.
 
 A estilização da plataforma foi realizada com Tailwind CSS, um framework de utilitários CSS que facilita a criação de interfaces responsivas e customizáveis. A escolha do Tailwind possibilitou uma organização clara dos estilos, sem a necessidade de escrever CSS adicional, aumentando a eficiência do processo de desenvolvimento. Além disso, o uso de classes utilitárias do Tailwind permitiu a rápida criação de componentes reativos e responsivos, otimizando o layout para diferentes tamanhos de tela.
 
