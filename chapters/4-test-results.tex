@@ -144,7 +144,7 @@ Na Figura \ref{fig:elasticity-vus-and-reqs}, observa-se o comportamento do núme
     \label{fig:elasticity-req-duration}
 \end{figure}
 
-A Figura \ref{fig:elasticity-req-duration} apresenta a média e o percentil 95 da duração das requisições durante o teste. A média iniciou em aproximadamente 200 ms e aumentou gradualmente à medida que o número de usuários crescia, alcançando um pico de 1,3 segundos. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, chegou a um máximo de 3 segundos. Apesar do aumento na latência com a elevação da carga, os tempos de resposta permaneceram dentro de limites aceitáveis.
+A Figura \ref{fig:elasticity-req-duration} apresenta a média e o percentil 95 da duração das requisições durante o teste. A média iniciou em aproximadamente 250 ms e aumentou gradualmente à medida que o número de usuários crescia, alcançando um pico de 1,3 segundos. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, chegou a um máximo de 3 segundos. Apesar do aumento na latência com a elevação da carga, os tempos de resposta permaneceram dentro de limites aceitáveis.
 
 \begin{figure}[H]
     \centering
@@ -177,95 +177,117 @@ Por fim, a Figura \ref{fig:elasticity-unhealthy-hosts} destaca que, durante o mo
 
 
 \section{Testes de Tolerância a Falhas}
-% TODO: REVISAR (principalmente esse primeiro parágrafo)
-% TODO: Medir o RTO
+% OK!
 
-Garantir a disponibilidade da plataforma mesmo em situações de falha é essencial. Realizamos testes para verificar como a infraestrutura se comporta diante de falhas em servidores e na aplicação, e como ela se recupera desses eventos.
+Nesta seção, apresentamos os testes de tolerância a falhas realizados na plataforma Codeboard UERJ. Os testes foram conduzidos com o objetivo de avaliar a capacidade da infraestrutura de se recuperar de falhas de servidores e processos de forma automática, garantindo a disponibilidade da plataforma em situações de falha.
 
 \subsection{Metodologia de Testes}
-% TODO: Mesma do capítulo de escalabilidade, porém com valorez reduzidos e um tempo maior de manutenção da carga
 
-Os testes de tolerância a falhas foram realizados utilizando a ferramenta Grafana K6, que permite simular um grande número de usuários acessando a plataforma simultaneamente. A ferramenta foi configurada para executar testes em diferentes estágios de carga, aumentando progressivamente o número de usuários conectados à plataforma. Dessa forma, foi possível medir o desempenho do sistema em termos de latência, taxa de erro e capacidade de resposta. Os estágios do teste foram divididos em três etapas principais:
+Os testes de tolerância a falhas foram realizados de forma similar aos testes de elasticidade, mas com valores reduzidos para simular condições de uso mais estáveis e avaliar a capacidade de recuperação da infraestrutura em situações de falha. As etapas foram adaptadas com 30 usuários simultâneos e duração total de 15 minutos, divididas da seguinte forma:
+
+\begin{enumerate}
+    \item \textbf{Subida inicial:} Durante 3 minutos, o número de usuários simultâneos aumentou gradualmente até atingir 30.
+    \item \textbf{Manutenção da carga:} O sistema manteve 30 usuários simultâneos por um período de 5 minutos.
+    \item \textbf{Redução da carga:} A carga foi reduzida gradualmente para 0 ao longo de 3 minutos.
+\end{enumerate}
+
+Os testes foram conduzidos durante a etapa de manutenção da carga, com o objetivo de avaliar a capacidade da infraestrutura de se recuperar de falhas de servidores e processos de forma automática, garantindo a disponibilidade da plataforma em situações adversas. Durante os testes a infraestrutura estava provisionada inicialmente com dois servidores e somente uma região geográfica, a do Brasil.
 
 \subsection{Falhas de Servidores}
 
-Para simular uma falha em um servidor, foi realizado um teste de desligamento manual de um dos servidores do Brasil, com o objetivo de avaliar a capacidade da infraestrutura de se recuperar de falhas de forma automática. O desligamento foi realizado pelo painel de controle da AWS, que permite desligar um servidor de forma remota. Durante o teste, o ambiente de produção estava configurado com dois servidores e somente uma região geográfica, a do Brasil.
 
-Durante o período de falha simulada, estavam sendo simulados 30 usuários acessando a plataforma simultaneamente da região geográfica do Brasil, a fim de avaliar o impacto da falha na disponibilidade da plataforma. Os resultados dos testes estão apresentados na Figura \ref{fig:server-failure-latency-over-time}, que traz a latência média da plataforma em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no servidor, e na Figura \ref{fig:server-failure-requests-over-time}, que traz a quantidade de requisições processadas pela plataforma em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no servidor. A Tabela \ref{tab:server-failure-stats} traz as estatísticas dos testes de falha em servidores, mostrando a quantidade de falhas e sucesso durante o teste.
+Para avaliar a resiliência da infraestrutura em caso de falhas, realizamos a simulação de uma falha em um dos servidores. O teste envolveu o desligamento manual do servidor por meio do painel de controle da AWS, que permite a interrupção seja realizada de forma abrupta. A infraestrutura foi monitorada para verificar a capacidade de recuperação automática e a continuidade do serviço durante a falha.
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{images/server-failure-latency-over-time.png}
-%     \caption{Latência média da plataforma em relação ao tempo durante uma falha em um servidor}
-%     \label{fig:server-failure-latency-over-time}
-% \end{figure}
-
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{images/server-failure-requests-over-time.png}
-%     \caption{Quantidade de requisições processadas pela plataforma em relação ao tempo durante uma falha em um servidor}
-%     \label{fig:server-failure-requests-over-time}
-% \end{figure}
-
-\begin{table}[H]
+\begin{figure}[H]
     \centering
-    \caption{Estatísticas dos testes de falha em servidores}
-    \label{tab:server-failure-stats}
-    \begin{tabular}{|l|l|}
-        \hline
-        \textbf{Falhas}  & 0 \\ \hline
-        \textbf{Sucesso} & 1 \\ \hline
-    \end{tabular}
-\end{table}
+    \includegraphics[width=1\textwidth]{assets/server-failing-test/vus-and-reqs.png}
+    \caption{Número de usuários virtuais e taxa de requisições processadas por segundo ao longo do teste de falha de servidor}
+    \label{fig:server-failing-vus-and-reqs}
+\end{figure}
 
-Como pode ser observado na Tabela \ref{tab:server-failure-stats}, a infraestrutura foi capaz de se recuperar de forma automática da falha no servidor, garantindo a disponibilidade da plataforma em situações de falha. Os gráficos da Figura \ref{fig:server-failure-latency-over-time} e Figura \ref{fig:server-failure-requests-over-time} mostram que a latência da plataforma aumentou durante o período de falha, mas retornou ao normal após a recuperação automática do servidor. Isso garante que a plataforma seja capaz de se recuperar de falhas de forma automática, garantindo a disponibilidade da plataforma em situações de falha.
+A Figura \ref{fig:server-failing-vus-and-reqs} mostra a evolução do número de usuários simultâneos e da taxa de requisições processadas ao longo do teste. Conforme descrito na metodologia, o número de usuários foi gradualmente aumentado até 30, manteve-se constante por 5 minutos e, em seguida, foi reduzido a zero. Durante esse período, a taxa de requisições acompanhou esse comportamento, mas sofreu uma queda às 01:44:38 devido ao desligamento de um dos servidores. Após o reinício automático do servidor, às 01:45:40, a taxa de requisições voltou ao normal.
 
-Na Figura \ref{fig:server-qtty-over-time}, é possível observar a quantidade de servidores ativos em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no servidor. Como pode ser observado, a infraestrutura foi capaz de se recuperar de forma automática da falha no servidor, garantindo a disponibilidade da plataforma em situações de falha.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/server-failing-test/req-duration.png}
+    \caption{Duração das requisições ao longo do teste de falha de servidor}
+    \label{fig:server-failing-req-duration}
+\end{figure}
+
+A Figura \ref{fig:server-failing-req-duration} apresenta a média e o percentil 95 da duração das requisições durante o teste de falha de servidor. A média se manteve em aproximadamente 250 ms durante todo o teste, com um aumento considerável durante o período de falha no servidor, chegando a 2 segundos. O percentil 95, também aumentou durante o período de falha, atingindo um máximo de 10 segundos. Após a recuperação automática do servidor, os tempos de resposta retornaram ao normal, indicando que a infraestrutura foi capaz de se recuperar de forma automática da falha no servidor.
+
+A Figura \ref{fig:server-failing-req-duration} apresenta a média e o percentil 95 das durações das requisições. Em condições normais, a média foi de aproximadamente 250 ms. Durante a falha, houve um aumento significativo, com a média atingindo 2 segundos e o percentil 95 alcançando 10 segundos. Por volta de 01:45:40, após a identificação da falha e o redirecionamento do tráfego para o servidor restante, os tempos de resposta retornaram aos valores normais, porém com uma leve oscilação devido ao aumento de carga no servidor restante.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/server-failing-test/req-failed-rate.png}
+    \caption{Taxa de requisições falhadas ao longo do teste de falha de servidor}
+    \label{fig:server-failing-req-failed-rate}
+\end{figure}
+
+Como mostrado na Figura \ref{fig:server-failing-req-failed-rate}, a taxa de falhas manteve-se em torno de 0,2 requisição por segundo, representando menos de 1\% do total processado, com um pico de 0,34 requisição por segundo durante o período de falha. Após a 
+identificação do servidor com falha, os valores retornaram aos níveis normais, indicando que a infraestrutura foi capaz de lidar com a falha sem impactar significativamente a operação da plataforma.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/server-failing-test/healthy-hosts.png}
+    \caption{Número de servidores disponíveis ao longo do teste de falha de servidor}
+    \label{fig:server-failing-healthy-hosts}
+\end{figure}
+
+A Figura \ref{fig:server-failing-healthy-hosts} ilustra a quantidade de servidores disponíveis ao longo do tempo. Durante o teste, o número caiu de dois para um após o desligamento manual às 01:44. Um novo servidor foi provisionado automaticamente e tornou-se funcional às 01:47, restaurando a capacidade total da infraestrutura.
 
 \subsection{Falhas da Aplicação}
 
-No teste de falhas da aplicação, foi realizado um teste de desligamento manual de um dos processos do servidor do Brasil, com o objetivo de avaliar a capacidade da infraestrutura de se recuperar de falhas de forma automática. O desligamento foi realizado por meio de um comando no terminal do servidor, utilizando uma conexão SSH e o comando kill -9 para encerrar o processo. Durante o teste, o ambiente de produção estava configurado com somente um servidor e somente uma região geográfica, a do Brasil. 
+Neste experimento, foi simulada uma falha na aplicação encerrando manualmente todos os dois processos de um servidor por meio de comandos no terminal, utilizando conexão SSH e o comando \texttt{kill -9 <PID>}. O objetivo foi avaliar a capacidade da infraestrutura de recuperar automaticamente os processos encerrados, mantendo a disponibilidade da plataforma.
 
-Durante o período de falha simulada, estavam sendo simulados 30 usuários acessando a plataforma simultaneamente da região geográfica do Brasil, a fim de avaliar o impacto da falha na disponibilidade da plataforma. Os resultados dos testes estão apresentados na Figura \ref{fig:process-failure-latency-over-time}, que traz a latência média da plataforma em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no processo, e na Figura \ref{fig:process-failure-requests-over-time}, que traz a quantidade de requisições processadas pela plataforma em relação ao tempo, sendo destacadado o momento em que ocorreu a falha no processo. A Tabela \ref{tab:process-failure-stats} traz as estatísticas dos testes de falha em processos, mostrando a quantidade de falhas e sucesso durante o teste.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/process-failing-test/vus-and-reqs.png}
+    \caption{Número de usuários virtuais e taxa de requisições processadas por segundo ao longo do teste de falha de aplicação}
+    \label{fig:process-failing-vus-and-reqs}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{images/process-failure-latency-over-time.png}
-%     \caption{Latência média da plataforma em relação ao tempo durante uma falha em um processo}
-%     \label{fig:process-failure-latency-over-time}
-% \end{figure}
+Na Figura \ref{fig:process-failing-vus-and-reqs}, observa-se que, ao contrário do teste de falha de servidor, a taxa de requisições permaneceu estável, sendo um indicador que a aplicação reiniciou automaticamente o processo que foi encerrado.
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{images/process-failure-requests-over-time.png}
-%     \caption{Quantidade de requisições processadas pela plataforma em relação ao tempo durante uma falha em um processo}
-%     \label{fig:process-failure-requests-over-time}
-% \end{figure}
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/process-failing-test/req-duration.png}
+    \caption{Duração das requisições ao longo do teste de falha de servidor}
+    \label{fig:process-failing-req-duration}
+\end{figure}
 
-Como pode ser observado na Tabela \ref{tab:process-failure-stats}, a infraestrutura foi capaz de se recuperar de forma automática da falha no processo, garantindo a disponibilidade da plataforma em situações de falha. Os gráficos da Figura \ref{fig:process-failure-latency-over-time} e Figura \ref{fig:process-failure-requests-over-time} mostram que a latência da plataforma aumentou durante o período de falha, mas retornou ao normal após a recuperação automática do processo. Isso garante que a plataforma seja capaz de se recuperar de falhas de forma automática, garantindo a disponibilidade da plataforma em situações de falha.
+A Figura \ref{fig:process-failing-req-duration} mostra que a duração média das requisições manteve-se próxima de 250 ms, com um aumento temporário para 730 ms no momento da falha às 02:19:17. Esse impacto foi rapidamente mitigado, e os tempos de resposta retornaram ao normal em menos de 10 segundos após a falha. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, não apresentou alterações significativas durante o teste, indicando que a falha não impactou de forma significativa o tempo de resposta da aplicação e que a falha pode não ter sido percebida pelos usuários da plataforma.
 
-Observando os logs do servidor presentes na Figura \ref{fig:process-failure-logs}, foi possível verificar que o processo que falhou foi reiniciado automaticamente em menos de 1 segundo após a falha, garantindo a disponibilidade da plataforma em situações de falha. Isso garante que a plataforma seja capaz de se recuperar de falhas de forma automática, garantindo a disponibilidade da plataforma em situações de falha.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/process-failing-test/req-failed-rate.png}
+    \caption{Taxa de requisições falhadas ao longo do teste de falha de servidor}
+    \label{fig:process-failing-req-failed-rate}
+\end{figure}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{images/process-failure-logs.png}
-%     \caption{Logs do servidor durante uma falha em um processo}
-%     \label{fig:process-failure-logs}
-% \end{figure}
+A Figura \ref{fig:process-failing-req-failed-rate} confirma que a taxa de falhas permaneceu estável, sem aumentos significativos, mesmo durante a simulação de falha. 
 
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/process-failing-test/healthy-hosts.png}
+    \caption{Número de servidores disponíveis ao longo do teste de falha de servidor}
+    \label{fig:process-failing-healthy-hosts}
+\end{figure}
 
+Como ilustrado na Figura \ref{fig:process-failing-healthy-hosts}, a infraestrutura manteve dois servidores disponíveis ao longo de todo o período de teste, demonstrando que a falha na aplicação não afetou a disponibilidade geral. Os processos encerrados (PIDs 1616 e 1627) foram rapidamente reiniciados com os novos (PIDs 3127 e 3146), comprovando a capacidade de recuperação automática da aplicação. 
 
-\section{Desempenho da Plataforma}
-% TODO: Utilizar métricas do teste de elasticidade para validar o desempenho da plataforma
-% TODO: VALIDAR ISSO!!!!!!!!!!!
+% \section{Desempenho da Plataforma}
+% % TODO: Utilizar métricas do teste de elasticidade para validar o desempenho da plataforma
+% % TODO: VALIDAR ISSO!!!!!!!!!!!
 
-A avaliação do desempenho da plataforma é fundamental para garantir que ela seja capaz de atender às demandas dos usuários com tempos de resposta adequados. Nesta seção, apresentamos os testes de desempenho realizados, focando em métricas como tempo de resposta geral, desempenho do Redis e desempenho do MongoDB.
+% A avaliação do desempenho da plataforma é fundamental para garantir que ela seja capaz de atender às demandas dos usuários com tempos de resposta adequados. Nesta seção, apresentamos os testes de desempenho realizados, focando em métricas como tempo de resposta geral, desempenho do Redis e desempenho do MongoDB.
 
-\subsection{Tempo de Resposta}
+% \subsection{Tempo de Resposta}
 
-Para medir o tempo de resposta da plataforma, utilizamos a ferramenta Grafana K6 para simular múltiplos usuários acessando várias funcionalidades da aplicação, como login, criação de salas e edição de código. Foram realizadas simulações com quantidades crescentes de usuários simultâneos, variando de 100 a 1000 usuários.
+% Para medir o tempo de resposta da plataforma, utilizamos a ferramenta Grafana K6 para simular múltiplos usuários acessando várias funcionalidades da aplicação, como login, criação de salas e edição de código. Foram realizadas simulações com quantidades crescentes de usuários simultâneos, variando de 100 a 1000 usuários.
 
-Os resultados mostraram que, com até 500 usuários simultâneos, o tempo médio de resposta permaneceu abaixo de 200 ms, considerado adequado para uma aplicação web interativa. Ao exceder 800 usuários simultâneos, observou-se um aumento significativo na latência, chegando a tempos de resposta médios de 500 ms. Esses resultados indicam a necessidade de ajustes na infraestrutura ou de uma escalabilidade horizontal para atender a cargas mais elevadas.
+% Os resultados mostraram que, com até 500 usuários simultâneos, o tempo médio de resposta permaneceu abaixo de 200 ms, considerado adequado para uma aplicação web interativa. Ao exceder 800 usuários simultâneos, observou-se um aumento significativo na latência, chegando a tempos de resposta médios de 500 ms. Esses resultados indicam a necessidade de ajustes na infraestrutura ou de uma escalabilidade horizontal para atender a cargas mais elevadas.
 
 \section{Testes de Segurança}
 % TODO: VALIDAR
