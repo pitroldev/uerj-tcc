@@ -9,7 +9,7 @@ Neste capítulo, serão apresentados os testes realizados na plataforma Codeboar
 \section{Distribuição de Carga}
 % OK (revisar?)
 
-Para avaliar a distribuição de carga em diferentes níveis da infraestrutura da plataforma Codeboard UERJ, foram realizadas modificações no código-fonte, permitindo a coleta de informações detalhadas sobre a máquina que processa cada requisição. Essas o identificador da instância EC2 na AWS e o identificador do processo (PID) responsável pelo processamento da requisição. Com esses dados, foi possível analisar como a carga está sendo distribuída entre diferentes regiões geográficas, servidores e processos.
+Para avaliar a distribuição de carga em diferentes níveis da infraestrutura da plataforma Codeboard UERJ, foram realizadas modificações no código-fonte, permitindo a coleta de informações detalhadas sobre a máquina que processa cada requisição, como o identificador da instância EC2 na AWS e o identificador do processo (PID) responsável pelo processamento da requisição. Com esses dados, foi possível analisar como a carga está sendo distribuída entre diferentes regiões geográficas, servidores e processos.
 
 \subsection{Balanceamento de Carga entre Regiões Geográficas}
 % OK (revisar?)
@@ -17,6 +17,8 @@ Para avaliar a distribuição de carga em diferentes níveis da infraestrutura d
 Para avaliar a eficiência do balanceamento de carga entre diferentes regiões geográficas, realizamos testes simulando acessos à plataforma a partir de máquinas virtuais localizadas em diversas partes do mundo. Essas simulações foram projetadas para identificar o comportamento da infraestrutura em termos de roteamento e tempo de resposta.
 
 Foram utilizadas máquinas virtuais em quatro regiões: Brasil, Estados Unidos, Ásia e Oceania. Cada máquina realizou 100 requisições à rota \texttt{/api/health}, e os dados coletados incluíram informações como o IP do servidor que processou cada requisição e o tempo médio de resposta. O IP foi utilizado para determinar a região geográfica do servidor responsável, possibilitando uma análise detalhada da distribuição de carga.
+
+A Tabela \ref{tab:geo-distribution} apresenta os resultados dos testes, destacando como as requisições foram distribuídas entre os servidores. A análise revelou que as requisições originadas no Brasil e nos Estados Unidos foram roteadas para seus respectivos servidores locais, resultando em uma latência significativamente menor para os usuários dessas regiões. Em contraste, as requisições provenientes da Ásia e da Oceania foram processadas pelo servidor localizado nos Estados Unidos, o que gerou tempos de resposta mais elevados devido à distância geográfica.
 
 \begin{table}[H]
     \centering
@@ -31,8 +33,6 @@ Foram utilizadas máquinas virtuais em quatro regiões: Brasil, Estados Unidos, 
         Oceania        & Estados Unidos              & 378 ms                  \\ \hline
     \end{tabular}
 \end{table}
-
-A Tabela \ref{tab:geo-distribution} apresenta os resultados dos testes, destacando como as requisições foram distribuídas entre os servidores. A análise revelou que as requisições originadas no Brasil e nos Estados Unidos foram roteadas para seus respectivos servidores locais, resultando em uma latência significativamente menor para os usuários dessas regiões. Em contraste, as requisições provenientes da Ásia e da Oceania foram processadas pelo servidor localizado nos Estados Unidos, o que gerou tempos de resposta mais elevados devido à distância geográfica.
 
 Embora essa configuração atenda bem às necessidades das regiões próximas, a latência elevada observada para a Ásia e Oceania sugere que a adição de servidores em novas regiões poderia melhorar significativamente a experiência do usuário. Essa expansão reduziria a distância física entre os usuários e os servidores, promovendo um balanceamento de carga mais eficiente e tempos de resposta mais baixos em escala global.
 
@@ -65,7 +65,7 @@ Os dados indicam que o balanceador de carga distribuiu as requisições de forma
 \subsection{Balanceamento de Carga entre Processos}
 % OK (revisar!)
 
-Para avaliar o balanceamento de carga entre processos dentro de um mesmo servidor, analisaremos novamente as 5000 requisições anteriormente realizadas para a rota \texttt{/api/health}. Desta vez, coletamos utilizaremos também o identificador do processo (PID) em nossa analise para identificar qual processo foi responsável pelo processamento de cada requisição.
+Para avaliar o balanceamento de carga entre processos dentro de um mesmo servidor, analisaremos novamente as 5000 requisições anteriormente realizadas para a rota \texttt{/api/health}. Desta vez, utilizamos também o identificador do processo (PID) em nossa analise para identificar qual processo foi responsável pelo processamento de cada requisição.
 
 Os resultados estão apresentados na Figura \ref{fig:reqs-per-pid}, que mostra a distribuição de carga entre diferentes processos, e na Figura \ref{fig:reqs-per-pid-over-time}, que mostra a distribuição ao longo do tempo. Os dados coletados incluem a quantidade de requisições processadas por cada processo, a identificação do servidor e do PID responsável pelo processamento.
 
@@ -84,7 +84,7 @@ Os resultados estão apresentados na Figura \ref{fig:reqs-per-pid}, que mostra a
     \label{fig:reqs-per-pid-over-time}
 \end{figure}
 
-Analisando os dados da Figura \ref{fig:reqs-per-pid}, observamos que as requisições foram distribuídas de forma quase que totalmente equilibra entre os processos disponíveis, com uma pequena diferença entre a quantidade de requisições processadas por cada um. O gráfico da Figura \ref{fig:reqs-per-pid-over-time} mostra que as requisições foram processadas de forma homogênea entre os diferentes processos ao longo do tempo, validando a estratégia de balanceamento de carga utilizada entre os núcleos de processamento dos servidores.
+Analisando os dados da Figura \ref{fig:reqs-per-pid}, observamos que as requisições foram distribuídas de forma quase que totalmente equilibrada entre os processos disponíveis, com uma pequena diferença entre a quantidade de requisições processadas por cada um. O gráfico da Figura \ref{fig:reqs-per-pid-over-time} mostra que as requisições foram processadas de forma homogênea entre os diferentes processos ao longo do tempo, validando a estratégia de balanceamento de carga utilizada entre os núcleos de processamento dos servidores.
 
 % TODO: Explicar o que é elasticidade no capítulo de conceitos
 
@@ -92,12 +92,12 @@ Analisando os dados da Figura \ref{fig:reqs-per-pid}, observamos que as requisi�
 \section{Testes de Elasticidade}
 % OK (revisar?)
 
-Esta seção apresenta os testes de elasticidade realizados na plataforma Codeboard UERJ. Os testes foram realizados com o objetivo de validar a capacidade da infraestrutura de suportar um grande volume de usuários simultâneos, analisando o desempenho do servidor back-end em diferentes cenários de uso.
+Esta seção apresenta os testes de elasticidade realizados na plataforma Codeboard UERJ. Os testes foram realizados com o objetivo de validar a capacidade da infraestrutura de suportar um grande volume de usuários simultâneos, analisando o desempenho do servidor back-end em diferentes cenários de uso. Os testes foram realizados com a infraestrutura provisionada com somente uma região geográfica, a do Brasil.
 
 
 \subsection{Metodologia de Testes}
 
-Os testes de elasticidade foram conduzidos utilizando a ferramenta Grafana K6, que permite simular um grande número de usuários acessando a plataforma simultaneamente. Configuramos a ferramenta para executar testes em etapas de carga progressiva, permitindo a medição de métricas como latência, taxa de erro e capacidade de resposta do sistema. Os testes foram divididos em três etapas principais:
+Os testes de elasticidade foram conduzidos utilizando a ferramenta Grafana K6 \cite{grafana-k6}, que permite simular um grande número de usuários acessando a plataforma simultaneamente. Configuramos a ferramenta para executar testes em etapas de carga progressiva, permitindo a medição de métricas como latência, taxa de erro e capacidade de resposta do sistema. Os testes foram divididos em três etapas principais:
 
 \begin{enumerate}
     \item \textbf{Subida inicial:} Durante 10 minutos, o número de usuários simultâneos aumentou gradualmente até atingir 300.
@@ -118,7 +118,9 @@ Cada usuário simulado seguiu um fluxo típico de interação com a plataforma C
 
 \subsection{Resultados dos Testes}
 
-Os resultados obtidos demonstram que a infraestrutura da plataforma Codeboard UERJ respondeu adequadamente às demandas simuladas, ajustando-se ao aumento e à redução do número de usuários sem apresentar falhas críticas. A seguir, detalhamos os principais resultados obtidos durante os testes:
+Os resultados obtidos demonstram que a infraestrutura da plataforma Codeboard UERJ respondeu adequadamente às demandas simuladas, ajustando-se ao aumento e à redução do número de usuários sem apresentar falhas críticas. A seguir, detalhamos os principais resultados obtidos durante os testes.
+
+Na Figura \ref{fig:elasticity-vus-and-reqs}, observa-se o comportamento do número de usuários simultâneos e da taxa de requisições por segundo processadas durante o teste. Conforme descrito na metodologia, o número de usuários aumentou gradualmente até 300, permaneceu constante por 5 minutos e foi reduzido a 0. A taxa de requisições processadas acompanhou o aumento e a redução do número de usuários, indicando que o sistema foi capaz de lidar com a carga de forma eficiente.
 
 \begin{figure}[H]
     \centering
@@ -127,7 +129,7 @@ Os resultados obtidos demonstram que a infraestrutura da plataforma Codeboard UE
     \label{fig:elasticity-vus-and-reqs}
 \end{figure}
 
-Na Figura \ref{fig:elasticity-vus-and-reqs}, observa-se o comportamento do número de usuários simultâneos e da taxa de requisições por segundo processadas durante o teste. Conforme descrito na metodologia, o número de usuários aumentou gradualmente até 300, permaneceu constante por 5 minutos e foi reduzido a 0. A taxa de requisições processadas acompanhou o aumento e a redução do número de usuários, indicando que o sistema foi capaz de lidar com a carga de forma eficiente.
+A Figura \ref{fig:elasticity-req-duration} apresenta a média e o percentil 95 da duração das requisições durante o teste. A média iniciou em aproximadamente 250 ms e aumentou gradualmente à medida que o número de usuários crescia, alcançando um pico de 1,3 segundos. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, chegou a um máximo de 3 segundos. Apesar do aumento na latência com a elevação da carga, os tempos de resposta permaneceram dentro de limites aceitáveis.
 
 \begin{figure}[H]
     \centering
@@ -136,7 +138,7 @@ Na Figura \ref{fig:elasticity-vus-and-reqs}, observa-se o comportamento do núme
     \label{fig:elasticity-req-duration}
 \end{figure}
 
-A Figura \ref{fig:elasticity-req-duration} apresenta a média e o percentil 95 da duração das requisições durante o teste. A média iniciou em aproximadamente 250 ms e aumentou gradualmente à medida que o número de usuários crescia, alcançando um pico de 1,3 segundos. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, chegou a um máximo de 3 segundos. Apesar do aumento na latência com a elevação da carga, os tempos de resposta permaneceram dentro de limites aceitáveis.
+A taxa de requisições falhadas, ilustrada na Figura \ref{fig:elasticity-req-failed-rate}, manteve-se em torno de 0,2 requisição por segundo, representando menos de 1\% do total processado. Esses resultados evidenciam a resiliência do sistema, que lidou bem com as demandas sem falhas críticas ou interrupções significativas no serviço.
 
 \begin{figure}[H]
     \centering
@@ -145,7 +147,7 @@ A Figura \ref{fig:elasticity-req-duration} apresenta a média e o percentil 95 d
     \label{fig:elasticity-req-failed-rate}
 \end{figure}
 
-A taxa de requisições falhadas, ilustrada na Figura \ref{fig:elasticity-req-failed-rate}, manteve-se em torno de 0,2 requisição por segundo, representando menos de 1\% do total processado. Esses resultados evidenciam a resiliência do sistema, que lidou bem com as demandas sem falhas críticas ou interrupções significativas no serviço.
+A Figura \ref{fig:elasticity-healthy-hosts} ilustra a evolução do número de servidores disponíveis durante o teste. Nos primeiros 10 minutos, quando o número de usuários era insuficiente para impactar a infraestrutura, a quantidade de servidores permaneceu constante em dois. À medida que o número de usuários se aproximava do pico de 300, um terceiro servidor foi adicionado à infraestrutura para atender à demanda adicional. Esse padrão se repetiu conforme o crescimento do tráfego, resultando em um pico de cinco servidores. Posteriormente, com a diminuição da carga e o término do teste, os servidores adicionais foram desativados, restabelecendo o estado inicial de dois servidores. Esse comportamento demonstra a capacidade do sistema de adaptar-se dinamicamente ao tráfego, escalando horizontalmente para atender a cargas mais elevadas e reduzindo a capacidade quando a demanda diminui.
 
 \begin{figure}[H]
     \centering
@@ -154,9 +156,9 @@ A taxa de requisições falhadas, ilustrada na Figura \ref{fig:elasticity-req-fa
     \label{fig:elasticity-healthy-hosts}
 \end{figure}
 
-A Figura \ref{fig:elasticity-healthy-hosts} ilustra a evolução do número de servidores disponíveis durante o teste. Nos primeiros 10 minutos, quando o número de usuários era insuficiente para impactar a infraestrutura, a quantidade de servidores permaneceu constante em dois. À medida que o número de usuários se aproximava do pico de 300, um terceiro servidor foi adicionado à infraestrutura para atender à demanda adicional. Esse padrão se repetiu conforme o crescimento do tráfego, resultando em um pico de cinco servidores. Posteriormente, com a diminuição da carga e o término do teste, os servidores adicionais foram desativados, restabelecendo o estado inicial de dois servidores. Esse comportamento demonstra a capacidade do sistema de adaptar-se dinamicamente ao tráfego, escalando horizontalmente para atender a cargas mais elevadas e reduzindo a capacidade quando a demanda diminui.
+Cabe ressaltar que o gráfico apresentado na Figura \ref{fig:elasticity-healthy-hosts} considera apenas os servidores disponíveis para processar requisições. O tempo de inicialização de novos servidores é de aproximadamente dois minutos. Por exemplo, o gatilho para a adição de um novo servidor ocorreu por volta de 01:11, mas ele somente se tornou operacional para processar requisições em 01:13, momento em que o gráfico passou a refletir sua presença.
 
-Cabe destacar que o gráfico apresentado na Figura \ref{fig:elasticity-healthy-hosts} considera apenas os servidores disponíveis para processar requisições. O tempo de inicialização de novos servidores é de aproximadamente dois minutos. Por exemplo, o gatilho para a adição de um novo servidor ocorreu por volta de 01:11, mas ele somente se tornou operacional para processar requisições em 01:13, momento em que o gráfico passou a refletir sua presença.
+Por fim, a Figura \ref{fig:elasticity-unhealthy-hosts} destaca que, durante o momento de maior estresse na infraestrutura, coincidindo com a provisão de um novo servidor, um dos servidores apresentou problemas de saúde. Isso indica que o servidor estava tão sobrecarregado que não conseguia processar sequer os healthchecks, levando o balanceador de carga a marca-lo temporariamente como não saudável. No entanto, com a adição de novos servidores poucos minutos depois, o servidor conseguiu se recuperar e retornar ao processamento de requisições. Esse padrão foi observado repetidamente conforme o aumento do número de usuários, demonstrando a capacidade da infraestrutura de se adaptar dinamicamente às demandas de tráfego.
 
 \begin{figure}[H]
     \centering
@@ -164,8 +166,6 @@ Cabe destacar que o gráfico apresentado na Figura \ref{fig:elasticity-healthy-h
     \caption{Número de servidores não saudáveis ao longo do teste de elasticidade}
     \label{fig:elasticity-unhealthy-hosts}
 \end{figure}
-
-Por fim, a Figura \ref{fig:elasticity-unhealthy-hosts} destaca que, durante o momento de maior estresse na infraestrutura, coincidindo com a provisão de um novo servidor, um dos servidores apresentou problemas de saúde. Isso indica que o servidor estava tão sobrecarregado que não conseguia processar sequer os healthchecks, levando o balanceador de carga a marca-lo temporariamente como não saudável. No entanto, com a adição de novos servidores poucos minutos depois, o servidor conseguiu se recuperar e retornar ao processamento de requisições. Esse padrão foi observado repetidamente conforme o aumento do número de usuários, demonstrando a capacidade da infraestrutura de se adaptar dinamicamente às demandas de tráfego.
 
 
 \section{Testes de Tolerância a Falhas}
@@ -190,6 +190,8 @@ Os testes foram conduzidos durante a etapa de manutenção da carga, com o objet
 
 Para avaliar a resiliência da infraestrutura em caso de falhas, realizamos a simulação de uma falha em um dos servidores. O teste envolveu o desligamento manual do servidor por meio do painel de controle da AWS, que permite a interrupção seja realizada de forma abrupta. A infraestrutura foi monitorada para verificar a capacidade de recuperação automática e a continuidade do serviço durante a falha.
 
+A Figura \ref{fig:server-failing-vus-and-reqs} mostra a evolução do número de usuários simultâneos e da taxa de requisições processadas ao longo do teste. Conforme descrito na metodologia, o número de usuários foi gradualmente aumentado até 30, manteve-se constante por 5 minutos e, em seguida, foi reduzido a zero. Durante esse período, a taxa de requisições acompanhou esse comportamento, mas sofreu uma queda às 01:44:38 devido ao desligamento de um dos servidores. Após o reinício automático do servidor, às 01:45:40, a taxa de requisições voltou ao normal.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{assets/server-failing-test/vus-and-reqs.png}
@@ -197,7 +199,7 @@ Para avaliar a resiliência da infraestrutura em caso de falhas, realizamos a si
     \label{fig:server-failing-vus-and-reqs}
 \end{figure}
 
-A Figura \ref{fig:server-failing-vus-and-reqs} mostra a evolução do número de usuários simultâneos e da taxa de requisições processadas ao longo do teste. Conforme descrito na metodologia, o número de usuários foi gradualmente aumentado até 30, manteve-se constante por 5 minutos e, em seguida, foi reduzido a zero. Durante esse período, a taxa de requisições acompanhou esse comportamento, mas sofreu uma queda às 01:44:38 devido ao desligamento de um dos servidores. Após o reinício automático do servidor, às 01:45:40, a taxa de requisições voltou ao normal.
+A Figura \ref{fig:server-failing-req-duration} apresenta a média e o percentil 95 das durações das requisições. Em condições normais, a média foi de aproximadamente 250 ms. Durante a falha, houve um aumento significativo, com a média atingindo 2 segundos e o percentil 95 alcançando 10 segundos. Por volta de 01:45:40, após a identificação da falha e o redirecionamento do tráfego para o servidor restante, os tempos de resposta retornaram aos valores normais, porém com uma leve oscilação devido ao aumento de carga no servidor restante.
 
 \begin{figure}[H]
     \centering
@@ -206,9 +208,8 @@ A Figura \ref{fig:server-failing-vus-and-reqs} mostra a evolução do número de
     \label{fig:server-failing-req-duration}
 \end{figure}
 
-A Figura \ref{fig:server-failing-req-duration} apresenta a média e o percentil 95 da duração das requisições durante o teste de falha de servidor. A média se manteve em aproximadamente 250 ms durante todo o teste, com um aumento considerável durante o período de falha no servidor, chegando a 2 segundos. O percentil 95, também aumentou durante o período de falha, atingindo um máximo de 10 segundos. Após a recuperação automática do servidor, os tempos de resposta retornaram ao normal, indicando que a infraestrutura foi capaz de se recuperar de forma automática da falha no servidor.
-
-A Figura \ref{fig:server-failing-req-duration} apresenta a média e o percentil 95 das durações das requisições. Em condições normais, a média foi de aproximadamente 250 ms. Durante a falha, houve um aumento significativo, com a média atingindo 2 segundos e o percentil 95 alcançando 10 segundos. Por volta de 01:45:40, após a identificação da falha e o redirecionamento do tráfego para o servidor restante, os tempos de resposta retornaram aos valores normais, porém com uma leve oscilação devido ao aumento de carga no servidor restante.
+Conforme mostrado na Figura \ref{fig:server-failing-req-failed-rate}, a taxa de falhas manteve-se em torno de 0,2 requisição por segundo, representando menos de 1\% do total processado, com um pico de 0,34 requisição por segundo durante o período de falha. Após a 
+identificação do servidor com falha, os valores retornaram aos níveis normais, indicando que a infraestrutura foi capaz de lidar com a falha sem impactar significativamente a operação da plataforma.
 
 \begin{figure}[H]
     \centering
@@ -217,8 +218,7 @@ A Figura \ref{fig:server-failing-req-duration} apresenta a média e o percentil 
     \label{fig:server-failing-req-failed-rate}
 \end{figure}
 
-Como mostrado na Figura \ref{fig:server-failing-req-failed-rate}, a taxa de falhas manteve-se em torno de 0,2 requisição por segundo, representando menos de 1\% do total processado, com um pico de 0,34 requisição por segundo durante o período de falha. Após a 
-identificação do servidor com falha, os valores retornaram aos níveis normais, indicando que a infraestrutura foi capaz de lidar com a falha sem impactar significativamente a operação da plataforma.
+A Figura \ref{fig:server-failing-healthy-hosts} detalha a quantidade de servidores disponíveis ao longo do tempo. Durante o teste, o número caiu de dois para um após o desligamento manual às 01:44. Um novo servidor foi provisionado automaticamente e tornou-se funcional às 01:47, restaurando a capacidade total da infraestrutura.
 
 \begin{figure}[H]
     \centering
@@ -227,11 +227,11 @@ identificação do servidor com falha, os valores retornaram aos níveis normais
     \label{fig:server-failing-healthy-hosts}
 \end{figure}
 
-A Figura \ref{fig:server-failing-healthy-hosts} ilustra a quantidade de servidores disponíveis ao longo do tempo. Durante o teste, o número caiu de dois para um após o desligamento manual às 01:44. Um novo servidor foi provisionado automaticamente e tornou-se funcional às 01:47, restaurando a capacidade total da infraestrutura.
-
 \subsection{Falhas da Aplicação}
 
 Neste experimento, foi simulada uma falha na aplicação encerrando manualmente todos os dois processos de um servidor por meio de comandos no terminal, utilizando conexão SSH e o comando \texttt{kill -9 <PID>}. O objetivo foi avaliar a capacidade da infraestrutura de recuperar automaticamente os processos encerrados, mantendo a disponibilidade da plataforma.
+
+Na Figura \ref{fig:process-failing-vus-and-reqs}, observa-se que, ao contrário do teste de falha de servidor, a taxa de requisições permaneceu estável, sendo um indicador que a aplicação reiniciou automaticamente o processo que foi encerrado.
 
 \begin{figure}[H]
     \centering
@@ -240,7 +240,7 @@ Neste experimento, foi simulada uma falha na aplicação encerrando manualmente 
     \label{fig:process-failing-vus-and-reqs}
 \end{figure}
 
-Na Figura \ref{fig:process-failing-vus-and-reqs}, observa-se que, ao contrário do teste de falha de servidor, a taxa de requisições permaneceu estável, sendo um indicador que a aplicação reiniciou automaticamente o processo que foi encerrado.
+A Figura \ref{fig:process-failing-req-duration} mostra que a duração média das requisições manteve-se próxima de 250 ms, com um aumento temporário para 730 ms no momento da falha às 02:19:17. Esse impacto foi rapidamente mitigado, e os tempos de resposta retornaram ao normal em menos de 10 segundos após a falha. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, não apresentou alterações significativas durante o teste, indicando que a falha não impactou de forma significativa o tempo de resposta da aplicação e que pode não ter sido percebida pelos usuários finais.
 
 \begin{figure}[H]
     \centering
@@ -249,7 +249,7 @@ Na Figura \ref{fig:process-failing-vus-and-reqs}, observa-se que, ao contrário 
     \label{fig:process-failing-req-duration}
 \end{figure}
 
-A Figura \ref{fig:process-failing-req-duration} mostra que a duração média das requisições manteve-se próxima de 250 ms, com um aumento temporário para 730 ms no momento da falha às 02:19:17. Esse impacto foi rapidamente mitigado, e os tempos de resposta retornaram ao normal em menos de 10 segundos após a falha. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, não apresentou alterações significativas durante o teste, indicando que a falha não impactou de forma significativa o tempo de resposta da aplicação e que pode não ter sido percebida pelos usuários finais.
+A Figura \ref{fig:process-failing-req-failed-rate} confirma que a taxa de falhas permaneceu estável, sem aumentos significativos, mesmo durante o período de falha.
 
 \begin{figure}[H]
     \centering
@@ -258,7 +258,7 @@ A Figura \ref{fig:process-failing-req-duration} mostra que a duração média da
     \label{fig:process-failing-req-failed-rate}
 \end{figure}
 
-A Figura \ref{fig:process-failing-req-failed-rate} confirma que a taxa de falhas permaneceu estável, sem aumentos significativos, mesmo durante o período de falha.
+Conforme detalhado na Figura \ref{fig:process-failing-healthy-hosts}, a infraestrutura manteve dois servidores disponíveis ao longo de todo o período de teste, demonstrando que a falha na aplicação não afetou a disponibilidade geral. Os processos encerrados (PIDs 1616 e 1627) foram rapidamente reiniciados com os novos (PIDs 3127 e 3146), comprovando a capacidade de recuperação automática da aplicação. 
 
 \begin{figure}[H]
     \centering
@@ -266,8 +266,6 @@ A Figura \ref{fig:process-failing-req-failed-rate} confirma que a taxa de falhas
     \caption{Número de servidores disponíveis ao longo do teste de falha de servidor}
     \label{fig:process-failing-healthy-hosts}
 \end{figure}
-
-Como ilustrado na Figura \ref{fig:process-failing-healthy-hosts}, a infraestrutura manteve dois servidores disponíveis ao longo de todo o período de teste, demonstrando que a falha na aplicação não afetou a disponibilidade geral. Os processos encerrados (PIDs 1616 e 1627) foram rapidamente reiniciados com os novos (PIDs 3127 e 3146), comprovando a capacidade de recuperação automática da aplicação. 
 
 
 \section{Testes de Segurança}
@@ -277,7 +275,7 @@ A segurança é um aspecto crítico para qualquer aplicação web. Nesta seção
 
 \subsection{Testes de Firewall}
 
-Para avaliar a configuração e eficácia das regras de firewall, foi utilizado o \emph{Nmap} \cite{nmap}, uma ferramenta de análise de segurança. O comando \texttt{nmap -p- -sV -O -Pn -T4 <DOMAIN>} permitiu realizar um escaneamento de portas, identificando aquelas que estavam abertas e verificando se apenas as portas essenciais para o funcionamento da aplicação estavam acessíveis.
+Para avaliar a configuração e eficácia das regras de firewall, foi utilizado o \emph{Nmap} \cite{nmap}, uma ferramenta de análise de segurança. O comando \texttt{nmap -p- -sV -O -Pn -T4 <DOMAIN>} permitiu realizar um escaneamento de portas, identificando aquelas que estavam abertas e verificando se apenas as portas essenciais para o funcionamento da aplicação estavam acessíveis. Os resultados obtidos estão apresentados na Figura \ref{fig:nmap-scan}.
 
 \begin{figure}[H]
     \centering
@@ -288,9 +286,9 @@ Para avaliar a configuração e eficácia das regras de firewall, foi utilizado 
 
 Como ilustrado na Figura \ref{fig:nmap-scan}, o escaneamento revelou que somente a porta 443, utilizada para comunicações seguras via HTTPS, estava aberta. Todas as demais portas permaneceram fechadas. Este resultado demonstra que a infraestrutura está adequadamente protegida contra acessos não autorizados e possíveis ataques de rede, garantindo a segurança dos dados dos usuários.
 
-\subsection{Criptografia em Transito}
+\subsection{Criptografia em Trânsito}
 
-Para assegurar a segurança das comunicações entre clientes e servidores, foi utilizado o serviço \emph{SSL Labs} \cite{ssl-labs}, que realiza uma análise detalhada da configuração de segurança do servidor e da qualidade da criptografia em trânsito. Este teste foi realizado para confirmar a integridade e a confidencialidade dos dados transmitidos pela plataforma.
+Para assegurar a segurança das comunicações entre clientes e servidores, foi utilizado o serviço \emph{SSL Labs} \cite{ssl-labs}, que realiza uma análise detalhada da configuração de segurança do servidor e da qualidade da criptografia em trânsito. Este teste foi realizado para confirmar a integridade e a confidencialidade dos dados transmitidos pela plataforma. A Figura \ref{fig:ssl-labs} apresenta o resultado da análise feita pelo SSL Labs.
 
 \begin{figure}[H]
     \centering
@@ -317,7 +315,7 @@ O uso eficiente dos recursos é essencial para a manutenção de uma infraestrut
     \label{fig:elasticity-cpu-usage} 
 \end{figure}
 
-Conforme mostrado na Figura \ref{fig:elasticity-cpu-usage}, foi possível identificar o aumento do uso de CPU das instâncias durante os testes de elasticidade, com picos acima de 60\% de utilização. Essas informações permitem uma análise detalhada do desempenho da infraestrutura e a tomada de decisões informadas para otimização dos recursos.
+Observando aa Figura \ref{fig:elasticity-cpu-usage}, foi possível identificar o aumento do uso de CPU das instâncias durante os testes de elasticidade, com picos acima de 60\% de utilização. Essas informações permitem uma análise detalhada do desempenho da infraestrutura e a tomada de decisões informadas para otimização dos recursos.
 
 \subsection{Monitoramento de Logs}
 
@@ -336,6 +334,8 @@ A análise dos logs pode fornecer informações importantes sobre o comportament
 
 Para assegurar respostas rápidas a eventos críticos, foram configurados alertas automatizados utilizando o Amazon CloudWatch integrado ao Amazon SNS. Esses alertas são acionados sempre que métricas predefinidas, como uso elevado de CPU ou taxas de erro acima do aceitável, ultrapassam os limites estabelecidos.
 
+A Figura \ref{fig:cloudwatch-alarm-config} mostra a configuração de um alarme no Amazon CloudWatch para monitorar a quantidade de requisições processadas em um período de um minuto. Quando o limite de 50 requisições é ultrapassado, o alarme é acionado e uma notificação é enviada automaticamente para o tópico do Amazon SNS.
+
 \begin{figure}[H]
     \centering
     \includegraphics[width=1\textwidth]{assets/monitoring-test/cloudwatch-alarm-config.png}
@@ -343,7 +343,7 @@ Para assegurar respostas rápidas a eventos críticos, foram configurados alerta
     \label{fig:cloudwatch-alarm-config}
 \end{figure}
 
-A Figura \ref{fig:cloudwatch-alarm-config} mostra a configuração de um alarme no Amazon CloudWatch para monitorar a quantidade de requisições processadas em um período de um minuto. Quando o limite de 50 requisições é ultrapassado, o alarme é acionado e uma notificação é enviada automaticamente para o tópico do Amazon SNS.
+Já a Figura \ref{fig:cloudwatch-alarm-email} apresenta um exemplo de e-mail de alerta enviado pelo Amazon SNS em resposta a um evento de alta quantidade de requisições. Esses alertas permitem que a equipe técnica seja notificada em tempo real sobre qualquer anomalia operacional, reduzindo significativamente o tempo de resposta para a resolução de problemas.
 
 \begin{figure}[H]
     \centering
@@ -351,7 +351,5 @@ A Figura \ref{fig:cloudwatch-alarm-config} mostra a configuração de um alarme 
     \caption{Exemplo de e-mail de alerta do Amazon SNS}
     \label{fig:cloudwatch-alarm-email}
 \end{figure}
-
-Já a Figura \ref{fig:cloudwatch-alarm-email} apresenta um exemplo de e-mail de alerta enviado pelo Amazon SNS em resposta a um evento de alta quantidade de requisições. Esses alertas permitem que a equipe técnica seja notificada em tempo real sobre qualquer anomalia operacional, reduzindo significativamente o tempo de resposta para a resolução de problemas.
 
 Por exemplo, durante um pico inesperado de tráfego, os alertas viabilizam a ativação imediata de instâncias adicionais, assegurando a continuidade dos serviços. Essa abordagem proativa minimiza impactos nos usuários e garante a estabilidade da plataforma.
