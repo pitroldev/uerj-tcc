@@ -97,6 +97,8 @@ Os resultados estão apresentados na Figura \ref{fig:reqs-per-pid}, que mostra a
 Analisando os dados da Figura \ref{fig:reqs-per-pid}, observamos que as requisições foram distribuídas de forma quase que totalmente equilibra entre os processos disponíveis, com uma pequena diferença entre a quantidade de requisições processadas por cada um. O gráfico da Figura \ref{fig:reqs-per-pid-over-time} mostra que as requisições foram processadas de forma homogênea entre os diferentes processos ao longo do tempo, validando a estratégia de balanceamento de carga utilizada entre os núcleos de processamento dos servidores.
 
 % TODO: Explicar o que é elasticidade no capítulo de conceitos
+
+
 \section{Testes de Elasticidade}
 % OK (revisar?)
 
@@ -277,53 +279,89 @@ A Figura \ref{fig:process-failing-req-failed-rate} confirma que a taxa de falhas
 
 Como ilustrado na Figura \ref{fig:process-failing-healthy-hosts}, a infraestrutura manteve dois servidores disponíveis ao longo de todo o período de teste, demonstrando que a falha na aplicação não afetou a disponibilidade geral. Os processos encerrados (PIDs 1616 e 1627) foram rapidamente reiniciados com os novos (PIDs 3127 e 3146), comprovando a capacidade de recuperação automática da aplicação. 
 
-% \section{Desempenho da Plataforma}
-% % TODO: Utilizar métricas do teste de elasticidade para validar o desempenho da plataforma
-% % TODO: VALIDAR ISSO!!!!!!!!!!!
-
-% A avaliação do desempenho da plataforma é fundamental para garantir que ela seja capaz de atender às demandas dos usuários com tempos de resposta adequados. Nesta seção, apresentamos os testes de desempenho realizados, focando em métricas como tempo de resposta geral, desempenho do Redis e desempenho do MongoDB.
-
-% \subsection{Tempo de Resposta}
-
-% Para medir o tempo de resposta da plataforma, utilizamos a ferramenta Grafana K6 para simular múltiplos usuários acessando várias funcionalidades da aplicação, como login, criação de salas e edição de código. Foram realizadas simulações com quantidades crescentes de usuários simultâneos, variando de 100 a 1000 usuários.
-
-% Os resultados mostraram que, com até 500 usuários simultâneos, o tempo médio de resposta permaneceu abaixo de 200 ms, considerado adequado para uma aplicação web interativa. Ao exceder 800 usuários simultâneos, observou-se um aumento significativo na latência, chegando a tempos de resposta médios de 500 ms. Esses resultados indicam a necessidade de ajustes na infraestrutura ou de uma escalabilidade horizontal para atender a cargas mais elevadas.
 
 \section{Testes de Segurança}
-% TODO: VALIDAR
+% OK
 
-A segurança é um aspecto crítico em qualquer aplicação web. Nesta seção, apresentamos os testes de segurança realizados para identificar vulnerabilidades e assegurar a proteção dos dados dos usuários.
+A segurança é um aspecto crítico para qualquer aplicação web. Nesta seção, são apresentados os testes realizados para identificar vulnerabilidades e assegurar a proteção dos dados dos usuários na plataforma Codeboard UERJ.
 
 \subsection{Testes de Firewall}
 
-Realizamos varreduras de portas e tentativas de acesso não autorizado para verificar se os firewalls estão corretamente configurados. Utilizamos ferramentas como o Nmap para identificar portas abertas e simular ataques.
+Para avaliar a configuração e eficácia das regras de firewall, foi utilizado o \emph{Nmap} \cite{nmap}, uma ferramenta de análise de segurança. O comando \texttt{nmap -p- -sV -O -Pn -T4 <DOMAIN>} permitiu realizar um escaneamento de portas, identificando aquelas que estavam abertas e verificando se apenas as portas essenciais para o funcionamento da aplicação estavam acessíveis.
 
-% TODO: Inserir resultados dos testes de firewall
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/security-test/nmap-scan.png}
+    \caption{Resultado do escaneamento de portas com o Nmap}
+    \label{fig:nmap-scan}
+\end{figure}
 
-Os testes confirmaram que apenas as portas essenciais estão abertas (por exemplo, portas 80/443 para HTTP/HTTPS), e que existem regras de firewall bloqueando tentativas de acesso não autorizado. Isso sugere que o firewall está configurado de forma adequada.
+Como ilustrado na Figura \ref{fig:nmap-scan}, o escaneamento revelou que somente a porta 443, utilizada para comunicações seguras via HTTPS, estava aberta. Todas as demais portas permaneceram fechadas. Este resultado demonstra que a infraestrutura está adequadamente protegida contra acessos não autorizados e possíveis ataques de rede, garantindo a segurança dos dados dos usuários.
 
-\subsection{Criptografia}
+\subsection{Criptografia em Transito}
 
-Verificamos a utilização de criptografia nas comunicações, garantindo que todo o tráfego entre o cliente e o servidor seja seguro. Utilizamos ferramentas como o SSL Labs para analisar o certificado SSL/TLS e as configurações de segurança.
+Para assegurar a segurança das comunicações entre clientes e servidores, foi utilizado o serviço \emph{SSL Labs} \cite{ssl-labs}, que realiza uma análise detalhada da configuração de segurança do servidor e da qualidade da criptografia em trânsito. Este teste foi realizado para confirmar a integridade e a confidencialidade dos dados transmitidos pela plataforma.
 
-Os resultados mostraram que a plataforma utiliza certificados válidos e protocolos seguros (TLS 1.2 ou superior), com preferência por conjuntos de cifras fortes. Isso diminui o risco de interceptação ou ataque man-in-the-middle.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/security-test/ssl-labs.png}
+    \caption{Resultado do teste de criptografia em trânsito com o SSL Labs}
+    \label{fig:ssl-labs}
+\end{figure}
+
+Conforme mostrado na Figura \ref{fig:ssl-labs}, a plataforma Codeboard UERJ obteve a classificação "B" no teste. Isso indica que, embora a configuração de segurança seja satisfatória, há margem para melhorias. Recomendações feitas pelo site incluíram a desativação de protocolos obsoletos, como TLS 1.0 e 1.1, e a implementação de políticas de segurança mais rigorosas para alcançar um nível mais elevado de proteção.
 
 
-\section{Testes de Monitoramento}
-% TODO: VALIDAR
+\section{Monitoramento}
 
 O monitoramento contínuo da infraestrutura é fundamental para a detecção prévia de problemas e para a manutenção da disponibilidade e desempenho da plataforma de forma proativa. Nesta seção, apresentamos os testes de monitoramento realizados na plataforma Codeboard UERJ.
 
 \subsection{Monitoramento de Recursos}
-% TODO: precisa mesmo?
 
-Utilizando o CloudWatch, monitoramos os recursos da infraestrutura, como CPU, memória, tráfego de rede e armazenamento. Configuramos alarmes para notificar a equipe de operações em caso de uso excessivo ou falhas nos recursos.
+O uso eficiente dos recursos é essencial para a manutenção de uma infraestrutura escalável e econômica. O serviço Amazon CloudWatch foi utilizado para monitorar o uso de CPU, memória e armazenamento das instâncias EC2, permitindo identificar gargalos de desempenho e otimizar a alocação de recursos.
 
-Os dashboards configurados permitem visualizar em tempo real o estado da infraestrutura e identificar tendências ou anomalias. Durante os testes de carga, foi possível observar o comportamento dos recursos e tomar decisões informadas sobre a necessidade de escalonamento.
+\begin{figure}[H] 
+    \centering 
+    \includegraphics[width=1\textwidth]{assets/elasticity-test/cpu-usage.png}
+    \caption{Gráfico de uso de CPU das instâncias EC2 durante o teste de elasticidade}
+    \label{fig:elasticity-cpu-usage} 
+\end{figure}
+
+Conforme mostrado na Figura \ref{fig:elasticity-cpu-usage}, foi possível identificar o aumento do uso de CPU das instâncias durante os testes de elasticidade, com picos acima de 60\% de utilização. Essas informações permitem uma análise detalhada do desempenho da infraestrutura e a tomada de decisões informadas para otimização dos recursos.
+
+\subsection{Monitoramento de Logs}
+
+O monitoramento de logs é uma prática indispensável para identificar padrões suspeitos, diagnosticar falhas e rastrear eventos críticos no sistema. Um exemplo ilustrativo de logs gerados pelo Amazon CloudWatch é apresentado na Figura \ref{fig:cloudwatch-logs}.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/monitoring-test/cloudwatch-logs.png}
+    \caption{Exemplo de logs enviados ao Amazon CloudWatch}
+    \label{fig:cloudwatch-logs}
+\end{figure}
+
+A análise dos logs pode fornecer informações importantes sobre o comportamento do sistema, como requisições de API, erros de aplicação e atividades de usuários. Esses dados normalmente são utilizados para identificar problemas, otimizar o desempenho ou auditar ações realizadas na plataforma.
 
 \subsection{Alertas de Incidentes}
 
-Configuramos sistemas de alerta que notificam a equipe de operações em caso de incidentes, como alta latência, aumento na taxa de erros ou indisponibilidade de servidores. As notificações são enviadas via e-mail e mensagens instantâneas, permitindo resposta rápida.
+Para assegurar respostas rápidas a eventos críticos, foram configurados alertas automatizados utilizando o Amazon CloudWatch integrado ao Amazon SNS. Esses alertas são acionados sempre que métricas predefinidas, como uso elevado de CPU ou taxas de erro acima do aceitável, ultrapassam os limites estabelecidos.
 
-Durante os testes de falha, os alertas foram acionados conforme esperado, comprovando a eficácia do sistema de monitoramento e notificações.
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/monitoring-test/cloudwatch-alarm-config.png}
+    \caption{Alarme configurado no Amazon CloudWatch}
+    \label{fig:cloudwatch-alarm-config}
+\end{figure}
 
+A Figura \ref{fig:cloudwatch-alarm-config} mostra a configuração de um alarme no Amazon CloudWatch para monitorar a quantidade de requisições processadas em um período de um minuto. Quando o limite de 50 requisições é ultrapassado, o alarme é acionado e uma notificação é enviada automaticamente para o tópico do Amazon SNS.
+
+\begin{figure}[H]
+    \centering
+    \includegraphics[width=1\textwidth]{assets/monitoring-test/cloudwatch-alarm-email.png}
+    \caption{Exemplo de e-mail de alerta do Amazon SNS}
+    \label{fig:cloudwatch-alarm-email}
+\end{figure}
+
+Já a Figura \ref{fig:cloudwatch-alarm-email} apresenta um exemplo de e-mail de alerta enviado pelo Amazon SNS em resposta a um evento de alta quantidade de requisições. Esses alertas permitem que a equipe técnica seja notificada em tempo real sobre qualquer anomalia operacional, reduzindo significativamente o tempo de resposta para a resolução de problemas.
+
+Por exemplo, durante um pico inesperado de tráfego, os alertas viabilizam a ativação imediata de instâncias adicionais, assegurando a continuidade dos serviços. Essa abordagem proativa minimiza impactos nos usuários e garante a estabilidade da plataforma.
