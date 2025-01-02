@@ -208,8 +208,7 @@ A Figura \ref{fig:server-failing-req-duration} apresenta a média e o percentil 
     \label{fig:server-failing-req-duration}
 \end{figure}
 
-Conforme mostrado na Figura \ref{fig:server-failing-req-failed-rate}, a taxa de falhas manteve-se em torno de 0,2 requisição por segundo, representando menos de 1\% do total processado, com um pico de 0,34 requisição por segundo durante o período de falha. Após a 
-identificação do servidor com falha, os valores retornaram aos níveis normais, indicando que a infraestrutura foi capaz de lidar com a falha sem impactar significativamente a operação da plataforma.
+A Figura \ref{fig:server-failing-req-failed-rate} detalha a taxa de requisições falhadas por segundo ao longo da execução do teste. Analisando o gráfico é possível observar que a taxa de falhas manteve-se em torno de 0,2 requisição por segundo, representando menos de 1\% do total processado, com um pico de 0,34 requisição por segundo durante o período de falha. Após a identificação do servidor com falha, os valores retornaram aos níveis normais, indicando que a infraestrutura foi capaz de lidar com a falha sem impactar significativamente a operação da plataforma.
 
 \begin{figure}[H]
     \centering
@@ -231,7 +230,7 @@ A Figura \ref{fig:server-failing-healthy-hosts} detalha a quantidade de servidor
 
 Neste experimento, foi simulada uma falha na aplicação encerrando manualmente todos os dois processos de um servidor por meio de comandos no terminal, utilizando conexão SSH e o comando \texttt{kill -9 <PID>}. O objetivo foi avaliar a capacidade da infraestrutura de recuperar automaticamente os processos encerrados, mantendo a disponibilidade da plataforma.
 
-Na Figura \ref{fig:process-failing-vus-and-reqs}, observa-se que, ao contrário do teste de falha de servidor, a taxa de requisições permaneceu estável, sendo um indicador que a aplicação reiniciou automaticamente o processo que foi encerrado.
+A Figura \ref{fig:process-failing-vus-and-reqs} apresenta a evolução do número de usuários simultâneos e da taxa de requisições processadas por segundo ao longo do teste. Diferentemente do teste de falha de servidor, a taxa de requisições se manteve estável ao longo do experimento, indicando que a aplicação conseguiu reiniciar automaticamente o processo encerrado, garantindo a continuidade do serviço.
 
 \begin{figure}[H]
     \centering
@@ -240,7 +239,7 @@ Na Figura \ref{fig:process-failing-vus-and-reqs}, observa-se que, ao contrário 
     \label{fig:process-failing-vus-and-reqs}
 \end{figure}
 
-A Figura \ref{fig:process-failing-req-duration} mostra que a duração média das requisições manteve-se próxima de 250 ms, com um aumento temporário para 730 ms no momento da falha às 02:19:17. Esse impacto foi rapidamente mitigado, e os tempos de resposta retornaram ao normal em menos de 10 segundos após a falha. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, não apresentou alterações significativas durante o teste, indicando que a falha não impactou de forma significativa o tempo de resposta da aplicação e que pode não ter sido percebida pelos usuários finais.
+A Figura \ref{fig:process-failing-req-duration} apresenta a evolução média e o percentil 95 das durações das requisições ao longo do teste. A duração média das requisições manteve-se próxima de 250 ms, exceto por um aumento temporário para 730 ms no momento da falha, registrada às 02:19:17. Esse impacto foi rapidamente mitigado, com os tempos de resposta retornando à normalidade em menos de 10 segundos após o incidente. O percentil 95, que reflete o tempo das 5\% requisições mais lentas, não apresentou alterações significativas durante o teste, indicando que a falha não afetou significativamente os tempos de resposta e, possivelmente, passou despercebida pelos usuários finais.
 
 \begin{figure}[H]
     \centering
@@ -249,7 +248,7 @@ A Figura \ref{fig:process-failing-req-duration} mostra que a duração média da
     \label{fig:process-failing-req-duration}
 \end{figure}
 
-A Figura \ref{fig:process-failing-req-failed-rate} confirma que a taxa de falhas permaneceu estável, sem aumentos significativos, mesmo durante o período de falha.
+A Figura \ref{fig:process-failing-req-failed-rate} mostra a taxa de requisições falhadas por segundo ao longo do teste. Observa-se que a taxa de falhas se manteve estável em aproximadamente 0,2 falhas por segundo, sem aumentos significativos, mesmo durante o período da falha. Esse comportamento reforça a resiliência da aplicação, garantindo que o impacto do incidente foi minimizado.
 
 \begin{figure}[H]
     \centering
@@ -258,7 +257,7 @@ A Figura \ref{fig:process-failing-req-failed-rate} confirma que a taxa de falhas
     \label{fig:process-failing-req-failed-rate}
 \end{figure}
 
-Conforme detalhado na Figura \ref{fig:process-failing-healthy-hosts}, a infraestrutura manteve dois servidores disponíveis ao longo de todo o período de teste, demonstrando que a falha na aplicação não afetou a disponibilidade geral. Os processos encerrados (PIDs 1616 e 1627) foram rapidamente reiniciados com os novos (PIDs 3127 e 3146), comprovando a capacidade de recuperação automática da aplicação. 
+A Figura \ref{fig:process-failing-healthy-hosts} detalha a quantidade de servidores disponíveis durante o teste. Nota-se que a infraestrutura permaneceu estável, mantendo dois servidores disponíveis ao longo de todo o período, evidenciando que a falha na aplicação não comprometeu a disponibilidade geral. Os processos encerrados (PIDs 1616 e 1627) foram rapidamente substituídos pelos novos processos (PIDs 3127 e 3146), comprovando a eficácia do mecanismo de recuperação automática da aplicação em garantir a continuidade do serviço.
 
 \begin{figure}[H]
     \centering
@@ -306,7 +305,7 @@ O monitoramento contínuo da infraestrutura é fundamental para a detecção pr�
 
 \subsection{Monitoramento de Recursos}
 
-O uso eficiente dos recursos é essencial para a manutenção de uma infraestrutura escalável e econômica. O serviço Amazon CloudWatch foi utilizado para monitorar o uso de CPU, memória e armazenamento das instâncias EC2, permitindo identificar gargalos de desempenho e otimizar a alocação de recursos.
+O uso eficiente dos recursos é essencial para a manutenção de uma infraestrutura escalável e econômica. O serviço Amazon CloudWatch foi utilizado para monitorar o uso de CPU, memória e armazenamento das instâncias EC2, permitindo identificar gargalos de desempenho e otimizar a alocação de recursos. A Figura \ref{fig:elasticity-cpu-usage} exemplifica esse monitoramento, apresentando o gráfico de uso de CPU das instâncias EC2 durante os testes de elasticidade.
 
 \begin{figure}[H] 
     \centering 
@@ -315,7 +314,7 @@ O uso eficiente dos recursos é essencial para a manutenção de uma infraestrut
     \label{fig:elasticity-cpu-usage} 
 \end{figure}
 
-Observando aa Figura \ref{fig:elasticity-cpu-usage}, foi possível identificar o aumento do uso de CPU das instâncias durante os testes de elasticidade, com picos acima de 60\% de utilização. Essas informações permitem uma análise detalhada do desempenho da infraestrutura e a tomada de decisões informadas para otimização dos recursos.
+Observando a Figura \ref{fig:elasticity-cpu-usage}, foi possível identificar o aumento do uso de CPU das instâncias durante os testes de elasticidade, com picos acima de 60\% de utilização. Essas informações permitem uma análise detalhada do desempenho da infraestrutura e a tomada de decisões informadas para otimização dos recursos.
 
 \subsection{Monitoramento de Logs}
 
