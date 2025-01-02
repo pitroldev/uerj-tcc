@@ -7,45 +7,35 @@ Neste capítulo, serão apresentados os testes realizados na plataforma Codeboar
 
 
 \section{Distribuição de Carga}
-% Revisar
+% OK (revisar?)
 
 Para avaliar a distribuição de carga em diferentes níveis da infraestrutura da plataforma Codeboard UERJ, foram realizadas modificações no código-fonte, permitindo a coleta de informações detalhadas sobre a máquina que processa cada requisição. Essas o identificador da instância EC2 na AWS e o identificador do processo (PID) responsável pelo processamento da requisição. Com esses dados, foi possível analisar como a carga está sendo distribuída entre diferentes regiões geográficas, servidores e processos.
 
-\subsection{Balanceamento de Carga entre Regiões Geográficas} % TODO: FUDEU
-% Revisar
+\subsection{Balanceamento de Carga entre Regiões Geográficas}
+% OK (revisar?)
 
-Para analisar o balanceamento de carga entre diferentes regiões geográficas, utilizamos redes privadas virtuais (VPNs) para simular acessos à plataforma a partir de diversos locais ao redor do mundo. As VPNs são ferramentas que permitem alterar o endereço IP de origem de uma conexão, simulando o acesso de um usuário em uma região geográfica diferente da sua localização real.
+Para avaliar a eficiência do balanceamento de carga entre diferentes regiões geográficas, realizamos testes simulando acessos à plataforma a partir de máquinas virtuais localizadas em diversas partes do mundo. Essas simulações foram projetadas para identificar o comportamento da infraestrutura em termos de roteamento e tempo de resposta.
 
-Foram utilizadas cinco VPNs representando as regiões: Brasil, Estados Unidos, Europa, Ásia e Oceania. De cada uma dessas VPNs, realizamos 100 requisições à rota \texttt{/api/health}, e coletamos informações sobre o servidor que processou cada requisição e a latência observada. Os resultados estão apresentados na Tabela \ref{tab:geo-distribution}, e a Figura \ref{fig:geo-distribution} ilustra, em um mapa, o servidor designado para cada região geográfica.
+Foram utilizadas máquinas virtuais em quatro regiões: Brasil, Estados Unidos, Ásia e Oceania. Cada máquina realizou 100 requisições à rota \texttt{/api/health}, e os dados coletados incluíram informações como o IP do servidor que processou cada requisição e o tempo médio de resposta. O IP foi utilizado para determinar a região geográfica do servidor responsável, possibilitando uma análise detalhada da distribuição de carga.
 
-% Atualmente usamos 5 VPNs: Brasil, Estados Unidos, Europa, Ásia e Oceania
-% só existem dois servidores designados: Brasil e Estados Unidos
-% TODO: Inserir dados
 \begin{table}[H]
     \centering
     \caption{Resultados dos testes de distribuição de carga entre diferentes regiões geográficas}
     \label{tab:geo-distribution}
     \begin{tabular}{|l|l|l|}
         \hline
-        \textbf{VPN}   & \textbf{Servidor Designado} & \textbf{Latência média} \\ \hline
-        Brasil         & Brasil                      & 50 ms                   \\ \hline
-        Estados Unidos & Estados Unidos              & 150 ms                  \\ \hline
-        Europa         & Brasil                      & 200 ms                  \\ \hline
-        Ásia           & Brasil                      & 300 ms                  \\ \hline
-        Oceania        & Estados Unidos              & 400 ms                  \\ \hline
+        \textbf{Origem}   & \textbf{Servidor Designado} & \textbf{Latência média} \\ \hline
+        Brasil         & Brasil                      & 185 ms                  \\ \hline
+        Estados Unidos & Estados Unidos              & 164 ms                  \\ \hline
+        Ásia           & Estados Unidos              & 412 ms                  \\ \hline
+        Oceania        & Estados Unidos              & 378 ms                  \\ \hline
     \end{tabular}
 \end{table}
 
-% \begin{figure}[H]
-%     \centering
-%     \includegraphics[width=1\textwidth]{images/geo-distribution.png}
-%     \caption{Distribuição de carga entre diferentes regiões geográficas}
-%     \label{fig:geo-distribution}
-% \end{figure}
+A Tabela \ref{tab:geo-distribution} apresenta os resultados dos testes, destacando como as requisições foram distribuídas entre os servidores. A análise revelou que as requisições originadas no Brasil e nos Estados Unidos foram roteadas para seus respectivos servidores locais, resultando em uma latência significativamente menor para os usuários dessas regiões. Em contraste, as requisições provenientes da Ásia e da Oceania foram processadas pelo servidor localizado nos Estados Unidos, o que gerou tempos de resposta mais elevados devido à distância geográfica.
 
-Observando a Tabela \ref{tab:geo-distribution}, percebemos que o balanceamento de carga direciona as requisições para o servidor geograficamente mais próximo, sempre que possível. No caso do Brasil e dos Estados Unidos, as requisições são processadas pelos servidores correspondentes, reduzindo a latência e melhorando a experiência do usuário. Para as demais regiões, como Europa, Ásia e Oceania, as requisições foram direcionadas para o servidor dos Estados Unidos, o que resultou em latências maiores devido à distância geográfica.
+Embora essa configuração atenda bem às necessidades das regiões próximas, a latência elevada observada para a Ásia e Oceania sugere que a adição de servidores em novas regiões poderia melhorar significativamente a experiência do usuário. Essa expansão reduziria a distância física entre os usuários e os servidores, promovendo um balanceamento de carga mais eficiente e tempos de resposta mais baixos em escala global.
 
-Essa distribuição reflete a configuração atual da infraestrutura, que possui somente dois servidores, um no Brasil e outro nos Estados Unidos. A implementação de servidores adicionais em outras regiões poderia melhorar ainda mais a latência para usuários em locais distantes.
 
 \subsection{Balanceamento de Carga entre Servidores}
 % OK (revisar?)
