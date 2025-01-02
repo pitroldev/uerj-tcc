@@ -37,7 +37,7 @@ Essas tecnologias constituem a base do desenvolvimento web front-end, proporcion
 No desenvolvimento de aplicações web, a arquitetura é geralmente dividida em duas camadas principais \cite{web-app}:
 
 \begin{itemize}
-    \item \textbf{Front-end}: Refere-se à parte da aplicação que interage diretamente com o usuário. Inclui tudo o que o usuário vê e com o que interage no navegador, como layouts, botões e formulários. Tecnologias como HTML, CSS e JavaScript, além de frameworks como React.js, são comumente utilizadas.
+    \item \textbf{Front-end}: Refere-se à parte da aplicação que interage diretamente com o usuário. Inclui tudo o que o usuário vê e com o que interage no navegador, como layouts, botões e formulários. Tecnologias como HTML, CSS e JavaScript, além de frameworks como React.js \cite{react-js}, são comumente utilizadas.
     \item \textbf{Back-end}: É a camada de servidor da aplicação, responsável pelo processamento de dados, lógica de negócio e comunicação com bancos de dados. Tecnologias como Node.js, Go, Java e frameworks como Express.js são utilizadas para desenvolver o back-end.
 \end{itemize}
 
@@ -322,6 +322,10 @@ A escalabilidade vertical consiste em melhorar uma única máquina adicionando m
 Por outro lado, a escalabilidade horizontal implica na adição de novas máquinas ao sistema, distribuindo a carga de trabalho entre elas \cite{what-is-scalability}. Esse modelo é mais adequado para aplicações que precisam processar grandes volumes de dados ou tráfego. Ele funciona ao replicar instâncias do sistema e utilizando balanceadores de carga para direcionar as solicitações de maneira eficiente. Apesar de suas vantagens, como maior capacidade de expansão, resiliência e tolerância a falhas (pois não depende de um único ponto), a escalabilidade horizontal apresenta desafios. Entre eles estão a necessidade de arquiteturas adequadas para distribuição de carga, sincronização de dados entre servidores e maior esforço de configuração e gerenciamento.
 
 A decisão entre escalabilidade vertical e horizontal depende das características específicas da aplicação, do orçamento disponível e dos requisitos de desempenho e disponibilidade do sistema. Em muitos casos, é comum a combinação de ambas as abordagens para alcançar um equilíbrio ideal entre custo, eficiência e flexibilidade.
+
+\subsection{Elasticidade}
+
+Elasticidade é a capacidade de um sistema de se adaptar dinamicamente às mudanças na carga de trabalho, aumentando ou reduzindo recursos automaticamente conforme necessário \cite{what-is-elasticity}. Esse conceito é amplamente utilizado na computação em nuvem, onde a demanda por recursos pode variar significativamente ao longo do tempo.
 
 \subsection{Balanceamento de Carga}
 % 🆗 Revisado
