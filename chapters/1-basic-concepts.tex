@@ -6,7 +6,7 @@ Antes de aprofundar os aspectos técnicos específicos deste trabalho, torna-se 
 \section{Desenvolvimento Web}
 % 🆗 Revisado
 
-O desenvolvimento web é a área da engenharia de computação que se dedica à criação de aplicações e serviços acessíveis através da internet. Envolve a construção de sites, aplicações web e outras soluções online que interagem com usuários por meio de navegadores ou dispositivos conectados.
+O desenvolvimento web é uma área da computação que se dedica à criação de aplicações e serviços acessíveis através da internet \cite{web-development}. Envolve a construção de sites, aplicações web e outras soluções online que interagem com usuários por meio de navegadores ou dispositivos conectados.
 
 \subsection{Aplicações Web}
 % 🆗 Revisado e Citado
@@ -19,9 +19,9 @@ Aplicações web são programas ou sistemas desenvolvidos para serem executados 
 Para desenvolver aplicações web, utilizam-se diversas tecnologias que colaboram entre si:
 
 \begin{itemize}
-    \item \textbf{HTML (HyperText Markup Language)}: Linguagem de marcação responsável por estruturar o conteúdo da web.
-    \item \textbf{CSS (Cascading Style Sheets)}: Linguagem de estilo utilizada para definir a aparência e o layout dos documentos HTML.
-    \item \textbf{JavaScript}: Linguagem de programação que permite adicionar interatividade e dinamismo às páginas web.
+    \item \textbf{HTML (HyperText Markup Language)}: Linguagem de marcação responsável por estruturar o conteúdo da web, definindo a hierarquia e organização dos elementos em uma página \cite{html-wiki}.
+    \item \textbf{CSS (Cascading Style Sheets)}: Linguagem de estilo utilizada para definir a aparência e o layout dos documentos HTML \cite{css-wiki}.
+    \item \textbf{JavaScript}: Linguagem de programação que permite adicionar interatividade e dinamismo às páginas web \cite{js-wiki}.
 \end{itemize}
 
 Essas tecnologias constituem a base do desenvolvimento web front-end, proporcionando interfaces amigáveis e funcionais para os usuários.
@@ -55,10 +55,10 @@ Uma \emph{API (Application Programming Interface)} é um conjunto de definiçõe
 Existem diversos tipos de APIs, cada um com suas características e finalidades específicas. Alguns dos mais comuns incluem:
 
 \begin{itemize}
-    \item \textbf{REST (Representational State Transfer)}: Um estilo arquitetural baseado no protocolo HTTP que oferece uma interface uniforme para manipulação de recursos. É amplamente adotado por sua simplicidade e aderência aos padrões da web, facilitando a integração entre sistemas.
-    \item \textbf{WebSocket}: Um protocolo de comunicação bidirecional em tempo real que permite a troca de mensagens entre cliente e servidor. É ideal para aplicações que demandam comunicação assíncrona e interativa.
-    \item \textbf{RPC (Remote Procedure Calls)}: Um framework de comunicação remota de alto desempenho desenvolvido pela Google, onde o cliente chama funções remotas como se fossem locais.
-    \item \textbf{SOAP (Simple Object Access Protocol)}: Um protocolo baseado em XML para troca de mensagens entre sistemas distribuídos, frequentemente utilizado em integrações corporativas.
+    \item \textbf{REST (Representational State Transfer)}: Um estilo arquitetural baseado no protocolo HTTP que oferece uma interface uniforme para manipulação de recursos. É amplamente adotado por sua simplicidade e aderência aos padrões da web, facilitando a integração entre sistemas \cite{restful-api}.
+    \item \textbf{WebSocket}: Um protocolo de comunicação bidirecional em tempo real que permite a troca de mensagens entre cliente e servidor \cite{ws-standard}. É ideal para aplicações que demandam comunicação assíncrona e interativa.
+    \item \textbf{RPC (Remote Procedure Calls)}: Um framework de comunicação remota de alto desempenho desenvolvido pela Google, onde o cliente chama funções remotas como se fossem locais \cite{rpc-google}.
+    \item \textbf{SOAP (Simple Object Access Protocol)}: Um protocolo baseado em XML para troca de mensagens entre sistemas distribuídos, frequentemente utilizado em integrações corporativas \cite{soap-wiki}.
 \end{itemize}
 
 Cada tipo de API possui suas próprias características e é adequado para diferentes cenários de uso. A escolha do tipo de API depende das necessidades específicas do projeto, como complexidade, desempenho e flexibilidade.
@@ -99,7 +99,7 @@ Bibliotecas consistem em um conjunto de funções ou componentes reutilizáveis 
 Frameworks, por sua vez, fornecem uma estrutura completa para o desenvolvimento de aplicações. Eles estabelecem uma arquitetura definida e um fluxo de trabalho consistente, além de integrarem um conjunto robusto de ferramentas para tarefas como roteamento, renderização e manipulação de requisições. Entre os frameworks mais populares, destacam-se:
 \begin{itemize}
     \item \textbf{Next.js}: Um framework que se baseia na biblioteca \emph{React} \cite{what-is-nextjs} e introduz funcionalidades avançadas, como renderização no lado do servidor (SSR) e geração de sites estáticos (SSG), otimizando o desempenho e melhorando a SEO \emph{(Search Engine Optimization)}.
-    \item \textbf{Express.js}: Um framework minimalista para Node.js, projetado para simplificar o desenvolvimento de aplicações web e APIs. Ele facilita o gerenciamento de rotas, requisições e middlewares.
+    \item \textbf{Express.js}: Um framework minimalista para Node.js, projetado para simplificar o desenvolvimento de aplicações web e APIs \cite{expressjs}. Ele facilita o gerenciamento de rotas, requisições e middlewares.
 \end{itemize}
 
 Tanto bibliotecas quanto frameworks desempenham um papel crucial no desenvolvimento de software. Essas ferramentas não apenas aceleram o processo de criação, mas também incentivam a adoção de boas práticas, contribuindo para a eficiência e qualidade dos projetos.
@@ -177,9 +177,9 @@ Os bancos de dados baseados em SQL são amplamente utilizados devido à sua capa
 Exemplos de bancos de dados SQL:
 
 \begin{itemize}
-    \item \textbf{MySQL}: Um sistema de gerenciamento de banco de dados relacional de código aberto amplamente utilizado, especialmente em aplicações web. Ele é conhecido por sua simplicidade, desempenho e grande comunidade de suporte.
-    \item \textbf{PostgreSQL}: Reconhecido por sua robustez e recursos avançados, como suporte a tipos de dados personalizados, índices complexos e transações ACID. É ideal para aplicações críticas que demandam alta confiabilidade.
-    \item \textbf{SQLite}: Um banco de dados leve e embutido, que não requer um servidor dedicado. Ele é bastante utilizado em dispositivos móveis e aplicativos locais devido à sua portabilidade e simplicidade.
+    \item \textbf{MySQL}: Um sistema de gerenciamento de banco de dados relacional de código aberto amplamente utilizado, especialmente em aplicações web \cite{oracle-mysql}. Ele é conhecido por sua simplicidade, desempenho e grande comunidade de suporte.
+    \item \textbf{PostgreSQL}: Reconhecido por sua robustez e recursos avançados, como suporte a tipos de dados personalizados, índices complexos e transações ACID \cite{postgresql}. É ideal para aplicações críticas que demandam alta confiabilidade.
+    \item \textbf{SQLite}: Um banco de dados leve e embutido, que não requer um servidor dedicado \cite{slite}. Ele é bastante utilizado em dispositivos móveis e aplicativos locais devido à sua portabilidade e simplicidade.
 \end{itemize}
 
 Os bancos de dados SQL continuam sendo a espinha dorsal de muitos sistemas corporativos e de produção, graças à sua eficiência, consistência e maturidade no mercado.
@@ -220,8 +220,8 @@ Os bancos de dados NoSQL se destacam por sua capacidade de lidar com dados dinâ
 \emph{ORM (Object-Relational Mapping)} e \emph{ODM (Object-Document Mapping)} são técnicas que permitem mapear objetos do código-fonte para estruturas de bancos de dados relacionais e NoSQL, respectivamente. Elas têm como objetivo simplificar a interação com os bancos de dados, permitindo que os desenvolvedores trabalhem diretamente com a linguagem de programação utilizada no projeto, em vez de escrever consultas SQL ou comandos específicos para cada tipo de banco \cite{orm-vs-odm}.
 
 \begin{itemize}
-    \item \textbf{ORMs}: Facilitam a manipulação de dados em bancos de dados relacionais, abstraindo consultas SQL e permitindo o uso de objetos. Exemplo: Sequelize.
-    \item \textbf{ODMs}: Executam uma função semelhante para bancos de dados NoSQL orientados a documentos, integrando objetos de forma transparente. Exemplo: Mongoose.
+    \item \textbf{ORMs}: Facilitam a manipulação de dados em bancos de dados relacionais, abstraindo consultas SQL e permitindo o uso de objetos. Exemplo: Sequelize \cite{sequelize}.
+    \item \textbf{ODMs}: Executam uma função semelhante para bancos de dados NoSQL orientados a documentos, integrando objetos de forma transparente com o banco de dados. Exemplo: Mongoose \cite{mongoose}.
 \end{itemize}
 
 Essas ferramentas aumentam a produtividade ao abstrair a complexidade das operações de banco de dados, proporcionando uma camada intermediária que simplifica a manipulação de dados e facilita a integração entre a aplicação e o banco.
@@ -260,9 +260,9 @@ A computação em nuvem refere-se à entrega de serviços de computação por me
 Tipos de serviços de computação em nuvem:
 
 \begin{itemize}
-    \item \textbf{IaaS (Infrastructure as a Service)}: Proporciona acesso a infraestrutura básica, como servidores, armazenamento e redes. Os usuários têm controle total sobre o ambiente, configurando e gerenciando conforme suas necessidades. Exemplos: Amazon EC2, Google Compute Engine.
-    \item \textbf{PaaS (Platform as a Service)}: Oferece plataformas completas para desenvolvimento e implantação de aplicações, abstraindo a complexidade da infraestrutura subjacente. Ideal para acelerar o desenvolvimento e focar na aplicação. Exemplos: Vercel, Heroku.
-    \item \textbf{SaaS (Software as a Service)}: Disponibiliza aplicativos prontos para uso por meio da internet, eliminando a necessidade de instalação ou manutenção local. É amplamente utilizado para produtividade, colaboração e gerenciamento de negócios. Exemplos: Google Drive, Salesforce.
+    \item \textbf{IaaS (Infrastructure as a Service)}: Proporciona acesso a infraestrutura básica, como servidores, armazenamento e redes. Os usuários têm controle total sobre o ambiente, configurando e gerenciando conforme suas necessidades. Exemplos: Amazon EC2 \cite{aws-ec2}, Google Compute Engine \cite{gcp-compute}.
+    \item \textbf{PaaS (Platform as a Service)}: Oferece plataformas completas para desenvolvimento e implantação de aplicações, abstraindo a complexidade da infraestrutura subjacente. Ideal para acelerar o desenvolvimento e focar na aplicação. Exemplos: Vercel \cite{vercel}, Heroku \cite{heroku}.
+    \item \textbf{SaaS (Software as a Service)}: Disponibiliza aplicativos prontos para uso por meio da internet, eliminando a necessidade de instalação ou manutenção local. É amplamente utilizado para produtividade, colaboração e gerenciamento de negócios. Exemplos: Google Drive \cite{google-drive}, Salesforce \cite{salesforce}.
 \end{itemize}
 
 Entre os principais provedores de serviços de computação em nuvem, destacam-se a \emph{Amazon Web Services (AWS)}, a \emph{Google Cloud Platform} e a \emph{Microsoft Azure}. Essas plataformas oferecem uma ampla gama de serviços e soluções que atendem às necessidades de empresas de diferentes tamanhos, desde \emph{startups} até grandes corporações.
@@ -279,9 +279,9 @@ A \emph{Amazon Web Services (AWS)} é uma plataforma líder em computação em n
 Dentre os serviços mais populares da AWS, destacam-se:
 
 \begin{itemize}
-    \item \textbf{EC2 (Elastic Compute Cloud)}: Serviço de computação que permite criar instâncias de servidores virtuais na nuvem, oferecendo flexibilidade para dimensionar o poder computacional conforme necessário.
-    \item \textbf{S3 (Simple Storage Service)}: Um serviço de armazenamento de objetos que combina alta escalabilidade, segurança e custo acessível, adequado para armazenamento de arquivos, backups e grandes volumes de dados.
-    \item \textbf{RDS (Relational Database Service)}: Serviço gerenciado que simplifica a configuração, operação e escalabilidade de bancos de dados relacionais, suportando motores populares como MySQL, PostgreSQL, e SQL Server.
+    \item \textbf{EC2 (Elastic Compute Cloud)}: Serviço de computação que permite criar instâncias de servidores virtuais na nuvem, oferecendo flexibilidade para dimensionar o poder computacional conforme necessário \cite{aws-ec2}.
+    \item \textbf{S3 (Simple Storage Service)}: Um serviço de armazenamento de objetos que combina alta escalabilidade, segurança e custo acessível, adequado para armazenamento de arquivos, backups e grandes volumes de dados \cite{aws-s3}.
+    \item \textbf{RDS (Relational Database Service)}: Serviço gerenciado que simplifica a configuração, operação e escalabilidade de bancos de dados relacionais, suportando motores populares como MySQL, PostgreSQL, e SQL Server \cite{aws-rds}.
 \end{itemize}
 
 A AWS se destaca como uma solução estratégica para organizações que buscam inovação, escalabilidade e alta disponibilidade em suas operações na nuvem. Com uma vasta gama de serviços gerenciados e um ecossistema robusto, a plataforma permite que empresas de todos os portes implementem soluções personalizadas de forma eficiente e segura.
