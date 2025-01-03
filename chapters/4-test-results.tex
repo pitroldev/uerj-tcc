@@ -65,7 +65,7 @@ Os dados indicam que o balanceador de carga distribuiu as requisições de forma
 \subsection{Balanceamento de Carga entre Processos}
 % OK (revisar!)
 
-Para avaliar o balanceamento de carga entre processos dentro de um mesmo servidor, analisaremos novamente as 5000 requisições anteriormente realizadas para a rota \texttt{/api/health}. Desta vez, utilizamos também o identificador do processo (PID) em nossa analise para identificar qual processo foi responsável pelo processamento de cada requisição.
+Para avaliar o balanceamento de carga entre processos dentro de um mesmo servidor, analisamos novamente as 5000 requisições anteriormente realizadas para a rota \texttt{/api/health}. Desta vez, utilizamos também o identificador do processo (PID) para identificar qual processo foi responsável pelo processamento de cada requisição.
 
 Os resultados estão apresentados na Figura \ref{fig:reqs-per-pid}, que mostra a distribuição de carga entre diferentes processos, e na Figura \ref{fig:reqs-per-pid-over-time}, que mostra a distribuição ao longo do tempo. Os dados coletados incluem a quantidade de requisições processadas por cada processo, a identificação do servidor e do PID responsável pelo processamento.
 
@@ -90,7 +90,7 @@ Analisando os dados da Figura \ref{fig:reqs-per-pid}, observamos que as requisi�
 \section{Testes de Elasticidade}
 % OK (revisar?)
 
-Esta seção apresenta os testes de elasticidade realizados na plataforma Codeboard UERJ. Os testes foram realizados com o objetivo de validar a capacidade da infraestrutura de suportar um grande volume de usuários simultâneos, analisando o desempenho do servidor back-end em diferentes cenários de uso. Os testes foram realizados com a infraestrutura provisionada com somente uma região geográfica, a do Brasil.
+Esta seção apresenta os testes de elasticidade realizados na plataforma Codeboard UERJ. Os testes foram realizados com o objetivo de validar a capacidade da infraestrutura de suportar um grande volume de usuários simultâneos, analisando o desempenho do servidor back-end em diferentes cenários de uso. Os teste foram realizados com a infraestrutura provisionada em apenas uma região geográfica, a do Brasil.
 
 
 \subsection{Metodologia de Testes}
