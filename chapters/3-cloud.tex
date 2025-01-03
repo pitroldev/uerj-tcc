@@ -174,7 +174,7 @@ O Auto Scaling utiliza um Auto Scaling Group (ASG) para monitorar a utilização
     \includegraphics[width=1\textwidth]{diagrams/auto-scaling-horizontal-scalability.png}
 \end{figure}
 
-Os limites de gatilhos de escalabilidade foram definidos com base em testes e monitoramento da aplicação, estabelecendo 70\% de uso de CPU para adicionar uma nova instância e 30\% para removê-la. Os valores de instâncias mínima e máxima foram configurados entre 1 e 5, podendo ser ajustáveis conforme previsões de tráfego, sazonalidade e eventos especiais.
+Os limites de gatilhos de escalabilidade foram definidos com base em testes e monitoramento da aplicação, estabelecendo 60\% de uso de CPU para adicionar uma nova instância e 30\% para removê-la. Os valores de instâncias mínima e máxima foram configurados entre 1 e 5, podendo ser ajustáveis conforme previsões de tráfego, sazonalidade e eventos especiais.
 
 \subsection{Recuperação Automática de Falhas em Servidores}
 % Revisado
@@ -188,7 +188,7 @@ O Auto Scaling do AWS também possui um mecanismo de recuperação automática d
     \includegraphics[width=1\textwidth]{diagrams/auto-scaling-fault-tolerance.png}
 \end{figure}
 
-Durante a inicialização de uma nova instância, o Auto Scaling aplica um \emph{warmup time} de 180 segundos, período necessário para que a instância esteja completamente operacional. Nesse tempo, são realizadas tarefas como configuração da instância, inicialização da aplicação e estabelecimento de conexões com o banco de dados. Durante o warmup time, a instância permanece indisponível para o ELB, e o tráfego é direcionado para outras instâncias saudáveis. Após o término do warmup, a instância é marcada como disponível e começa a receber tráfego. Esse warmup time ajuda a evitar interrupções na aplicação, garantindo que apenas instâncias totalmente preparadas participem da distribuição de carga.
+Durante a inicialização de uma nova instância, o Auto Scaling aplica um \emph{warmup time} de 120 segundos, período necessário para que a instância esteja completamente operacional. Nesse tempo, são realizadas tarefas como configuração da instância, inicialização da aplicação e estabelecimento de conexões com o banco de dados. Durante o warmup time, a instância permanece indisponível para o ELB, e o tráfego é direcionado para outras instâncias saudáveis. Após o término do warmup, a instância é marcada como disponível e começa a receber tráfego. Esse warmup time ajuda a evitar interrupções na aplicação, garantindo que apenas instâncias totalmente preparadas participem da distribuição de carga.
 
 
 \subsection{Balanceamento de Carga entre Regiões Geográficas}
@@ -387,6 +387,6 @@ O monitoramento desses recursos é fundamental para identificar gargalos de dese
 
 O sistema de monitoramento da plataforma Codeboard conta com uma estratégia robusta de alertas para garantir respostas rápidas a possíveis incidentes. Os alertas são configurados no Amazon CloudWatch, permitindo a detecção e notificação de anomalias em tempo real.
 
-As principais características do sistema de alertas incluem critérios personalizáveis, permitindo a configuração de limites para métricas específicas, como latência acima de 500ms, uso de CPU superior a 80\% ou erros 5xx que excedam um determinado volume. Além disso, há integração com ferramentas de comunicação, com notificações automáticas enviadas para canais como Slack e e-mail, garantindo que os responsáveis sejam informados imediatamente.
+As principais características do sistema de alertas incluem critérios personalizáveis, permitindo a configuração de limites para métricas específicas, como latência acima de 500ms, uso de CPU superior a 80\% ou erros que excedam um determinado volume. Além disso, há integração com ferramentas de comunicação, com notificações automáticas enviadas para canais como Slack e e-mail, garantindo que os responsáveis sejam informados imediatamente.
 
 Com essa abordagem, o sistema de alertas fortalece a capacidade da plataforma de reagir rapidamente a eventos adversos, reduzindo o impacto nos usuários e assegurando a continuidade do serviço.

@@ -5,8 +5,8 @@ sequenceDiagram
 
     Note over CloudWatch, EC2: Monitora a utilização da CPU das instâncias EC2
 
-    alt Utilização de CPU > 70%
-        CloudWatch-->>AutoScalingGroup: Alerta de alta utilização (CPU > 70%)
+    alt Utilização de CPU > 60%
+        CloudWatch-->>AutoScalingGroup: Alerta de alta utilização (CPU > 60%)
         AutoScalingGroup->>EC2: Adiciona uma nova instância EC2
     else Utilização de CPU < 30%
         CloudWatch-->>AutoScalingGroup: Alerta de baixa utilização (CPU < 30%)

@@ -284,7 +284,7 @@ A coleção de salas contém informações sobre as salas criadas, como nome, de
         \hline
         owner          & ObjectId        & Sim                  \\
         \hline
-        members        & Array<ObjectId> & Não                  \\
+        members        & ObjectId Array & Não                  \\
         \hline
         createdAt           & Date            & Sim                  \\
         \hline
@@ -377,7 +377,7 @@ A Tabela \ref{tab:rest-api-routes} apresenta as rotas da REST API da plataforma 
 
 As rotas descritas na Tabela \ref{tab:rest-api-routes} que requerem autenticação, são protegidas por um middleware que verifica se o usuário está autenticado antes de permitir o acesso. A autenticação do usuário na plataforma é realizada através de um token, que é gerado no servidor e enviado ao cliente após o login. 
 
-O token de autenticação é gerado utilizando a biblioteca "jsonwebtoken", que implementa o padrão JWT (JSON Web Token). A escolha do JWT como mecanismo de autenticação foi motivada pela necessidade de suportar a infraestrutura horizontal da plataforma, que facilita a escalabilidade e a distribuição dos servidores. Como o JWT é um mecanismo \emph{stateless}, não é necessário armazenar o estado da sessão no servidor. Isso o torna ideal para aplicações distribuídas e escaláveis, pois o estado da sessão é armazenado no próprio token, que é enviado ao cliente.
+O token de autenticação é gerado utilizando a biblioteca \emph{jsonwebtoken}, que implementa o padrão JWT \emph{(JSON Web Token)}. A escolha do JWT como mecanismo de autenticação foi motivada pela necessidade de suportar a infraestrutura horizontal da plataforma, que facilita a escalabilidade e a distribuição dos servidores. Como o JWT é um mecanismo \emph{stateless}, não é necessário armazenar o estado da sessão no servidor. Isso o torna ideal para aplicações distribuídas e escaláveis, pois o estado da sessão é armazenado no próprio token, que é enviado ao cliente.
 
 O token é criado com base no ID do usuário e uma chave secreta, que é mantida nos servidores. Esse token é assinado com a chave secreta e enviado ao cliente, onde é armazenado no navegador por meio de cookies. A cada requisição feita ao servidor, o token é utilizado para autenticar o usuário, garantindo sua autenticidade em todas as páginas da plataforma.
 
@@ -424,11 +424,11 @@ A Tabela \ref{tab:key-value-database} descreve a estrutura do banco de dados cha
     \end{tabular}
 \end{table}
 
-O uso de \emph{namespaces} no Redis permite que diferentes componentes da plataforma sejam representados de forma hierárquica e clara. Por exemplo:
+O uso de namespaces no Redis permite que diferentes componentes da plataforma sejam representados de forma hierárquica e clara. Por exemplo:
 \begin{itemize}
-    \item O \emph{namespace} \texttt{room:\{roomId\}:users} armazena os IDs dos usuários conectados a uma determinada sala, permitindo o rastreamento eficiente dos participantes ativos.
-    \item O \emph{namespace} \texttt{board:\{roomId\}:\{boardId\}:code} contém o código do quadro de programação correspondente, garantindo que qualquer modificação seja rapidamente sincronizada entre os usuários.
-    \item O \emph{namespace} \texttt{board:\{roomId\}:\{boardId\}:viewers} rastreia os visualizadores atuais de um quadro específico, permitindo o monitoramento em tempo real da audiência de cada quadro.
+    \item O namespace \texttt{room:\{roomId\}:users} armazena os IDs dos usuários conectados a uma determinada sala, permitindo o rastreamento eficiente dos participantes ativos.
+    \item O namespace \texttt{board:\{roomId\}:\{boardId\}:code} contém o código do quadro de programação correspondente, garantindo que qualquer modificação seja rapidamente sincronizada entre os usuários.
+    \item O namespace \texttt{board:\{roomId\}:\{boardId\}:viewers} rastreia os visualizadores atuais de um quadro específico, permitindo o monitoramento em tempo real da audiência de cada quadro.
 \end{itemize}
 
 Todos esses dados são configurados para expirar após um dia de inatividade, removendo automaticamente informações temporárias que não são mais necessárias. A expiração controlada dos dados é crucial para manter o banco de dados eficiente e evitar acúmulo desnecessário de informações. Isso não só melhora o desempenho geral da plataforma, como também preserva a integridade do sistema ao evitar que informações desatualizadas sejam mantidas além do necessário.

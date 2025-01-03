@@ -3,7 +3,7 @@ erDiagram
     User ||--o{ Room : "(é dono de)"
     Room ||--o{ User : "(tem participantes)"
     Room ||--o{ Board : "(tem quadros)"
-    Board ||--o{ User : "(é dono de)"
+    Board }o--|| User : "(é dono de)"
 
     Room {
         ObjectID _id PK "ID da sala"
