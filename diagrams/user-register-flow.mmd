@@ -1,0 +1,17 @@
+sequenceDiagram
+    participant LoginPage as Tela de Login
+    participant User as Usuário
+    participant RegisterPage as Tela de Cadastro
+    participant RoomsPage as Tela de Salas
+
+    User ->> LoginPage: Clica em "Não tem conta?"
+    LoginPage ->> RegisterPage: Redireciona para cadastro
+
+    User ->> RegisterPage: Preenche dados de cadastro
+    alt Cadastro bem-sucedido
+        RegisterPage ->> RoomsPage: Redireciona para salas
+        RoomsPage -->> User: Exibe tela de salas
+    else Erro no cadastro
+        RegisterPage -->> User: Exibe mensagem de erro
+    end
+

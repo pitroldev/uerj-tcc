@@ -1,18 +1,11 @@
-flowchart TD
-    User((Usuário))
-    LoginPage[Tela de Login]
-    RegisterPage[Tela de Cadastro]
-    RoomsPage[Tela de Salas]
+sequenceDiagram
+    participant User as Usuário
+    participant LoginPage as Tela de Login
+    participant RoomsPage as Tela de Salas
 
-
-    User -->|Acessa| LoginPage
-
-    LoginPage -->|Não tem conta?| RegisterPage
-    RegisterPage -->|Cadastrado com sucesso| RoomsPage
-    RegisterPage -.->|Erro| RegisterPage
-
-
-    LoginPage -->|Preenche credenciais| RoomsPage
-    LoginPage -.->|Erro| LoginPage
-
-    RoomsPage -->|Logout| LoginPage
+    User ->> LoginPage: Preenche credenciais
+    alt Credenciais válidas
+        LoginPage ->> RoomsPage: Redireciona para salas
+    else Credenciais inválidas
+        LoginPage -->> User: Exibe erro
+    end

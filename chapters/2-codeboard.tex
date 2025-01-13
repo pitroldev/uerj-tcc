@@ -24,13 +24,20 @@ Autenticação de usuários, gerenciamento de salas e seus participantes e o qua
 
 O sistema de autenticação de usuários é o ponto de partida para o uso da plataforma, permitindo que novos usuários se cadastrem e realizem login para acessar suas funcionalidades. O processo de cadastro ocorre por meio de um formulário que coleta informações básicas, como nome, e-mail e senha. Após a conclusão do cadastro, o usuário está apto a realizar login utilizando o e-mail e a senha fornecidos.
 
-Durante o login, a plataforma valida as credenciais inseridas, verificando se o e-mail e a senha correspondem a uma conta existente. Se os dados forem corretos, o usuário é autenticado e direcionado à página inicial. Caso contrário, uma mensagem de erro é exibida, informando que as credenciais são inválidas. Caso o usuário ainda não tenha uma conta, ele pode acessar a página de cadastro por meio de um link, preencher o formulário e, após o registro, ser redirecionado automaticamente para a tela inicial. Esse processo de autenticação está ilustrado no diagrama de fluxo da Figura \ref{fig:user-auth-flow}, com as telas de login e cadastro exibidas nas Figuras \ref{fig:login-page} e \ref{fig:signup-page}, respectivamente.
+Durante o login, a plataforma valida as credenciais inseridas, verificando se o e-mail e a senha correspondem a uma conta existente. Se os dados forem corretos, o usuário é autenticado e direcionado à página inicial. Caso contrário, uma mensagem de erro é exibida, informando que as credenciais são inválidas. Caso o usuário ainda não tenha uma conta, ele pode acessar a página de cadastro por meio de um link, preencher o formulário e, após o registro, ser redirecionado automaticamente para a tela inicial. Esses processos de autenticação e cadastro estão ilustrados respectivamente nos diagramas das Figura \ref{fig:user-auth-flow} e Figura \ref{fig:user-register-flow}, com as telas de login e cadastro exibidas nas Figuras \ref{fig:login-page} e \ref{fig:signup-page}, respectivamente.
 
 \begin{figure}[H]
     \centering
     \caption{Diagrama do fluxo de autenticação de usuários.}
     \label{fig:user-auth-flow}
     \includegraphics[width=1\textwidth]{diagrams/user-auth-flow.png}
+\end{figure}
+
+\begin{figure}[H]
+    \centering
+    \caption{Diagrama do fluxo de cadastro de usuários.}
+    \label{fig:user-register-flow}
+    \includegraphics[width=1\textwidth]{diagrams/user-register-flow.png}
 \end{figure}
 
 \begin{figure}[H]
