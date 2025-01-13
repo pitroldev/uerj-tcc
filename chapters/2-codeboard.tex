@@ -10,7 +10,7 @@ Este capítulo apresenta a plataforma Codeboard UERJ e nele serão abordados os 
 \section{Objetivos}
 % Revisado
 
-O objetivo principal da plataforma Codeboard UERJ é auxiliar no ensino de programação, permitindo que professores criem e gerenciem atividades práticas para seus alunos. A plataforma foi desenvolvida para ser utilizada em disciplinas de programação de computadores, como Algoritmos e Estruturas de Dados, Linguagens de Programação e Paradigmas de Programação.
+O objetivo principal da plataforma Codeboard UERJ é auxiliar no ensino de programação, permitindo que professores criem e gerenciem atividades práticas para seus alunos. A plataforma foi desenvolvida para ser utilizada em disciplinas de programação, como Algoritmos e Estruturas de Dados, Linguagens de Programação e Programação Orientada a Objetos.
 
 
 \section{Funcionalidades}
@@ -253,7 +253,7 @@ A coleção de usuários armazena dados como nome, e-mail e senha dos usuários 
     \end{tabular}
 \end{table}
 
-A coleção de usuários possui um campo password que armazena o hash da senha do usuário em vez da senha em texto puro. Essa prática garante a segurança dos dados, evitando que as senhas sejam armazenadas de forma insegura, o que poderia comprometer os usuários em caso de vazamento de informações.
+A coleção de usuários possui um campo \emph{password} que armazena o hash da senha do usuário em vez da senha em texto puro. Essa prática garante a segurança dos dados, evitando que as senhas sejam armazenadas de forma insegura, o que poderia comprometer os usuários em caso de vazamento de informações.
 
 
 A coleção de salas contém informações sobre as salas criadas, como nome, descrição e participantes. A Tabela \ref{tab:room-collection-fields} apresenta os campos dessa coleção, incluindo:
@@ -330,9 +330,9 @@ A coleção de quadros de programação armazena os códigos escritos pelos usu�
     \end{tabular}
 \end{table}
 
-A coleção Board, possui os campos user e room, que contêm os identificadores do usuário proprietário do quadro e da sala à qual ele pertence, respectivamente. Esses relacionamentos garantem a organização dos dados e facilitam o gerenciamento de quadros de programação criados por diferentes usuários dentro de diferentes salas.
+A coleção Board possui os campos user e room, que contêm os identificadores do usuário proprietário do quadro e da sala à qual ele pertence, respectivamente. Esses relacionamentos garantem a organização dos dados e facilitam o gerenciamento de quadros de programação criados por diferentes usuários dentro de diferentes salas.
 
-Apesar de o MongoDB ser um banco de dados NoSQL, a plataforma Codeboard UERJ segue um esquema de dados predefinido para garantir a consistência e integridade das informações armazenadas, ou seja, foram estabelecidos estruturas de dados pré-determinadas para cada coleção, especificando os campos, tipos de dados, relações entre diferentes coleções e regra de validação que cada documento deve seguir. Isso é fundamental para evitar inconsistências, como a inserção de dados inválidos ou incompletos, além de facilitar a manutenção e a evolução do sistema. Esse esquema é modelado e gerenciado no back-end da plataforma com o auxílio da biblioteca \emph{Mongoose}, que simplifica o processo de modelagem e interação com o banco de dados MongoDB.
+Embora o MongoDB seja um banco de dados NoSQL orientado a documentos e, portanto, não imponha uma estrutura rígida aos dados, a plataforma Codeboard UERJ adota um esquema de dados predefinido para assegurar a consistência e integridade das informações armazenadas. Isso significa que foram definidas estruturas específicas para cada coleção, detalhando os campos, tipos de dados, relações entre coleções e as regras de validação que cada documento deve obedecer. Essa abordagem é essencial para prevenir inconsistências, como a inserção de dados inválidos ou incompletos, além de facilitar a manutenção e a evolução do sistema. Esse esquema é modelado e gerenciado no back-end da plataforma com o auxílio da biblioteca \emph{Mongoose}, que simplifica o processo de modelagem e interação com o banco de dados MongoDB.
 
 
 \subsection{Comunicação Síncrona via REST API}
@@ -389,9 +389,9 @@ O token de autenticação tem um tempo de expiração configurado no servidor. A
 
 A utilização do Redis na plataforma Codeboard UERJ foi necessária devido à sua natureza como uma ferramenta para colaboração em tempo real e comunicação descentralizada. A plataforma exige uma solução que permita a troca rápida e eficiente de informações, como a lista de usuários online, o código ativo nos quadros de programação e os visualizadores conectados, garantindo sincronização em tempo real entre os participantes.
 
-O Redis foi escolhido principalmente por seu sistema de publicação/assinatura (pub/sub), que facilita a comunicação em tempo real, distribuindo atualizações de forma ágil e eficiente para múltiplos clientes. Além disso, suas características de alta eficiência, baixo tempo de resposta e suporte à escalabilidade horizontal tornam-no ideal para atender às demandas de velocidade e desempenho da Codeboard UERJ. A combinação dessas capacidades assegura que os dados temporários sejam gerenciados de maneira otimizada, reduzindo o consumo de recursos e aprimorando a experiência dos usuários.
+O Redis foi escolhido principalmente por seu sistema de publicação/assinatura (pub/sub), que facilita a comunicação em tempo real, distribuindo atualizações de forma ágil e eficiente para múltiplos clientes. Além disso, suas características de alta eficiência, baixo tempo de resposta e suporte à escalabilidade horizontal o tornam ideal para atender às demandas de velocidade e desempenho da Codeboard UERJ. A combinação dessas capacidades assegura que os dados temporários sejam gerenciados de maneira otimizada, reduzindo o consumo de recursos e aprimorando a experiência dos usuários.
 
-O diagrama \ref{fig:redis-pubsub} a comunicação distribuída proporcionada pelo Redis utilizando o sistema de publicação/assinatura (Pub/Sub). Nele, dois servidores distintos (Servidor 1 e Servidor 2) interagem com o Redis, publicando mensagens em um canal específico. O Redis, por sua vez, distribui as mensagens recebidas para todos os servidores inscritos nesse canal, garantindo que as atualizações sejam propagadas em tempo real. Esse mecanismo é essencial para aplicações que necessitam de sincronização eficiente entre múltiplos pontos de processamento, como a plataforma Codeboard UERJ.
+O diagrama apresentado na Figura \ref{fig:redis-pubsub} demonstra a comunicação distribuída viabilizada pelo Redis por meio do sistema de publicação/assinatura (Pub/Sub). No diagrama, dois servidores distintos (Servidor 1 e Servidor 2) interagem com o Redis, publicando mensagens em um canal específico. O Redis, então, distribui essas mensagens recebidas para todos os servidores inscritos nesse canal, garantindo que as atualizações sejam propagadas em tempo real. Esse mecanismo é essencial para aplicações que necessitam de sincronização eficiente entre múltiplos pontos de processamento, como a plataforma Codeboard UERJ.
 
 \begin{figure}[H]
     \centering
@@ -400,8 +400,7 @@ O diagrama \ref{fig:redis-pubsub} a comunicação distribuída proporcionada pel
     \includegraphics[width=\textwidth]{diagrams/redis-pubsub.png}
 \end{figure}
 
-
-A adoção do Redis é comum em sistemas que demandam alta disponibilidade e tempos de resposta rápidos, características fundamentais para a experiência de colaboração simultânea proporcionada pela Codeboard UERJ. O Redis não apenas facilita a manipulação de dados em tempo real, mas também garante que os dados temporários sejam gerenciados de maneira eficiente, minimizando o uso excessivo de recursos.
+A adoção do Redis em sistemas que exigem alta disponibilidade e baixa latência é amplamente reconhecida, sendo especialmente adequada para a experiência de colaboração simultânea da Codeboard UERJ. Sua capacidade de processar e distribuir dados em tempo real garante a sincronização contínua entre os usuários, enquanto o gerenciamento eficiente de dados temporários contribui para a otimização de recursos e a manutenção do desempenho da plataforma.
 
 A Tabela \ref{tab:key-value-database} descreve a estrutura do banco de dados chave-valor utilizado na plataforma, evidenciando como os dados são organizados em \emph{namespaces}. Cada \emph{namespace} reflete um contexto específico da aplicação, como as salas de colaboração ou os quadros de programação, e cada um possui um tempo de expiração associado, normalmente configurado para 1 dia. Essa expiração automática é essencial para a gestão de dados temporários e voláteis.
 

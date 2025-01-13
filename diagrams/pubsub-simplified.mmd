@@ -1,0 +1,11 @@
+graph RL
+    Redis[Redis]
+    Server1[Server BR]
+    Server2[Server US]
+    User1((User BR))
+    User2((User US))
+    
+    Redis -->|Pub / Sub| Server1
+    Redis -->|Pub / Sub| Server2
+    Server1 <-->|WebSocket| User1
+    Server2 <-->|WebSocket| User2
