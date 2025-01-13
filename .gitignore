@@ -15,7 +15,7 @@
 *.ind
 
 # LaTeX document output
-*.pdf
+main.pdf
 
 # Compiled LaTeX files
 # *.cls
